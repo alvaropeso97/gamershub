@@ -1,0 +1,1 @@
+Te has registrado correctamente =)
