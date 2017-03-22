@@ -13,8 +13,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Order;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use DB;
 use Auth;
 use Validator;
@@ -51,7 +49,8 @@ class UsuariosController extends Controller
     }
 
     public static function devolverUsuario($id) {
-        return $usuario = DB::table('users')->where('id', $id)->first();
+        //return $usuario = DB::table('users')->where('id', $id)->first();
+        return User::find($id);
     }
 
     public static function devolverUsuarios() {
@@ -59,6 +58,7 @@ class UsuariosController extends Controller
     }
 
     public static function devolverUltimaId() {
+
         $usuario =  DB::table('users')->orderby('id','DESC')->first();
         return $usuario->id;
     }

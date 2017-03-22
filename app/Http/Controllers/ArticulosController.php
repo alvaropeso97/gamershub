@@ -26,11 +26,19 @@ use Mail;
 use App\TwitterAPIExchange;
 class ArticulosController extends Controller
 {
+    /**
+     * Muestra un listado de todos los artículos de tipo "art"
+     * @return vista de paginas.noticias
+     */
     public static function mostrarNoticias() {
         $cons =  \App\Articulo::whereRaw('tipo = "art"')->orderBy('id','desc')->paginate(9);
         return view('layouts.paginas.noticias', ['cons' => $cons]);
     }
 
+    /**
+     * Muestra un listado de todos los artículos de tipo "art" ordenados de ascendentemente por el título
+     * @return vista de paginas.noticias
+     */
     public static function mostrarNoticiasAZ() {
         $cons =  \App\Articulo::whereRaw('tipo = "art"')->orderBy('titulo','asc')->paginate(9);
         return view('layouts.paginas.noticias', ['cons' => $cons]);
@@ -56,24 +64,12 @@ class ArticulosController extends Controller
         }
     }
 
-    public static function mostrarEditarArticulo($id) {
-        return view('layouts.paginas.administracion.edit_art', ['id' => Articulo::findOrFail($id)]);
-    }
-
-    public static function devolverArticulos() {
-        return $articulos = DB::select("select * from articulos order by id desc");
-    }
-
     public static function devolverArticulosJuego($juego_rel) {
         return $articulos = DB::select("select * from articulos where juego_rel =".$juego_rel." and tipo = 'art' order by id desc limit 5");
     }
 
     public static function devolverNoticiasRecientes($id) {
         return $articulos = DB::select("select * from articulos where id != ".$id." and tipo = 'art' order by id desc LIMIT 3");
-    }
-
-    public static function devolverMasComentados() {
-        return $articulos = DB::select("select * from articulos order by id desc limit 4");
     }
 
     public static function devolverTipo ($tipo) {
@@ -98,10 +94,6 @@ class ArticulosController extends Controller
         return DB::table('videos')->orderBy('id', 'DESC')->first();
     }
 
-    public static function devolverAutor ($id) {
-        return DB::table('users')->where('id', $id)->first();
-    }
-
     public static function devolverEtiquetas ($id) {
         return $etiquetas = DB::select("select * from etiquetas where cod_art=".$id);
     }
@@ -118,13 +110,9 @@ class ArticulosController extends Controller
     }
 
     /**
-     * Reemplaza todos los acentos por sus equivalentes sin ellos
-     *
-     * @param $string
-     *  string la cadena a sanear
-     *
-     * @return $string
-     *  string saneada
+     * Sanea una cadena de caracteres
+     * @param $string la cadena a sanear
+     * @return $string cadena saneada
      */
     public static function sanear_string($s)
     {
@@ -146,14 +134,141 @@ class ArticulosController extends Controller
         return strtolower($s);
     }
 
-    public function nuevoArticulo() {
-        if (Auth::user()->acceso == 2) { //Los moderadores no pueden crear artículos
-            return redirect('/panel/articulos')->with('error', 'No tienes los permisos para crear artículos.');
-        } else {
-            return view('layouts.paginas.administracion.nuev_art');
+    /**
+     * Esta función recibe una fecha en formato UNIX y la convierte a un formato en español
+     * legible para los usuarios
+     * @param $fecha Fecha a traducir
+     * @return string Fecha traducida
+     */
+    public static function traducirFecha($fecha) {
+        $fechaCadena = strtotime($fecha);
+        $mes = strftime("%B", $fechaCadena);
+        $mesTraducido = "";
+        switch ($mes) {
+            case "January":
+                $mesTraducido = "enero";
+                break;
+            case "February":
+                $mesTraducido = "febrero";
+                break;
+            case "March":
+                $mesTraducido = "marzo";
+                break;
+            case "April":
+                $mesTraducido = "abril";
+                break;
+            case "May":
+                $mesTraducido = "mayo";
+                break;
+            case "June":
+                $mesTraducido = "junio";
+                break;
+            case "July":
+                $mesTraducido = "julio";
+                break;
+            case "August":
+                $mesTraducido = "agosto";
+                break;
+            case "September":
+                $mesTraducido = "septiembre";
+                break;
+            case "October":
+                $mesTraducido = "octubre";
+                break;
+            case "November":
+                $mesTraducido = "noviembre";
+                break;
+            case "December":
+                $mesTraducido = "diciembre";
+                break;
+        }
+        return strftime("%e de $mesTraducido del %Y",$fechaCadena);
+    }
+
+    public static function devolverCantidadBusqueda($tag) {
+        $cantidad['articulos'] = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','art')->get()->count();
+        $cantidad['juegos'] = Juego::where('titulo','LIKE',"%$tag%")->get()->count();
+        $cantidad['analisis'] = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','ana')->get()->count();
+        $cantidad['videos'] = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','vid')->get()->count();
+        $cantidad['etiquetas'] = Etiqueta::where('nombre','LIKE',"$tag")->get()->count();
+        return $cantidad;
+    }
+
+    function mostrarBusqueda($tipo,$tag) {
+        if ($tipo == 'articulos') {
+            //Seleccionar todos los artículos que se asemejen a la búsqueda
+            $busqueda_a = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','art')->orderBy('id','desc')->paginate(10);
+            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
+        }
+
+        if ($tipo == 'videos') {
+            $busqueda_v = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','vid')->orderBy('id','desc')->paginate(10);
+            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_v, 'tag' => $tag, 'tipo' => $tipo]);
+        }
+
+        if ($tipo == 'analisis') {
+            $busqueda_an = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','ana')->orderBy('id','desc')->paginate(10);
+            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_an, 'tag' => $tag, 'tipo' => $tipo]);
+        }
+
+        if ($tipo == 'juegos') {
+            $busqueda_j = DB::table('juegos')->where('titulo','LIKE',"%$tag%")->orderBy('id','desc')->paginate(9);
+            return view('layouts.paginas.busqueda_juegos', ['busq_j' => $busqueda_j, 'tag' => $tag, 'tipo' => $tipo]);
+        }
+
+        if ($tipo == 'etiquetas') {
+            $art_etiq = EtiquetasController::devolverArticulosEtiqueta($tag);
+            $busqueda_a = DB::table('articulos')->whereIn('id',$art_etiq)->orderBy('id','desc')->paginate(10);
+            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
         }
     }
 
+    /*
+     * ADMINISTRACIÓN
+     */
+    /**
+     * Muestra la vista donde se listan todos los artículos existentes en la base de datos
+     * @return vista de administracion.articulos
+     */
+    function mostrarArticulos() {
+        $cons =  Articulo::select()->orderBy('id','desc')->paginate(10);
+        return view('layouts.paginas.administracion.articulos', ['cons' => $cons]);
+    }
+
+    /**
+     * Elimina un artículo determinado de la base de datos
+     * @param $id artículo a eliminar
+     * @return redirección a la vista de administracion.articulos
+     */
+    public function eliminarArticulo($id) {
+        Articulo::find($id)->delete();
+        return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
+    }
+
+    /**
+     * Muestra la vista para crear un nuevo artículo rellenando un formulario
+     * @return vista de administracion.nuev_art
+     */
+    public function nuevoArticulo() {
+        return view('layouts.paginas.administracion.nuev_art');
+    }
+
+    /**
+     * Muestra la vista para editar los datos de un artículo concreto
+     * @param $id artículo que mostrará la vista de edición
+     * @return redirección a la vista de administracion.edit_art
+     */
+    public static function mostrarEditarArticulo($id) {
+        return view('layouts.paginas.administracion.edit_art', ['id' => Articulo::findOrFail($id)]);
+    }
+
+    /**
+     * Recibe los datos del formulario de creación para el nuevo artículo, sanea la cadena del enlace,
+     * asigna las categorías al artículo, las etiquetas, crea un registro de tipo análisis o de tipo vídeo si lo es,
+     * envía un tweet a la cuenta @GamersHUBes con el título, enlace e imágen del artículo
+     * @param datos del formulario de creación
+     * @return redirección a la vista de administracion.articulo
+     */
     public function store(\Illuminate\Http\Request $request)
     {
         \App\Articulo::create(Request::all());
@@ -241,21 +356,18 @@ class ArticulosController extends Controller
         return redirect('/panel/articulos')->with('mensaje', 'Has creado un artículo correctamente.');
     }
 
-    public function eliminarArticulo($id) {
-        if (Auth::user()->acceso == 2) { //Los moderadores no pueden eliminar artículos
-            return redirect('/panel/articulos')->with('error', 'No tienes los permisos para eliminar artículos.');
-        } else {
-            DB::table('articulos')->where('id', $id)->delete();
-            return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
-        }
-    }
-
-    public function modificarArticulo($id, \Illuminate\Http\Request $request) {
+    /**
+     * Modifica un artículo en concreto y lo actualiza en la base de datos incluyendo sus categorías, etiquetas...
+     * @param $id artículo a editar
+     * @param datos del formulario
+     * @return redirección a la vista de administracion.articulo
+     */
+    public function update($id, \Illuminate\Http\Request $request) {
         //Obtener el artículo
-        $articulo = DB::table('articulos')->where('id', $id)->first();
+        $articulo = Articulo::find($id)->first();
 
         //Actualizar la información del artículo genérica
-        Articulo::where('id', $id)
+        Articulo::find($id)
             ->update(['titulo' => $request->get('titulo'), 'lnombre' => $request->get('lnombre'), 'juego_rel' => $request->get('juego_rel')
                 , 'descripcion' => $request->get('descripcion'), 'cont' => $request->get('cont')]);
 
@@ -293,94 +405,5 @@ class ArticulosController extends Controller
         }
 
         return redirect('/panel/articulos')->with('mensaje', 'Has modificado el artículo '.$id.' correctamente.');
-    }
-
-    /**
-     * Esta función recibe una fecha en formato UNIX y la convierte a un formato en español
-     * legible para los usuarios.
-     * @param $fecha Fecha a traducir
-     * @return string Fecha traducida
-     */
-    public static function traducirFecha($fecha) {
-        $fechaCadena = strtotime($fecha);
-        $mes = strftime("%B", $fechaCadena);
-        $mesTraducido = "";
-        switch ($mes) {
-            case "January":
-                $mesTraducido = "enero";
-                break;
-            case "February":
-                $mesTraducido = "febrero";
-                break;
-            case "March":
-                $mesTraducido = "marzo";
-                break;
-            case "April":
-                $mesTraducido = "abril";
-                break;
-            case "May":
-                $mesTraducido = "mayo";
-                break;
-            case "June":
-                $mesTraducido = "junio";
-                break;
-            case "July":
-                $mesTraducido = "julio";
-                break;
-            case "August":
-                $mesTraducido = "agosto";
-                break;
-            case "September":
-                $mesTraducido = "septiembre";
-                break;
-            case "October":
-                $mesTraducido = "octubre";
-                break;
-            case "November":
-                $mesTraducido = "noviembre";
-                break;
-            case "December":
-                $mesTraducido = "diciembre";
-                break;
-        }
-        return strftime("%e de $mesTraducido del %Y",$fechaCadena);
-    }
-
-    public static function devolverCantidadBusqueda($tag) {
-        $cantidad['articulos'] = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','art')->get()->count();
-        $cantidad['juegos'] = Juego::where('titulo','LIKE',"%$tag%")->get()->count();
-        $cantidad['analisis'] = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','ana')->get()->count();
-        $cantidad['videos'] = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','vid')->get()->count();
-        $cantidad['etiquetas'] = Etiqueta::where('nombre','LIKE',"$tag")->get()->count();
-        return $cantidad;
-    }
-
-    function mostrarBusqueda($tipo,$tag) {
-        if ($tipo == 'articulos') {
-            //Seleccionar todos los artículos que se asemejen a la búsqueda
-            $busqueda_a = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','art')->orderBy('id','desc')->paginate(10);
-            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
-        }
-
-        if ($tipo == 'videos') {
-            $busqueda_v = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','vid')->orderBy('id','desc')->paginate(10);
-            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_v, 'tag' => $tag, 'tipo' => $tipo]);
-        }
-
-        if ($tipo == 'analisis') {
-            $busqueda_an = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','ana')->orderBy('id','desc')->paginate(10);
-            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_an, 'tag' => $tag, 'tipo' => $tipo]);
-        }
-
-        if ($tipo == 'juegos') {
-            $busqueda_j = DB::table('juegos')->where('titulo','LIKE',"%$tag%")->orderBy('id','desc')->paginate(9);
-            return view('layouts.paginas.busqueda_juegos', ['busq_j' => $busqueda_j, 'tag' => $tag, 'tipo' => $tipo]);
-        }
-
-        if ($tipo == 'etiquetas') {
-            $art_etiq = EtiquetasController::devolverArticulosEtiqueta($tag);
-            $busqueda_a = DB::table('articulos')->whereIn('id',$art_etiq)->orderBy('id','desc')->paginate(10);
-            return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
-        }
     }
 }

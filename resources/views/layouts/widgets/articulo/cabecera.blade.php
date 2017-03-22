@@ -1,5 +1,3 @@
-@php $autor = \App\Http\Controllers\ArticulosController::devolverAutor($id->id_autor)@endphp
-
 @if($id->tipo == "vid")
     @foreach(\App\Http\Controllers\ArticulosController::devolverVideo($id->id) as $vid)
         <section class="background-image padding-top-50 padding-bottom-50" style="background-image: url(https://i.ytimg.com/vi/{{$vid->cod_yt}}/maxresdefault.jpg);">

@@ -122,19 +122,17 @@ Route::group(['middleware' => 'auth'], function()
     {
     /* GESTIÓN DE ARTÍCULOS */
     //Listar artículos
-    Route::get('/panel/articulos', function () {
-        return view('layouts.paginas.administracion.articulos');
-    });
+    Route::get ('/panel/articulos', 'ArticulosController@mostrarArticulos');
     //Eliminar un artículo en concreto
     Route::get ('/panel/articulos/eliminar/{id}', 'ArticulosController@eliminarArticulo');
     //Redactar nuevo artículo
     Route::get ('/panel/articulos/nuevo-articulo', 'ArticulosController@nuevoArticulo');
-    //Subir a la base de datos el artículo creado
-    Route::post ('/panel/articulos/nuevo-articulo/add-not', 'ArticulosController@store');
     //Modificar un artículo
     Route::get ('/panel/articulos/editar-articulo/{id}', 'ArticulosController@mostrarEditarArticulo');
+    //Subir a la base de datos el artículo creado
+    Route::post ('/panel/articulos/nuevo-articulo/add-not', 'ArticulosController@store');
     //Actualizar el artículo en la base de datos
-    Route::post ('/panel/articulos/editar-articulo/{id}/modificar', 'ArticulosController@modificarArticulo');
+    Route::post ('/panel/articulos/editar-articulo/{id}/modificar', 'ArticulosController@update');
 
     /* GESTIÓN DE JUEGOS */
     //Listar juegos

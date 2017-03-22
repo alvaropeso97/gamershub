@@ -2,7 +2,6 @@
 @section('titulo', 'GamersHUB - Articulos')
 
 @section('contenido')
-    @php $cons =  \App\Articulo::select()->orderBy('id','desc')->paginate(10); @endphp
 
     <section class="hero">
         <div class="hero-bg-primary" style="background: #a3112e; opacity: 0.9;"></div>
