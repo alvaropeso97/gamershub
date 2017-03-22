@@ -1,10 +1,7 @@
 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 leftside">
-
-<?php
-$cons =  DB::table('articulos')->orderBy('id','desc')->paginate(10);
-?>
+@php $cons =  \App\Articulo::select()->orderBy('id','desc')->paginate(10); @endphp
 @foreach($cons as $noticia)
-    @php $autor = DB::table('users')->where('id', $noticia->id_autor)->first(); @endphp
+    @php $autor = \App\Articulo::find($noticia->id)->getAutor; @endphp
     <!-- Artículo -->
         <div class="post post-md">
             <div class="row">
@@ -36,6 +33,4 @@ $cons =  DB::table('articulos')->orderBy('id','desc')->paginate(10);
         </div>
         <!-- Fin Artículo -->
     @endforeach
-
-
 </div>

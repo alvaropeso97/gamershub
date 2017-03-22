@@ -228,7 +228,7 @@ class ArticulosController extends Controller
      */
     /**
      * Muestra la vista donde se listan todos los artículos existentes en la base de datos
-     * @return vista de administracion.articulos
+     * @return vista de administracion.noticias
      */
     function mostrarArticulos() {
         $cons =  Articulo::select()->orderBy('id','desc')->paginate(10);

@@ -27,18 +27,20 @@ class Articulo extends Model
     /**
      * Clave ajena "id_autor", referencia a "id" (users)
      */
-    public function id_autor() {
-        return $this->hasOne('App\User');
+    public function getAutor() {
+        return $this->belongsTo('App\User', 'id_autor');
     }
 
     /**
-     * Clave ajena "juego_rel", referencia a "id" (juegos)
+     * Devuelve todas las categorías pertenecientes a un artículo
+     * @return categorias pertenecientes al artículo
      */
-    public function juego_rel() {
-        return $this->hasOne('App\Juegos');
+    public function getCategorias() {
+        return $this->belongsToMany('App\Categoria', 'categorias_articulos', 'cod_art', 'id_cat');
     }
 
     /**
+     * Establecer la imágen destacada para el artículo
      * @param $img Imagen destacada del artículo
      */
     public function setImgAttribute($img) {

@@ -30,8 +30,15 @@ class User extends Authenticatable
         'codigo_amigo_ds','microsoft_gamertag','steam_id','twitter','facebook','google','web_blog'
     ];
 
-
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Clave ajena "id_autor", referencia a "id" (users)
+     * @return artículos pertenecientes a este usuario
+     */
+    public function getArticulos() {
+        return $this->hasMany('App\Articulo', 'id_autor', 'id');
+    }
 }
