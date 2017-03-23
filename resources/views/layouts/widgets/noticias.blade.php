@@ -18,7 +18,7 @@
                             <span class="nota_analisis {{\App\Http\Controllers\AnalisisController::devolverColor($nota)}}">{{$nota}}</span>
                         @endif
                         <div class="post-title">
-                            <div class="tipo">{{\App\Http\Controllers\ArticulosController::devolverTipo($noticia->tipo)}}</div>
+                            <div class="tipo">{{$noticia->getTipo()}}</div>
                             <h4><a href="/articulo/{{$noticia->id}}/{{$noticia->lnombre}}">{{$noticia->titulo}}</a></h4>
                             <ul class="post-meta">
                                 <li><a href="/usuario/{{$autor->name}}"><i class="fa fa-user"></i> {{$autor->nombre}} {{$autor->apellidos}}</a></li>

@@ -19,12 +19,12 @@ $cons =  DB::table('articulos')->orderBy('id','desc')->where('juego_rel',$id->id
                         <span class="nota_analisis {{\App\Http\Controllers\AnalisisController::devolverColor($nota)}}">{{$nota}}</span>
                     @endif
                     <div class="post-title">
-                        <div class="tipo">{{\App\Http\Controllers\ArticulosController::devolverTipo($noticia->tipo)}}</div>
+                        <div class="tipo">{{$noticia->getTipo()}}</div>
                         <h4><a href="/articulo/{{$noticia->id}}/{{$noticia->lnombre}}">{{$noticia->titulo}}</a></h4>
                         <ul class="post-meta">
                             <li><a href="/usuario/{{$autor->name}}"><i class="fa fa-user"></i> {{$autor->name}}</a></li>
                             <li><i class="fa fa-calendar-o"></i>{{\App\Articulo::devolverFecha($noticia->fecha)}}</li>
-                            <li>@foreach(\App\Http\Controllers\CategoriasController::devolverCategorias($noticia->id) as $categoria) <a href="/categoria/{{$categoria->alias}}"><span  class="label" style="color:{{$categoria->color}};">{{$categoria->nombre}}</span></a> @endforeach</li>
+                            <li>@foreach($noticia->getCategorias as $categoria) <a href="/categoria/{{$categoria->alias}}"><span  class="label" style="color:{{$categoria->color}};">{{$categoria->nombre}}</span></a> @endforeach</li>
                         </ul>
                     </div>
                 </div>

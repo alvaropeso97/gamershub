@@ -70,7 +70,7 @@
                                 @php $categorias = \App\Http\Controllers\CategoriasController::devolverIdCategorias($id->id); @endphp
 
                                 <select id="categorias" name="categorias[]" multiple class="form-control" style="height: 45px; padding: 0px;">
-                                    @foreach(\App\Http\Controllers\CategoriasController::allCategorias() as $categoria)
+                                    @foreach(\App\Categoria::all() as $categoria)
                                     <option name="categorias[]" value="{{$categoria->id}}" style="color: {{$categoria->color}};" @if(in_array($categoria->id, array_column($categorias, "id"))) selected @endif >{{$categoria->nombre}}</option>
 
                                         @endforeach

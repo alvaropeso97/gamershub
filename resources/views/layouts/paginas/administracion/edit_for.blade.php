@@ -40,7 +40,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <label>Plataforma</label>
                                 <select name="plataforma" class="form-control" style="height: 45px;">
-                                    @foreach(\App\Http\Controllers\CategoriasController::allCategorias() as $categoria)
+                                    @foreach(\App\Categoria::all() as $categoria)
                                         <option name="plataforma" value="{{$categoria->id}}" style="color: {{$categoria->color}};" @if($categoria->id == $id->plataforma) selected @endif>{{$categoria->nombre}}</option>
                                     @endforeach
                                 </select>

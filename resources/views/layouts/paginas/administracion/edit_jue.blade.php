@@ -40,7 +40,7 @@
                                 <label>Plataformas</label>
                                 @php $plataformas = \App\Http\Controllers\JuegosController::devolverPlataformas($id->id); @endphp
                                 <select name="plataformas[]" multiple class="form-control" style="height: 45px;">
-                                    @foreach(\App\Http\Controllers\CategoriasController::allPlataformas() as $plataforma)
+                                    @foreach(\App\Categoria::where('esplataforma','1')->get() as $plataforma)
                                         <option name="plataformas[]" value="{{$plataforma->id}}" @if(in_array($plataforma->id, array_column($plataformas, "id"))) selected @endif style="color: {{$plataforma->color}};">{{$plataforma->nombre}}</option>
                                     @endforeach
                                 </select>

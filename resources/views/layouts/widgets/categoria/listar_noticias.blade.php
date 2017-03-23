@@ -18,7 +18,7 @@
                                 @php $nota = \App\Http\Controllers\AnalisisController::devolverNota($articulo->id) @endphp
                                 <span class="nota_analisis {{\App\Http\Controllers\AnalisisController::devolverColor($nota)}}">{{$nota}}</span>
                             @endif
-                            <div class="tipo">{{\App\Http\Controllers\ArticulosController::devolverTipo($articulo->tipo)}}</div>
+                            <div class="tipo">{{$articulo->getTipo()}}</div>
                             <h3 class="card-title"><a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}">{{$articulo->titulo}}</a></h3>
                             <ul><li>{{\App\Http\Controllers\ArticulosController::traducirFecha($articulo->fecha)}}</li></ul>
                             <p>{{$articulo->descripcion}}</p>

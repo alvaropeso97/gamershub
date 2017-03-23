@@ -51,6 +51,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Clave ajena "pais", referencia a "cod_pais" (paises)
+     * @return pais del usuario
+     */
+    public function getPais() {
+        return $this->belongsTo('App\Pais', 'cod_pais');
+    }
+
+    /**
      * Transforma el rango del usuario en una cadena para posteriormente mostrarla
      * @return cadena indicando el rango del usuario
      */

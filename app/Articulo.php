@@ -171,4 +171,19 @@ class Articulo extends Model
         }
         return $return;
     }
+
+    public function getTipo() {
+        $tipo = $this->tipo;
+        switch ($tipo) {
+            case "art":
+                return "Noticia";
+                break;
+            case "vid":
+                return "Vídeo";
+                break;
+            case "ana":
+                return "Análisis";
+                break;
+        }
+    }
 }

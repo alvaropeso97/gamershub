@@ -62,28 +62,7 @@ class CategoriasController extends Controller
         }
     }
 
-    /**
-     * Devuelve los datos de las categorías a las que pertenece un artículo.
-     * @param $id noticia
-     * @return categorías a las que pertenece un artículo
-     */
-    public static function devolverCategorias ($id) {
-        return $categorias = DB::select("select * from categorias where id in (select id_cat from categorias_articulos where cod_art=".$id.")");
-    }
-
     public static function devolverIdCategorias ($id) {
         return $categorias = DB::select("select id from categorias where id in (select id_cat from categorias_articulos where cod_art=".$id.")");
     }
-
-    public static function allCategorias(){
-        return $categorias = DB::select("select * from categorias");
-    }
-
-    public static function allPlataformas(){
-        return $categorias = DB::select("select * from categorias where esplataforma = 1");
-    }
-
-    public static function devolverCategoria($id) {
-        return DB::table('categorias')->where('id', $id)->first();
-}
 }

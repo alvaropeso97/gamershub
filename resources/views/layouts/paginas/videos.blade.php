@@ -30,7 +30,7 @@
                 <div class="dropdown">
                     <a href="#" class="btn btn-default btn-icon-left btn-icon-right dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gamepad"></i> Plataforma <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu">
-                        @foreach(\App\Http\Controllers\CategoriasController::allPlataformas() as $plataforma)
+                        @foreach(\App\Categoria::where('esplataforma','1')->get() as $plataforma)
                             <li><a href="#" style="color: {{$plataforma->color}};">{{$plataforma->nombre}}</a></li>
                         @endforeach
 

@@ -84,20 +84,6 @@ class ArticulosController extends Controller
         }
     }
 
-    public static function devolverNoticiasRecientes($id) {
-        return $articulos = DB::select("select * from articulos where id != ".$id." and tipo = 'art' order by id desc LIMIT 3");
-    }
-
-    public static function devolverTipo ($tipo) {
-        if ($tipo == "art") {
-            return "Noticia";
-        } elseif ($tipo == "vid") {
-            return "Vídeo";
-        } elseif ($tipo == "ana") {
-            return "Análisis";
-        }
-    }
-
     public static function devolverUnVideo($articulo) {
         return DB::table('videos')->where('id_art', $articulo)->first();
     }
