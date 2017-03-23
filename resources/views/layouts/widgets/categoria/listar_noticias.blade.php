@@ -16,7 +16,7 @@
                         <div class="caption" style="border-radius: 0px 0px 10px 10px;-webkit-border-radius: 0px 0px 10px 10px;">
                             @if($articulo->tipo == "ana")
                                 @php $nota = $articulo->getAnalisis->getNotaMostrar() @endphp
-                                <span class="nota_analisis {{\App\Http\Controllers\AnalisisController::devolverColor($nota)}}">{{$nota}}</span>
+                                <span class="nota_analisis {{$articulo->getAnalisis->getColor()}}">{{$nota}}</span>
                             @endif
                             <div class="tipo">{{$articulo->getTipo()}}</div>
                             <h3 class="card-title"><a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}">{{$articulo->titulo}}</a></h3>

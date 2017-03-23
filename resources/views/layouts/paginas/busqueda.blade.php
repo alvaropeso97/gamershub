@@ -71,7 +71,7 @@
                             <div class="post-header">
                                 @if($noticia->tipo == "ana")
                                     @php $nota = $noticia->getAnalisis->getNotaMostrar() @endphp
-                                    <span class="nota_analisis {{\App\Http\Controllers\AnalisisController::devolverColor($nota)}}">{{$nota}}</span>
+                                    <span class="nota_analisis {{$noticia->getAnalisis->getColor()}}">{{$nota}}</span>
                                 @endif
                                 <div class="post-title">
                                     <div class="tipo">{{$noticia->getTipo()}}</div>

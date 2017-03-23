@@ -6,9 +6,8 @@
             </div>
             <!-- Inicio Video -->
             <div class="row">
-                <?php $videos = DB::select("select * from articulos WHERE tipo = 'vid' ORDER BY id DESC LIMIT 4"); ?>
-                @foreach($videos as $video)
-                    @php $vid = \App\Http\Controllers\ArticulosController::devolverUnVideo($video->id) @endphp
+                @foreach(\App\Articulo::where('tipo', 'vid')->orderBy('id', 'desc')->take(4)->get() as $video)
+                    @php $vid = $video->getVideo @endphp
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="card card-video">
                             <div class="card-img">

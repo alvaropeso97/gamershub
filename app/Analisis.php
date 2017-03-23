@@ -34,4 +34,15 @@ class Analisis extends Model
     public function getNotaMostrar() {
         return round((($this->jugabilidad + $this->graficos + $this->sonidos + $this->innovacion)/4)/10,1);
     }
+
+    public function getColor() {
+        $notaMostrar = $this->getNotaMostrar();
+        if ($notaMostrar < 5) {
+            echo "label-danger";
+        } else if ($notaMostrar < 8) {
+            echo "label-warning";
+        } else if ($notaMostrar >= 8) {
+            echo "label-success";
+        }
+    }
 }

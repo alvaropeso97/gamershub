@@ -115,7 +115,7 @@
                         </div>
 
                         @if($id->tipo == "vid")
-                            @php $video = \App\Http\Controllers\ArticulosController::devolverUnVideo($id->id) @endphp
+                            @php $video = $id->getVideo @endphp
                             <hr>
 
                             <div class="row margin-top-30">

@@ -14,7 +14,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use DB;
-use Illuminate\Http\Request;
 
 class EtiquetasController extends Controller
 {

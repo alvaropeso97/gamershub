@@ -11,44 +11,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\ArticulosController;
+use App\Comentario;
 use App\Articulo;
 use DB;
 use Request;
 
 class ComentariosController extends Controller
 {
-
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
-
     /**
      * Crea un comentario y devuelve al usuario a la página al
      * que pertenece.
@@ -71,38 +40,18 @@ class ComentariosController extends Controller
     }
 
     /**
-     * Recibe la id de un artículo y recibe un int con la cantidad
-     * de comentarios que posee ese artículo.
-     * @param $id artículo
-     * @return int cantidad de comentarios publicados
-     */
-    public static function devolverNum($id) {
-        $comentarios = DB::select("select * from comentarios where id_articulo=".$id." ORDER BY id desc");
-        return count($comentarios);
-    }
-
-    public static function devolverComentariosJuego ($id) {
-        return $comentarios = DB::select("select * from comentarios where id_articulo in (select id from articulos where juego_rel = ".$id.") limit 5");
-    }
-    /**
-     * Recibe la id de un comentario y devuelve la iformacion del
-     * usuario que lo ha escrito.
-     * @param $id_autor autor del comentario
-     * @return usuario
-     */
-    public static function devolverUsuario ($id_autor) {
-        return $usuario = DB::table('users')->where('id', $id_autor)->first();
-    }
-
-    /**
      * Elimina un comentario concreto y devuelve al usuario a la página del
      * artículo al que pertenecía.
      * @param $id
      * @param $comentario
      * @return mixed
      */
-    public function eliminarComentario($id, $comentario) {
-        DB::table('comentarios')->where('id', $comentario)->delete();
+    public function destroy($id, $comentario) {
+        Comentario::find($comentario)->delete();
         return redirect('/articulo/'.$id);
+    }
+
+    public static function devolverComentariosJuego ($id) {
+        return $comentarios = DB::select("select * from comentarios where id_articulo in (select id from articulos where juego_rel = ".$id.") limit 5");
     }
 }

@@ -11,21 +11,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Analisis;
 use Illuminate\Routing\Controller;
 use DB;
-use Illuminate\Http\Request;
 use Auth;
 
 class AnalisisController extends Controller
 {
-    public static function devolverColor($nota) {
-        if ($nota < 5) {
-            echo "label-danger";
-        } else if ($nota < 8) {
-            echo "label-warning";
-        } else if ($nota >= 8) {
-            echo "label-success";
-        }
-    }
+
 }

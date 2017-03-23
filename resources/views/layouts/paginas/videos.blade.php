@@ -54,7 +54,7 @@
             <div class="card-group">
                 <div class="row">
                     @foreach($cons as $video)
-                        @php $vid = \App\Http\Controllers\ArticulosController::devolverUnVideo($video->id) @endphp
+                        @php $vid = $video->getVideo @endphp
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="card card-video">
                             <div class="card-img">

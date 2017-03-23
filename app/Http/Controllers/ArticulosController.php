@@ -27,6 +27,161 @@ use App\TwitterAPIExchange;
 class ArticulosController extends Controller
 {
     /**
+     * Recibe los datos del formulario de creación para el nuevo artículo, sanea la cadena del enlace,
+     * asigna las categorías al artículo, las etiquetas, crea un registro de tipo análisis o de tipo vídeo si lo es,
+     * envía un tweet a la cuenta @GamersHUBes con el título, enlace e imágen del artículo
+     * @param datos del formulario de creación
+     * @return redirección a la vista de administracion.articulo
+     */
+    public function store(\Illuminate\Http\Request $request)
+    {
+        Articulo::create(Request::all());
+
+        //Validar el artículo
+
+        //Devolver id_art
+        $articulo = DB::table('articulos')->orderBy('id', 'DESC')->first();
+
+        //Establecer el link
+        $link = self::sanear_string($articulo->titulo);
+        Articulo::where('id', $articulo->id)
+            ->update(['lnombre' => $link]);
+
+
+        //Asociar las categorias al artículo
+        foreach ($request->get('categorias') as $categoria) {
+            DB::table('categorias_articulos')->insert([
+                ['id_cat' => $categoria, 'cod_art' => $articulo->id]
+            ]);
+        }
+
+        //Asociar las etiquetas al artículo
+        $etiquetas = explode( ',', $request->get('etiquetas'));
+        foreach ($etiquetas as $etiqueta) {
+            DB::table('etiquetas')->insert([
+                ['nombre' => $etiqueta, 'cod_art' => $articulo->id]
+            ]);
+        }
+
+        if ($request->get('tipo') == 'vid') { //El artículo es un vídeo
+            DB::table('videos')->insert([
+                ['id_art' => $articulo->id, 'cod_yt' => $request->get('cod_yt'), 'dur' => $request->get('dur')]
+            ]);
+        }
+
+        if ($request->get('tipo') == 'ana') { //El artículo es un análisis
+            DB::table('analisis')->insert([
+                ['articulo' => $articulo->id, 'juego' => $articulo->juego_rel, 'jugabilidad' => $request->get('jugabilidad'),
+                    'graficos' => $request->get('graficos'), 'sonidos' => $request->get('sonidos'), 'innovacion' => $request->get('innovacion')]
+            ]);
+        }
+
+        // ENVIAR TWEET CON IMAGEN A LA CUENTA @GamersHUBes
+        $settings = array(
+            'oauth_access_token' => "727198831117520902-9NtB6KQ30eOoEQnSrqYqkHYKLTs0CFj",
+            'oauth_access_token_secret' => "Xf4zgGn1LTobncBxfdZE8LBw6way5sQuppYvocaFY29wv",
+            'consumer_key' => "0Q9zTglNELrGH4vlHs4v9C6pB",
+            'consumer_secret' => "FjrdyzQcLglYylk59AIwhYPE9aU07x9QeWBm9c9rzApF1lpzSd"
+        );
+        $twitter = new TwitterAPIExchange($settings);
+
+        $file = file_get_contents('http://img.gamershub.es/noticias/'.$articulo->img);
+        $data = base64_encode($file);
+
+        // Upload image to twitter
+        $url = "https://upload.twitter.com/1.1/media/upload.json";
+        $method = "POST";
+        $params = array(
+            "media_data" => $data,
+        );
+
+
+        $json = $twitter
+            ->setPostfields($params)
+            ->buildOauth($url, $method)
+            ->performRequest();
+
+        // Result is a json string
+        $res = json_decode($json);
+        // Extract media id
+        $id = $res->media_id_string;
+
+        $url = 'https://api.twitter.com/1.1/statuses/update.json';
+
+        $postdata = array(
+            'status' => $articulo->titulo." gamershub.es/articulo/".$articulo->id."/".$articulo->lnombre,
+            'media_ids' => $id
+        );
+
+        $requestMethod = 'POST';
+
+        $twitter = new TwitterAPIExchange($settings);
+        $twitter->setPostfields($postdata)->buildOauth($url,$requestMethod)->performRequest();
+        return redirect('/panel/articulos')->with('mensaje', 'Has creado un artículo correctamente.');
+    }
+
+    /**
+     * Modifica un artículo en concreto y lo actualiza en la base de datos incluyendo sus categorías, etiquetas...
+     * @param $id artículo a editar
+     * @param datos del formulario
+     * @return redirección a la vista de administracion.articulo
+     */
+    public function update($id, \Illuminate\Http\Request $request) {
+        //Obtener el artículo
+        $articulo = Articulo::find($id)->first();
+
+        //Actualizar la información del artículo genérica
+        Articulo::find($id)
+            ->update(['titulo' => $request->get('titulo'), 'lnombre' => $request->get('lnombre'), 'juego_rel' => $request->get('juego_rel')
+                , 'descripcion' => $request->get('descripcion'), 'cont' => $request->get('cont')]);
+
+        //Eliminar las etiquetas del artículo
+        DB::table('etiquetas')->where('cod_art', $id)->delete();
+
+        //Asociar las etiquetas al artículo
+        $etiquetas = explode( ',', $request->get('etiquetas'));
+        foreach ($etiquetas as $etiqueta) {
+            DB::table('etiquetas')->insert([
+                ['nombre' => $etiqueta, 'cod_art' => $articulo->id]
+            ]);
+        }
+
+        //Eliminar las categorias
+        DB::table('categorias_articulos')->where('cod_art', $id)->delete();
+
+        //Volver a crear las categorias
+        foreach ($request->get('categorias') as $categoria) {
+            DB::table('categorias_articulos')->insert([
+                ['id_cat' => $categoria, 'cod_art' => $articulo->id]
+            ]);
+        }
+
+        //Si es un vídeo
+        if ($articulo->tipo == "vid") {
+            Video::where('id_art', $id)
+                ->update(['cod_yt' => $request->get('cod_yt'),'dur' => $request->get('dur')]);
+        }
+
+        //Si es un análisis
+        if ($articulo->tipo == "ana") {
+            Analisis::where('juego', $articulo->juego_rel)
+                ->update(['jugabilidad' => $request->get('jugabilidad'),'graficos' => $request->get('graficos'),'sonidos' => $request->get('sonidos'),'innovacion' => $request->get('innovacion')]);
+        }
+
+        return redirect('/panel/articulos')->with('mensaje', 'Has modificado el artículo '.$id.' correctamente.');
+    }
+
+    /**
+     * Elimina un artículo determinado de la base de datos
+     * @param $id artículo a eliminar
+     * @return redirección a la vista de administracion.articulos
+     */
+    public function destroy($id) {
+        Articulo::find($id)->delete();
+        return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
+    }
+
+    /**
      * Muestra un listado de todos los artículos de tipo "art"
      * @return vista de paginas.noticias
      */
@@ -82,10 +237,6 @@ class ArticulosController extends Controller
         } else {
             return redirect("/articulo/$id/$articulo->lnombre");
         }
-    }
-
-    public static function devolverUnVideo($articulo) {
-        return DB::table('videos')->where('id_art', $articulo)->first();
     }
 
     public static function devolverEtiquetasCadena ($id) {
@@ -240,160 +391,5 @@ class ArticulosController extends Controller
      */
     public static function mostrarEditarArticulo($id) {
         return view('layouts.paginas.administracion.edit_art', ['id' => Articulo::findOrFail($id)]);
-    }
-
-    /**
-     * Recibe los datos del formulario de creación para el nuevo artículo, sanea la cadena del enlace,
-     * asigna las categorías al artículo, las etiquetas, crea un registro de tipo análisis o de tipo vídeo si lo es,
-     * envía un tweet a la cuenta @GamersHUBes con el título, enlace e imágen del artículo
-     * @param datos del formulario de creación
-     * @return redirección a la vista de administracion.articulo
-     */
-    public function store(\Illuminate\Http\Request $request)
-    {
-        Articulo::create(Request::all());
-
-        //Validar el artículo
-
-        //Devolver id_art
-        $articulo = DB::table('articulos')->orderBy('id', 'DESC')->first();
-
-        //Establecer el link
-        $link = self::sanear_string($articulo->titulo);
-        Articulo::where('id', $articulo->id)
-            ->update(['lnombre' => $link]);
-
-
-        //Asociar las categorias al artículo
-        foreach ($request->get('categorias') as $categoria) {
-            DB::table('categorias_articulos')->insert([
-                ['id_cat' => $categoria, 'cod_art' => $articulo->id]
-            ]);
-        }
-
-        //Asociar las etiquetas al artículo
-        $etiquetas = explode( ',', $request->get('etiquetas'));
-        foreach ($etiquetas as $etiqueta) {
-            DB::table('etiquetas')->insert([
-                ['nombre' => $etiqueta, 'cod_art' => $articulo->id]
-            ]);
-        }
-
-        if ($request->get('tipo') == 'vid') { //El artículo es un vídeo
-            DB::table('videos')->insert([
-                ['id_art' => $articulo->id, 'cod_yt' => $request->get('cod_yt'), 'dur' => $request->get('dur')]
-            ]);
-        }
-
-        if ($request->get('tipo') == 'ana') { //El artículo es un análisis
-            DB::table('analisis')->insert([
-                ['articulo' => $articulo->id, 'juego' => $articulo->juego_rel, 'jugabilidad' => $request->get('jugabilidad'),
-                    'graficos' => $request->get('graficos'), 'sonidos' => $request->get('sonidos'), 'innovacion' => $request->get('innovacion')]
-            ]);
-        }
-
-        // ENVIAR TWEET CON IMAGEN A LA CUENTA @GamersHUBes
-        $settings = array(
-            'oauth_access_token' => "727198831117520902-9NtB6KQ30eOoEQnSrqYqkHYKLTs0CFj",
-            'oauth_access_token_secret' => "Xf4zgGn1LTobncBxfdZE8LBw6way5sQuppYvocaFY29wv",
-            'consumer_key' => "0Q9zTglNELrGH4vlHs4v9C6pB",
-            'consumer_secret' => "FjrdyzQcLglYylk59AIwhYPE9aU07x9QeWBm9c9rzApF1lpzSd"
-        );
-        $twitter = new TwitterAPIExchange($settings);
-
-        $file = file_get_contents('http://img.gamershub.es/noticias/'.$articulo->img);
-        $data = base64_encode($file);
-
-        // Upload image to twitter
-        $url = "https://upload.twitter.com/1.1/media/upload.json";
-        $method = "POST";
-        $params = array(
-            "media_data" => $data,
-        );
-
-
-        $json = $twitter
-            ->setPostfields($params)
-            ->buildOauth($url, $method)
-            ->performRequest();
-
-        // Result is a json string
-        $res = json_decode($json);
-        // Extract media id
-        $id = $res->media_id_string;
-
-        $url = 'https://api.twitter.com/1.1/statuses/update.json';
-
-        $postdata = array(
-            'status' => $articulo->titulo." gamershub.es/articulo/".$articulo->id."/".$articulo->lnombre,
-            'media_ids' => $id
-        );
-
-        $requestMethod = 'POST';
-
-        $twitter = new TwitterAPIExchange($settings);
-        $twitter->setPostfields($postdata)->buildOauth($url,$requestMethod)->performRequest();
-        return redirect('/panel/articulos')->with('mensaje', 'Has creado un artículo correctamente.');
-    }
-
-    /**
-     * Modifica un artículo en concreto y lo actualiza en la base de datos incluyendo sus categorías, etiquetas...
-     * @param $id artículo a editar
-     * @param datos del formulario
-     * @return redirección a la vista de administracion.articulo
-     */
-    public function update($id, \Illuminate\Http\Request $request) {
-        //Obtener el artículo
-        $articulo = Articulo::find($id)->first();
-
-        //Actualizar la información del artículo genérica
-        Articulo::find($id)
-            ->update(['titulo' => $request->get('titulo'), 'lnombre' => $request->get('lnombre'), 'juego_rel' => $request->get('juego_rel')
-                , 'descripcion' => $request->get('descripcion'), 'cont' => $request->get('cont')]);
-
-        //Eliminar las etiquetas del artículo
-        DB::table('etiquetas')->where('cod_art', $id)->delete();
-
-        //Asociar las etiquetas al artículo
-        $etiquetas = explode( ',', $request->get('etiquetas'));
-        foreach ($etiquetas as $etiqueta) {
-            DB::table('etiquetas')->insert([
-                ['nombre' => $etiqueta, 'cod_art' => $articulo->id]
-            ]);
-        }
-
-        //Eliminar las categorias
-        DB::table('categorias_articulos')->where('cod_art', $id)->delete();
-
-        //Volver a crear las categorias
-        foreach ($request->get('categorias') as $categoria) {
-            DB::table('categorias_articulos')->insert([
-                ['id_cat' => $categoria, 'cod_art' => $articulo->id]
-            ]);
-        }
-
-        //Si es un vídeo
-        if ($articulo->tipo == "vid") {
-            Video::where('id_art', $id)
-                ->update(['cod_yt' => $request->get('cod_yt'),'dur' => $request->get('dur')]);
-        }
-
-        //Si es un análisis
-        if ($articulo->tipo == "ana") {
-            Analisis::where('juego', $articulo->juego_rel)
-                ->update(['jugabilidad' => $request->get('jugabilidad'),'graficos' => $request->get('graficos'),'sonidos' => $request->get('sonidos'),'innovacion' => $request->get('innovacion')]);
-        }
-
-        return redirect('/panel/articulos')->with('mensaje', 'Has modificado el artículo '.$id.' correctamente.');
-    }
-
-    /**
-     * Elimina un artículo determinado de la base de datos
-     * @param $id artículo a eliminar
-     * @return redirección a la vista de administracion.articulos
-     */
-    public function destroy($id) {
-        Articulo::find($id)->delete();
-        return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
     }
 }

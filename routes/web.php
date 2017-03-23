@@ -111,7 +111,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::post ('/panel/usuarios/editar-usuario/{id}/modificar', 'UsuariosController@modificarUsuario');
 
     //Eliminar un comentario
-    Route::get ('/articulo/{id}/{comentario}/eliminar', 'ComentariosController@EliminarComentario');
+    Route::get ('/articulo/{id}/{comentario}/eliminar', 'ComentariosController@destroy');
 
     Route::group(['middleware' => 'App\Http\Middleware\RedactorMiddleware'], function()
 

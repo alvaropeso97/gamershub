@@ -25,11 +25,12 @@
                 <div class="alert alert-danger">No hay comentarios para mostrar</div>
             @endif
             @foreach(\App\Http\Controllers\ComentariosController::devolverComentariosJuego($id->id) as $comentario)
+                @php $autor = $comentario->getAutor @endphp
                 <li>
                     <div class="widget-list-meta">
                         <h4 class="widget-list-title"><a href="/articulo/{{$comentario->id_articulo}}/#comentarios">{{$comentario->comentario}}</a></h4>
                         <p><i class="fa fa-clock-o"></i>{{$comentario->getFecha}} por
-                            <a href="/usuario/{{\App\Http\Controllers\ComentariosController::devolverUsuario($comentario->id_usuario)->name}}">{{\App\Http\Controllers\ComentariosController::devolverUsuario($comentario->id_usuario)->name}}</a></p>
+                            <a href="/usuario/{{$autor->name}}">{{$autor->name}}</a></p>
                     </div>
                 </li>
             @endforeach
