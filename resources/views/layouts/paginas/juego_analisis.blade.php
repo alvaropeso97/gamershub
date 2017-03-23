@@ -56,7 +56,7 @@
             <div class="analisis_titulo text-center">VEREDICTO</div>
 
             <div class="chart-align nota_juego_analisis">
-                    {{\App\Http\Controllers\AnalisisController::devolverNota($articulo->id)}}
+                    {{$articulo->getAnalisis->getNotaMostrar()}}
             </div>
 
             <p class="progress-label">Jugabilidad <span>{{$analisis->jugabilidad}}%</span></p>

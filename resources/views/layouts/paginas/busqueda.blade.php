@@ -70,7 +70,7 @@
                         <div class="col-lg-8">
                             <div class="post-header">
                                 @if($noticia->tipo == "ana")
-                                    @php $nota = \App\Http\Controllers\AnalisisController::devolverNota($noticia->id) @endphp
+                                    @php $nota = $noticia->getAnalisis->getNotaMostrar() @endphp
                                     <span class="nota_analisis {{\App\Http\Controllers\AnalisisController::devolverColor($nota)}}">{{$nota}}</span>
                                 @endif
                                 <div class="post-title">

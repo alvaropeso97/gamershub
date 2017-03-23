@@ -26,4 +26,12 @@ class Analisis extends Model
     public function getArticulo() {
         return $this->belongsTo('App\Articulo', 'articulo');
     }
+
+    public function getNota() {
+        return ($this->jugabilidad + $this->graficos + $this->sonidos + $this->innovacion)/4;
+    }
+
+    public function getNotaMostrar() {
+        return round((($this->jugabilidad + $this->graficos + $this->sonidos + $this->innovacion)/4)/10,1);
+    }
 }

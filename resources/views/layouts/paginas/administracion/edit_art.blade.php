@@ -132,7 +132,7 @@
 
                         @if($id->tipo == "ana")
                             <hr>
-                            @php $analisis = \App\Http\Controllers\AnalisisController::devolverAnalisis($id->juego_rel) @endphp
+                            @php $analisis = $id->getAnalisis; @endphp
                         <div class="row margin-top-30">
                             <h3>Análisis</h3>
                             <p>Solo si es un análisis de un título y tiene un juego asociado.</p>

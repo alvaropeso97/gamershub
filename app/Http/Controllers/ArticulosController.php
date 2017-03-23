@@ -251,7 +251,7 @@ class ArticulosController extends Controller
      */
     public function store(\Illuminate\Http\Request $request)
     {
-        \App\Articulo::create(Request::all());
+        Articulo::create(Request::all());
 
         //Validar el artículo
 

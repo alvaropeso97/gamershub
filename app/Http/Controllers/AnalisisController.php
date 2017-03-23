@@ -11,7 +11,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Analisis;
 use Illuminate\Routing\Controller;
 use DB;
@@ -20,20 +19,6 @@ use Auth;
 
 class AnalisisController extends Controller
 {
-    public static function devolverAnalisis($juego) {
-        return DB::table('analisis')->where('juego', $juego)->first();
-    }
-
-    public static function devolverTotal($juego) {
-        $analisis = DB::table('analisis')->where('juego', $juego)->first();
-        return ($analisis->jugabilidad + $analisis->graficos + $analisis->sonidos + $analisis->innovacion)/4;
-    }
-
-    public static function devolverNota($articulo) {
-        $analisis = DB::table('analisis')->where('articulo', $articulo)->first();
-        return round((($analisis->jugabilidad + $analisis->graficos + $analisis->sonidos + $analisis->innovacion)/4)/10,1);
-    }
-
     public static function devolverColor($nota) {
         if ($nota < 5) {
             echo "label-danger";

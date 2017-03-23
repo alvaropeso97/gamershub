@@ -1,13 +1,13 @@
 @php
-    $juego_rel = \App\Http\Controllers\JuegosController::devolverJuego($id->juego_rel);
-    $analisis = \App\Http\Controllers\AnalisisController::devolverAnalisis($juego_rel->id);
+    $juego_rel = $id->getJuego;
+    $analisis = $id->getAnalisis;
 @endphp
 <div class="widget widget-game" style="background-image: url('{{Config::get('constants.S1_URL')}}/juegos/img/{{$juego_rel->img_box}}');">
     <div class="overlay">
         <div class="title">{{$juego_rel->titulo}}</div>
 
         <div class="chart-align">
-            <span class="chart" data-percent="{{\App\Http\Controllers\AnalisisController::devolverTotal($juego_rel->id)}}"><span class="percent">{{\App\Http\Controllers\AnalisisController::devolverTotal($juego_rel->id)}}</span><canvas height="110" width="110"></canvas></span>
+            <span class="chart" data-percent="{{$analisis->getNota()}}"><span class="percent">{{$analisis->getNota()}}</span><canvas height="110" width="110"></canvas></span>
         </div>
 
         <p class="progress-label">Jugabilidad <span>{{$analisis->jugabilidad}}%</span></p>

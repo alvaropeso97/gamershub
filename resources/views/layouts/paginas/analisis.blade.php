@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Todas las noticias')
+@section('titulo', 'GamersHUB - Análisis')
 
 @section('contenido')
     @php $cons =  \App\Articulo::whereRaw('tipo = "ana"')->orderBy('id','desc')->paginate(3); @endphp
@@ -53,7 +53,7 @@
                             </div>
                             <div class="caption" style="border-radius: 0px 0px 10px 10px;-webkit-border-radius: 0px 0px 10px 10px;">
                                 @if($articulo->tipo == "ana")
-                                    @php $nota = \App\Http\Controllers\AnalisisController::devolverNota($articulo->id) @endphp
+                                    @php $nota = $articulo->getAnalisis->getNotaMostrar() @endphp
                                     <span class="nota_analisis {{\App\Http\Controllers\AnalisisController::devolverColor($nota)}}">{{$nota}}</span>
                                 @endif
                                 <div class="tipo">{{$articulo->getTipo()}}</div>
