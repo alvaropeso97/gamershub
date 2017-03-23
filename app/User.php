@@ -41,4 +41,12 @@ class User extends Authenticatable
     public function getArticulos() {
         return $this->hasMany('App\Articulo', 'id_autor', 'id');
     }
+
+    /**
+     * Clave ajena "id_usuario", referencia a "id" (users)
+     * @return comentarios pertenecientes a este usuario
+     */
+    public function getComentarios() {
+        return $this->hasMany('App\Comentario', 'id_usuario', 'id');
+    }
 }

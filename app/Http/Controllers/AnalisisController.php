@@ -20,11 +20,6 @@ use Auth;
 
 class AnalisisController extends Controller
 {
-    public static function e() {
-        // connect to local server, authenticate and spawn an object for the virtual server on port 9987
-        $ts3_VirtualServer = TeamSpeak3::factory("serverquery://serveradmin:Sofiab123asd@92.222.70.70:10011/?server_port=9987");
-    }
-
     public static function devolverAnalisis($juego) {
         return DB::table('analisis')->where('juego', $juego)->first();
     }

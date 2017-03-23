@@ -23,10 +23,7 @@ class Analisis extends Model
     protected $fillable = ['articulo','juego','jugabilidad','graficos','sonidos','innovacion'];
     public $timestamps = false;
 
-    /**
-     * Clave ajena "juego", referencia a "id" (juegos)
-     */
-    public function juego() {
-        $this->hasOne('App\Juego');
+    public function getArticulo() {
+        return $this->belongsTo('App\Articulo', 'articulo');
     }
 }

@@ -8,14 +8,14 @@
     </div>
     <div class="tab-content">
         <ul class="tab-pane fade in active" id="noticias">
-            @if(count(\App\Http\Controllers\ArticulosController::devolverArticulosJuego($id->id)) == 0)
+            @if(count($id->getArticulos) == 0)
                 <div class="alert alert-danger">No hay noticias para mostrar</div>
             @endif
-            @foreach(\App\Http\Controllers\ArticulosController::devolverArticulosJuego($id->id) as $noticia)
+            @foreach($id->getArticulos as $noticia)
                 <li>
                     <div class="widget-list-meta">
                         <h4 class="widget-list-title"><a href="/articulo/{{$noticia->id}}">{{$noticia->titulo}}</a></h4>
-                        <p><i class="fa fa-clock-o"></i>{{\App\Articulo::devolverFecha($noticia->fecha)}}</p>
+                        <p><i class="fa fa-clock-o"></i>{{$noticia->getFechaLocal()}}</p>
                     </div>
                 </li>
             @endforeach
@@ -28,7 +28,7 @@
                 <li>
                     <div class="widget-list-meta">
                         <h4 class="widget-list-title"><a href="/articulo/{{$comentario->id_articulo}}/#comentarios">{{$comentario->comentario}}</a></h4>
-                        <p><i class="fa fa-clock-o"></i>{{\App\Http\Controllers\ComentariosController::obtenerFecha($comentario->created_at)}} por
+                        <p><i class="fa fa-clock-o"></i>{{$comentario->getFecha}} por
                             <a href="/usuario/{{\App\Http\Controllers\ComentariosController::devolverUsuario($comentario->id_usuario)->name}}">{{\App\Http\Controllers\ComentariosController::devolverUsuario($comentario->id_usuario)->name}}</a></p>
                     </div>
                 </li>

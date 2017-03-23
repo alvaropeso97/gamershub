@@ -64,10 +64,6 @@ class ArticulosController extends Controller
         }
     }
 
-    public static function devolverArticulosJuego($juego_rel) {
-        return $articulos = DB::select("select * from articulos where juego_rel =".$juego_rel." and tipo = 'art' order by id desc limit 5");
-    }
-
     public static function devolverNoticiasRecientes($id) {
         return $articulos = DB::select("select * from articulos where id != ".$id." and tipo = 'art' order by id desc LIMIT 3");
     }
@@ -197,28 +193,28 @@ class ArticulosController extends Controller
     function mostrarBusqueda($tipo,$tag) {
         if ($tipo == 'articulos') {
             //Seleccionar todos los artículos que se asemejen a la búsqueda
-            $busqueda_a = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','art')->orderBy('id','desc')->paginate(10);
+            $busqueda_a = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','art')->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'videos') {
-            $busqueda_v = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','vid')->orderBy('id','desc')->paginate(10);
+            $busqueda_v = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','vid')->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_v, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'analisis') {
-            $busqueda_an = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','ana')->orderBy('id','desc')->paginate(10);
+            $busqueda_an = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','ana')->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_an, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'juegos') {
-            $busqueda_j = DB::table('juegos')->where('titulo','LIKE',"%$tag%")->orderBy('id','desc')->paginate(9);
+            $busqueda_j = Juego::where('titulo','LIKE',"%$tag%")->orderBy('id','desc')->paginate(9);
             return view('layouts.paginas.busqueda_juegos', ['busq_j' => $busqueda_j, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'etiquetas') {
             $art_etiq = EtiquetasController::devolverArticulosEtiqueta($tag);
-            $busqueda_a = DB::table('articulos')->whereIn('id',$art_etiq)->orderBy('id','desc')->paginate(10);
+            $busqueda_a = Articulo::whereIn('id',$art_etiq)->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
         }
     }
