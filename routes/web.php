@@ -71,10 +71,8 @@ Route::get('plataforma/{alias}/{orden}', 'CategoriasController@mostrarPlataforma
 /**
  * USUARIOS
  */
-//Route::get('usuario/{nombre}', 'UsuariosController@mostrarUsuario'); DESACTIVADO
-Route::get('/usuario/{nombre}', function () {
-    return redirect("/");
-});
+Route::get('usuario/{nombre}', 'UsuariosController@mostrarUsuario');
+
 Route::get('usuario/{nombre}/editar', 'UsuariosController@mostrarEditarPerfilUsuario')->middleware('auth');
 Route::post('usuario/{nombre}/editar/guardar-privacidad', 'Privacidad_usuariosController@actualizar');
 Route::post('usuario/{nombre}/editar/guardar-info', 'UsuariosController@actualizarInfo');
@@ -103,9 +101,7 @@ Route::group(['middleware' => 'auth'], function()
     {
     /* GESTIÓN DE USUARIOS */
     //Listar usuarios
-    Route::get('/panel/usuarios', function () {
-        return view('layouts.paginas.administracion.usuarios');
-    });
+    Route::get ('/panel/usuarios', 'UsuariosController@mostrarUsuarios');
     //Eliminar un usuario en concreto
     Route::get ('/panel/usuarios/eliminar/{id}', 'UsuariosController@eliminarUsuario');
     });
@@ -124,7 +120,7 @@ Route::group(['middleware' => 'auth'], function()
     //Listar artículos
     Route::get ('/panel/articulos', 'ArticulosController@mostrarArticulos');
     //Eliminar un artículo en concreto
-    Route::get ('/panel/articulos/eliminar/{id}', 'ArticulosController@eliminarArticulo');
+    Route::get ('/panel/articulos/eliminar/{id}', 'ArticulosController@destroy');
     //Redactar nuevo artículo
     Route::get ('/panel/articulos/nuevo-articulo', 'ArticulosController@nuevoArticulo');
     //Modificar un artículo

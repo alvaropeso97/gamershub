@@ -81,7 +81,7 @@
                                                 <label>Me gustan los juegos de</label>
                                                 <select name="genero_preferido" class="form-control">
                                                     <option name="genero_preferido" value="-1" selected>Seleccina un género</option>
-                                                    @foreach(\App\Http\Controllers\GenerosController::devolverAllGeneros() as $genero)
+                                                    @foreach(\App\Genero::all() as $genero)
                                                         <option name="genero_preferido" @if($UsrInfo->genero_preferido == $genero->id) selected @endif value="{{$genero->id}}">{{$genero->nombre}}</option>
                                                     @endforeach
                                                 </select>

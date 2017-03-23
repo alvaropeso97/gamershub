@@ -22,4 +22,12 @@ class Etiqueta extends Model
     protected $table = 'etiquetas';
     protected $fillable = ['cod_art','nombre'];
     public $timestamps = false;
+
+    /**
+     * Clave ajena "cod_art", referencia a "id" (articulos)
+     * @return artículo relacionado con la etiqueta
+     */
+    public function getArticulo() {
+        return $this->belongsTo('App\Articulo', 'cod_art');
+    }
 }

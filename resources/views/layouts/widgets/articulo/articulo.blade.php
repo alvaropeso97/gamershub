@@ -8,7 +8,7 @@
     <div class="row margin-top-40">
         <div class="col-md-8">
             <div class="tags">
-                @foreach(\App\Http\Controllers\ArticulosController::devolverEtiquetas($id->id) as $etiqueta)
+                @foreach($id->getEtiquetas as $etiqueta)
                     <a href="/busqueda/etiquetas/{{$etiqueta->nombre}}">{{$etiqueta->nombre}}</a>
                 @endforeach
             </div>

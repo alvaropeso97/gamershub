@@ -4,7 +4,7 @@
 @section('contenido')
 
     <!-- PRIMER VÍDEO -->
-    @php $ultimo_video = \App\Http\Controllers\ArticulosController::devolverUltimoVideo() @endphp
+    @php $ultimo_video = \App\Video::orderBy('id', 'DESC')->first(); @endphp
     <div class="background-image" style="background-image: url(http://img.youtube.com/vi/{{$ultimo_video->cod_yt}}/maxresdefault.jpg);">
         <span class="background-overlay"></span>
         <div class="container">

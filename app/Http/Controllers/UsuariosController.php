@@ -27,7 +27,7 @@ class UsuariosController extends Controller
      * @return Vista del perfil del usuario
      */
     public function mostrarUsuario($nombre) {
-        $usuario = DB::table('users')->where('name', $nombre)->first();
+        $usuario = User::where('name', $nombre)->first();
         return view('layouts.paginas.perfil.perfil', ['id' => User::findOrFail($usuario->id)]);
     }
 
@@ -45,22 +45,6 @@ class UsuariosController extends Controller
             //Redirigir al perfil del usuario que intenta editar
             return redirect("/usuario/$nombre");
         }
-
-    }
-
-    public static function devolverUsuario($id) {
-        //return $usuario = DB::table('users')->where('id', $id)->first();
-        return User::find($id);
-    }
-
-    public static function devolverUsuarios() {
-        return $usuarios = DB::select("select * from users order by id desc");
-    }
-
-    public static function devolverUltimaId() {
-
-        $usuario =  DB::table('users')->orderby('id','DESC')->first();
-        return $usuario->id;
     }
 
     public function eliminarUsuario($id) {
@@ -77,6 +61,7 @@ class UsuariosController extends Controller
     public function mostrarEditarUsuario($id) {
         return view('layouts.paginas.administracion.edit_usr', ['id' => User::findOrFail($id)]);
     }
+
     public function modificarUsuario($id, \Illuminate\Http\Request $request) {
         //Validar formulario
 
@@ -88,27 +73,9 @@ class UsuariosController extends Controller
         return redirect('/panel/usuarios')->with('mensaje', 'Has modificado el usuario correctamente.');
     }
 
-
-    public static function devolverRango($acceso) {
-        switch ($acceso) {
-            case 0:
-                return "Usuario";
-                break;
-            case 1:
-                return "Redactor";
-                break;
-            case 2:
-                return "Moderador";
-                break;
-            case 3:
-                return "Administrador";
-                break;
-        }
-    }
-
     public function actualizarInfo(\Illuminate\Http\Request $request) {
         //Obtener el usuario a modificar
-        $usuario = UsuariosController::devolverUsuario($request->get('id'));
+        $usuario = User::find($request->get('id'));
 
         /*
          * Plataformas del usuario
@@ -152,5 +119,17 @@ class UsuariosController extends Controller
 
     public static function devolverPlataformasUsuario($usuario) {
         return DB::select("select id_plataforma from usuarios_plataformas where id_usuario=".$usuario);
+    }
+
+    /*
+     * ADMINISTRACIÓN
+     */
+    /**
+     * Muestra un listado de todos los usuarios existentes en la base de datos con opciones para eliminar o modificar
+     * @return vista de paginas.administracion.usuarios
+     */
+    public function mostrarUsuarios() {
+        $usuarios = User::orderBy('id', 'desc')->get();
+        return view('layouts.paginas.administracion.usuarios', ['usuarios' => $usuarios]);
     }
 }

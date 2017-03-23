@@ -17,7 +17,5 @@ use Request;
 
 class GenerosController extends Controller
 {
-    public static function devolverAllGeneros() {
-        return Genero::all();
-    }
+
 }

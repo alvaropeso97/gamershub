@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\UsuariosController;
 use App\PrivacidadUsuario;
 use App\User;
 use Validator;
@@ -75,7 +74,7 @@ class RegisterController extends Controller
 
         //Crear opciones de privacidad
         PrivacidadUsuario::create([
-            'id_usuario' => UsuariosController::devolverUltimaId()
+            'id_usuario' => User::orderby('id','DESC')->first()->id
         ]);
 
         return $usuario_creado;

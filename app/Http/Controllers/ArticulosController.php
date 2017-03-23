@@ -44,18 +44,38 @@ class ArticulosController extends Controller
         return view('layouts.paginas.noticias', ['cons' => $cons]);
     }
 
+    /**
+     * Muestra un artículo a través de su id y título, comprueba si es un análisis y si lo es lo muestra.
+     * Si es un vídeo, envía a la vista los datos del vídeo
+     * @param $id artículo a mostrar
+     * @param $titulo título del artículo formateado
+     * @return vista paginas.articulo
+     */
     public static function mostrarArticulo($id, $titulo) {
-        $articulo = DB::table('articulos')->where('lnombre', $titulo)->where('id', $id)->first();
+        $articulo = Articulo::where('lnombre', $titulo)->where('id', $id)->first();
         if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-            $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
+            $juego = Articulo::where('id', $articulo->juego_rel)->first();
             return redirect("/juego/$juego->id/$juego->lnombre/analisis");
         } else {
-            return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id)]);
+            switch ($articulo->tipo) {
+                case "vid":
+                    return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id), 'vid' => $articulo->getVideo]);
+                    break;
+                case "art":
+                    return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id)]);
+                    break;
+            }
         }
     }
 
+    /**
+     * Muestra un artículo únicamente a través de su id, comprueba si es un análisis y si lo es lo muestra.
+     * Redirige a la vista de la noticia con el id y el enlace formateado al igual que en mostrarArticulo()
+     * @param $id artículo a mostrar
+     * @return redirección a /articulo/id-articulo/titulo-formateado
+     */
     public static function mostrarArticuloDos ($id) {
-        $articulo = DB::table('articulos')->where('id', $id)->first();
+        $articulo = Articulo::where('id', $id)->first();
         if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
             $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
             return redirect("/juego/$juego->id/$juego->lnombre/analisis");
@@ -78,20 +98,8 @@ class ArticulosController extends Controller
         }
     }
 
-    public static function devolverVideo ($id) {
-        return $video = DB::select("select * from videos where id_art=".$id);
-    }
-
     public static function devolverUnVideo($articulo) {
         return DB::table('videos')->where('id_art', $articulo)->first();
-    }
-
-    public static function devolverUltimoVideo() {
-        return DB::table('videos')->orderBy('id', 'DESC')->first();
-    }
-
-    public static function devolverEtiquetas ($id) {
-        return $etiquetas = DB::select("select * from etiquetas where cod_art=".$id);
     }
 
     public static function devolverEtiquetasCadena ($id) {
@@ -107,8 +115,8 @@ class ArticulosController extends Controller
 
     /**
      * Sanea una cadena de caracteres
-     * @param $string la cadena a sanear
-     * @return $string cadena saneada
+     * @param string la cadena a sanear
+     * @return string cadena saneada
      */
     public static function sanear_string($s)
     {
@@ -229,16 +237,6 @@ class ArticulosController extends Controller
     function mostrarArticulos() {
         $cons =  Articulo::select()->orderBy('id','desc')->paginate(10);
         return view('layouts.paginas.administracion.articulos', ['cons' => $cons]);
-    }
-
-    /**
-     * Elimina un artículo determinado de la base de datos
-     * @param $id artículo a eliminar
-     * @return redirección a la vista de administracion.articulos
-     */
-    public function eliminarArticulo($id) {
-        Articulo::find($id)->delete();
-        return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
     }
 
     /**
@@ -401,5 +399,15 @@ class ArticulosController extends Controller
         }
 
         return redirect('/panel/articulos')->with('mensaje', 'Has modificado el artículo '.$id.' correctamente.');
+    }
+
+    /**
+     * Elimina un artículo determinado de la base de datos
+     * @param $id artículo a eliminar
+     * @return redirección a la vista de administracion.articulos
+     */
+    public function destroy($id) {
+        Articulo::find($id)->delete();
+        return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
     }
 }

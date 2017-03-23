@@ -20,7 +20,7 @@ class Privacidad_usuariosController extends Controller
     public function actualizar(\Illuminate\Http\Request $request)
     {
         //Obtener usuario
-        $usuario = UsuariosController::devolverUsuario($request->get('id'));
+        $usuario = User::find($request->get('id'));
 
         //Actualizar la base de datos
         PrivacidadUsuario::where('id_usuario', $request->get('id'))

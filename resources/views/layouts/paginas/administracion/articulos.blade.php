@@ -59,9 +59,9 @@
                                 <td>{{$articulo->id}}</td>
                                 <td width="50%"><a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}">{{$articulo->titulo}}</a></td>
                                 <td>{{$articulo->tipo}}</td>
-                                @php $autor = \App\Http\Controllers\UsuariosController::devolverUsuario($articulo->id_autor)->name @endphp
-                                <td><a href="/usuario/{{$autor}}">{{$autor}}</a></td>
-                                @php $juego = \App\Http\Controllers\JuegosController::devolverJuego($articulo->juego_rel) @endphp
+                                @php $autor = $articulo->getAutor @endphp
+                                <td><a href="/usuario/{{$autor->name}}">{{$autor->name}}</a></td>
+                                @php $juego = $articulo->getJuego @endphp
                                 <td>@if($articulo->juego_rel == 0) Ninguno @else <a href="/juego/{{$juego->id}}/{{$juego->lnombre}}">{{$juego->titulo}}</a> @endif</td>
                                 <td>{{$articulo->fecha}}</td>
                                 <td>

@@ -56,11 +56,6 @@ class JuegosController extends Controller
         return $juego = DB::table('juegos')->where('id', $id)->first();
     }
 
-    public static function devolverNombre ($id) {
-        $juego = DB::table('juegos')->where('id', $id)->first();
-        return $juego->titulo;
-    }
-
     public static function devolverProximosLanzamientos() {
         return $juegos = DB::select("select * from juegos where fecha_lanzamiento > UTC_DATE() order by fecha_lanzamiento ASC");
     }

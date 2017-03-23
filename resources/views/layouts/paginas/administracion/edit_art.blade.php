@@ -56,7 +56,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <div class="form-group">
                                     <label>Autor</label>
-                                    <input type="text" id="autor" name="autor" class="form-control" value="{{\App\Http\Controllers\UsuariosController::devolverUsuario($id->id_autor)->name}}" disabled>
+                                    <input type="text" id="autor" name="autor" class="form-control" value="{{$id->getAutor->name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">

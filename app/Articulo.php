@@ -73,6 +73,14 @@ class Articulo extends Model
     }
 
     /**
+     * Clave ajena "cod_art", referencia a "id" (articulos)
+     * @return etiquetas relacionadas con el artículo
+     */
+    public function getEtiquetas() {
+        return $this->hasMany('App\Etiqueta', 'cod_art', 'id');
+    }
+
+    /**
      * Establecer la imágen destacada para el artículo
      * @param $img Imagen destacada del artículo
      */
