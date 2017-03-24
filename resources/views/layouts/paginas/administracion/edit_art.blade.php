@@ -67,11 +67,11 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Categorías/Plataformas</label>
-                                @php $categorias = \App\Http\Controllers\CategoriasController::devolverIdCategorias($id->id); @endphp
+                                @php $categorias_articulo = $id->getCategorias->toArray(); @endphp
 
                                 <select id="categorias" name="categorias[]" multiple class="form-control" style="height: 45px; padding: 0px;">
                                     @foreach(\App\Categoria::all() as $categoria)
-                                    <option name="categorias[]" value="{{$categoria->id}}" style="color: {{$categoria->color}};" @if(in_array($categoria->id, array_column($categorias, "id"))) selected @endif >{{$categoria->nombre}}</option>
+                                    <option name="categorias[]" value="{{$categoria->id}}" style="color: {{$categoria->color}};" @if(in_array($categoria->id, array_column($categorias_articulo, "id"))) selected @endif >{{$categoria->nombre}}</option>
 
                                         @endforeach
                                 </select>
@@ -108,7 +108,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <label style="margin-top: 15px;" >Etiquetas (<span class="bold">INTRO</span> para añadir nueva)</label>
-                                        <input type="text" data-role="tagsinput" name="etiquetas" class="form-control" value="{{\App\Http\Controllers\ArticulosController::devolverEtiquetasCadena($id->id)}}"><br>
+                                        <input type="text" data-role="tagsinput" name="etiquetas" class="form-control" value="{{$id->getEtiquetasCadena()}}"><br>
                                     </div>
                                 </div>
                             </div>

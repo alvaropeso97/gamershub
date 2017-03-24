@@ -23,18 +23,36 @@ class Analisis extends Model
     protected $fillable = ['articulo','juego','jugabilidad','graficos','sonidos','innovacion'];
     public $timestamps = false;
 
+    /**
+     * Clave ajena "articulo", referencia a "id" (articulos)
+     * @return artículo perteneciente a este análisis
+     */
     public function getArticulo() {
         return $this->belongsTo('App\Articulo', 'articulo');
     }
 
+    /**
+     * Calcula la nota sobre 100
+     * @return nota del análisis sobre 100
+     */
     public function getNota() {
         return ($this->jugabilidad + $this->graficos + $this->sonidos + $this->innovacion)/4;
     }
 
+    /**
+     * Calcula la nota sobre 10
+     * @return nota del análisis sobre 10
+     */
     public function getNotaMostrar() {
         return round((($this->jugabilidad + $this->graficos + $this->sonidos + $this->innovacion)/4)/10,1);
     }
 
+    /**
+     * Muestra una clase (color) de bootstrap dependiendo la nota que tenga el análisis
+     * Menor que 5: rojo
+     * Entre 5 y 8: naranja
+     * Mayor o igual que 8: verde
+     */
     public function getColor() {
         $notaMostrar = $this->getNotaMostrar();
         if ($notaMostrar < 5) {

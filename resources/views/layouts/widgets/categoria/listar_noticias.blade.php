@@ -1,7 +1,6 @@
 <div class="container">
     @php $contador = 1; @endphp
     @foreach($cons as $articulo)
-        @php $categorias = DB::select("select * from categorias where id in (select id_cat from categorias_articulos where cod_art=".$articulo->id.")"); @endphp
         @if($contador == 1 || $contador == 4 || $contador == 7)
             <div class="row">
                 @endif
@@ -9,7 +8,7 @@
                     <div class="card">
                         <div class="card-img">
                             <a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}"><img style="border-radius: 10px 10px 0px 0px;-webkit-border-radius: 10px 10px 0px 0px;" src="{{Config::get('constants.S1_URL')}}/noticias/{{$articulo->img}}" alt=""></a>
-                            <div class="category">@foreach($categorias as $categoria) <a href="/categoria/{{$categoria->alias}}"><span  class="label" style="background:{{$categoria->color}};">{{$categoria->nombre}}</span></a> @endforeach</div>
+                            <div class="category">@foreach($articulo->getCategorias as $categoria) <a href="/categoria/{{$categoria->alias}}"><span  class="label" style="background:{{$categoria->color}};">{{$categoria->nombre}}</span></a> @endforeach</div>
 
                             <div class="meta"><a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}"></a></div>
                         </div>

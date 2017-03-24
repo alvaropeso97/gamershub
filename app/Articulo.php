@@ -41,6 +41,14 @@ class Articulo extends Model
     }
 
     /**
+     * Devuelve todas las categorías pertenecientes a un artículo
+     * @return categorias pertenecientes al artículo
+     */
+    public function getIdCategorias() {
+        return $this->belongsToMany('App\Categoria', 'categorias_articulos', 'cod_art', 'id_cat')->select(array('id'));
+    }
+
+    /**
      * Clave ajena "id_articulo", referencia a "id" (articulos)
      * @return comentarios pertenecientes a este artículo
      */
@@ -78,6 +86,21 @@ class Articulo extends Model
      */
     public function getEtiquetas() {
         return $this->hasMany('App\Etiqueta', 'cod_art', 'id');
+    }
+
+    /**
+     * Concatena todas las etiquetas pertenecientes a un artículo con comas
+     * @return cadena de etiquetas separadas por comas
+     */
+    public function getEtiquetasCadena() {
+        $resultado = $this->getEtiquetas;
+        $etiquetas_cadena = "";
+
+        foreach ($resultado as $etiqueta) {
+            $etiquetas_cadena .= $etiqueta->nombre.",";
+        }
+
+        return $etiquetas_cadena;
     }
 
     /**

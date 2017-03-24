@@ -239,17 +239,6 @@ class ArticulosController extends Controller
         }
     }
 
-    public static function devolverEtiquetasCadena ($id) {
-        $resultado = DB::select("select * from etiquetas where cod_art=".$id);
-        $etiquetas_cadena = "";
-
-        foreach ($resultado as $etiqueta) {
-            $etiquetas_cadena .= $etiqueta->nombre.",";
-        }
-
-        return $etiquetas_cadena;
-    }
-
     /**
      * Sanea una cadena de caracteres
      * @param string la cadena a sanear
