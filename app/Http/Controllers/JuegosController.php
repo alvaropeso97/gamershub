@@ -12,6 +12,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Exceptions\JuegoNoEncontradoException;
 use App\Juego;
 use Illuminate\Routing\Controller;
 use DB;
@@ -21,9 +22,35 @@ use Auth;
 
 class JuegosController extends Controller
 {
+    /**
+     * Muestra un juego a través de su id y su título
+     * @param $id del juego
+     * @param $titulo del juego
+     * @return vista paginas.juego
+     * @throws JuegoNoEncontradoException si no encuentra el juego asociado con el id y el título
+     */
     public function mostrarJuego($id, $titulo) {
-        $juego = DB::table('juegos')->where('lnombre', $titulo)->where('id', $id)->first();
-        return view('layouts.paginas.juego', ['id' => Juego::findOrFail($juego->id)]);
+        $juego = Juego::where('lnombre', $titulo)->where('id', '$id')->first();
+        if (!$juego) {
+            throw new JuegoNoEncontradoException;
+        } else {
+            return view('layouts.paginas.juego', ['id' => Juego::findOrFail($juego->id)]);
+        }
+    }
+
+    /**
+     * Muestra un juego a través de su id redirigiendo a la página /juego/id/lnombre
+     * @param $id del juego
+     * @return vista paginas.juego
+     * @throws JuegoNoEncontradoException si no encuentra el juego asociado con el id y el título
+     */
+    public function mostrarJuegoDos ($id) {
+        $juego = Juego::where('id', $id)->first();
+        if (!$juego) {
+            throw new JuegoNoEncontradoException;
+        } else {
+            return redirect("/juego/$id/$juego->lnombre");
+        }
     }
 
     public function mostrarAnalisis($id, $titulo) {
@@ -41,11 +68,6 @@ class JuegosController extends Controller
         $juego = DB::table('juegos')->where('lnombre', $titulo)->where('id', $id)->first();
         $noticias = DB::table('articulos')->where('juego_rel', $id)->where('tipo', 'art')->paginate(9);
         return view('layouts.paginas.juego_noticias', ['noticias' => $noticias, 'juego' => $juego]);
-    }
-
-    public function mostrarJuegoDos ($id) {
-        $juego = DB::table('juegos')->where('id', $id)->first();
-        return redirect("/juego/$id/$juego->lnombre");
     }
 
     public static function devolverJuegos() {

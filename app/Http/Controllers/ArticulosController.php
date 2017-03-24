@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Articulo;
 use App\Etiqueta;
+use App\Exceptions\ArticuloNoEncontradoException;
 use App\Juego;
 use App\Video;
 use Illuminate\Routing\Controller;
@@ -205,20 +206,25 @@ class ArticulosController extends Controller
      * @param $id artículo a mostrar
      * @param $titulo título del artículo formateado
      * @return vista paginas.articulo
+     * @throws ArticuloNoEncontradoException si no encuentra el artículo asociado con el id y el título
      */
     public static function mostrarArticulo($id, $titulo) {
         $articulo = Articulo::where('lnombre', $titulo)->where('id', $id)->first();
-        if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-            $juego = Articulo::where('id', $articulo->juego_rel)->first();
-            return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+        if (!$articulo) {
+            throw new ArticuloNoEncontradoException;
         } else {
-            switch ($articulo->tipo) {
-                case "vid":
-                    return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id), 'vid' => $articulo->getVideo]);
-                    break;
-                case "art":
-                    return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id)]);
-                    break;
+            if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
+                $juego = Articulo::where('id', $articulo->juego_rel)->first();
+                return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+            } else {
+                switch ($articulo->tipo) {
+                    case "vid":
+                        return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id), 'vid' => $articulo->getVideo]);
+                        break;
+                    case "art":
+                        return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id)]);
+                        break;
+                }
             }
         }
     }
@@ -228,14 +234,19 @@ class ArticulosController extends Controller
      * Redirige a la vista de la noticia con el id y el enlace formateado al igual que en mostrarArticulo()
      * @param $id artículo a mostrar
      * @return redirección a /articulo/id-articulo/titulo-formateado
+     * @throws ArticuloNoEncontradoException si no encuentra el artículo asociado con el id
      */
     public static function mostrarArticuloDos ($id) {
         $articulo = Articulo::where('id', $id)->first();
-        if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-            $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
-            return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+        if (!$articulo) {
+            throw new ArticuloNoEncontradoException;
         } else {
-            return redirect("/articulo/$id/$articulo->lnombre");
+            if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
+                $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
+                return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+            } else {
+                return redirect("/articulo/$id/$articulo->lnombre");
+            }
         }
     }
 

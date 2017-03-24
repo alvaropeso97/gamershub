@@ -49,6 +49,14 @@ class Handler extends ExceptionHandler
         if($exception instanceof NotFoundHttpException)
         {
             return redirect("/");
+        } else if($exception instanceof CategoriaNoEncontradaException) {
+            return response()->view('errores.categoria_no_encontrada');
+        } else if ($exception instanceof ArticuloNoEncontradoException) {
+            return response()->view('errores.articulo_no_encontrado');
+        } else if ($exception instanceof UsuarioNoEncontradoException) {
+            return response()->view('errores.usuario_no_encontrado');
+        } else if ($exception instanceof JuegoNoEncontradoException) {
+            return response()->view('errores.juego_no_encontrado');
         }
         return parent::render($request, $exception);
     }

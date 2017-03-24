@@ -11,6 +11,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UsuarioNoEncontradoException;
 use App\User;
 use App\Order;
 use DB;
@@ -25,10 +26,15 @@ class UsuariosController extends Controller
      * se encarga de buscar al usuario correspondiente en la base de datos para mostrarlo.
      * @param $nombre Nombre del usuario
      * @return Vista del perfil del usuario
+     * @throws UsuarioNoEncontradoException si no encuentra el usuario asociado al nombre
      */
     public function mostrarUsuario($nombre) {
         $usuario = User::where('name', $nombre)->first();
-        return view('layouts.paginas.perfil.perfil', ['id' => User::findOrFail($usuario->id)]);
+        if (!$usuario) {
+            throw new UsuarioNoEncontradoException;
+        } else {
+            return view('layouts.paginas.perfil.perfil', ['id' => User::findOrFail($usuario->id)]);
+        }
     }
 
     /**
