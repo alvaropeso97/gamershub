@@ -1,5 +1,5 @@
 <?php
-$cons =  DB::table('articulos')->orderBy('id','desc')->where('juego_rel',$id->id)->paginate(10);
+$cons =  \App\Articulo::orderBy('id','desc')->where('juego_rel',$id->id)->paginate(10);
 ?>
 @foreach($cons as $noticia)
     @php $autor = DB::table('users')->where('id', $noticia->id_autor)->first(); @endphp

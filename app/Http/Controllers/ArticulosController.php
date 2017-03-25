@@ -25,6 +25,9 @@ use Request;
 use Auth;
 use Mail;
 use App\TwitterAPIExchange;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 class ArticulosController extends Controller
 {
     /**
@@ -214,7 +217,7 @@ class ArticulosController extends Controller
             throw new ArticuloNoEncontradoException;
         } else {
             if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-                $juego = Articulo::where('id', $articulo->juego_rel)->first();
+                $juego = $articulo->getJuego;
                 return redirect("/juego/$juego->id/$juego->lnombre/analisis");
             } else {
                 switch ($articulo->tipo) {

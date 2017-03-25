@@ -5,7 +5,6 @@ namespace Illuminate\Routing;
 use BadMethodCallException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-
 abstract class Controller
 {
     /**

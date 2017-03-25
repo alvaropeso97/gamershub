@@ -12,6 +12,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Analisis;
 use App\Exceptions\JuegoNoEncontradoException;
 use App\Juego;
 use Illuminate\Routing\Controller;
@@ -30,7 +31,7 @@ class JuegosController extends Controller
      * @throws JuegoNoEncontradoException si no encuentra el juego asociado con el id y el título
      */
     public function mostrarJuego($id, $titulo) {
-        $juego = Juego::where('lnombre', $titulo)->where('id', '$id')->first();
+        $juego = Juego::where('lnombre', $titulo)->where('id', $id)->first();
         if (!$juego) {
             throw new JuegoNoEncontradoException;
         } else {
@@ -54,7 +55,7 @@ class JuegosController extends Controller
     }
 
     public function mostrarAnalisis($id, $titulo) {
-        $analisis = DB::table('analisis')->where('juego', $id)->first();
+        $analisis = Analisis::where('juego', $id)->first();
         $juego = DB::table('juegos')->where('lnombre', $titulo)->where('id', $id)->first();
         if (count($analisis) == 1) { //El juego tiene análisis
             $articulo = DB::table('articulos')->where('tipo', 'ana')->where('juego_rel', $id)->first();

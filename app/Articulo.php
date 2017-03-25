@@ -111,7 +111,6 @@ class Articulo extends Model
         $this->attributes['img'] = Carbon::now()->timestamp.$img->getClientOriginalName();
         $name = $this->attributes['img'] = Carbon::now()->timestamp.$img->getClientOriginalName();
         \Storage::disk('s3')->put("/noticias/$name", \File::get($img));
-
     }
 
     /**

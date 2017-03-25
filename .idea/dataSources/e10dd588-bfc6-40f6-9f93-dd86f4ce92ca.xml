@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="gamershub@gamershub.cbgyskn58fzl.eu-west-1.rds.amazonaws.com">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
     <root id="1"/>
     <schema id="2" parent="1" name="gamershub">
       <Current>1</Current>
@@ -67,6 +67,7 @@
       <ColNames>juego</ColNames>
     </index>
     <key id="38" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -120,6 +121,7 @@
       <ColNames>id_autor</ColNames>
     </index>
     <key id="50" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -157,6 +159,7 @@
       <DataType>varchar(200)|0</DataType>
     </column>
     <key id="58" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -203,6 +206,7 @@
       <ColNames>id_usuario</ColNames>
     </index>
     <key id="70" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -211,16 +215,16 @@
       <RefSchemaName>gamershub</RefSchemaName>
       <RefTableName>articulos</RefTableName>
       <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="72" parent="13" name="comentarios_users_id_fk">
       <ColNames>id_usuario</ColNames>
       <RefSchemaName>gamershub</RefSchemaName>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="73" parent="14" name="id">
       <Position>1</Position>
@@ -233,6 +237,7 @@
       <DataType>varchar(350)|0</DataType>
     </column>
     <key id="75" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -247,6 +252,7 @@
       <DataType>varchar(350)|0</DataType>
     </column>
     <key id="78" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -279,6 +285,7 @@
       <Unique>1</Unique>
     </index>
     <key id="85" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -349,6 +356,7 @@
       <Unique>1</Unique>
     </index>
     <key id="102" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -425,6 +433,7 @@
       <Unique>1</Unique>
     </index>
     <key id="121" parent="24" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>cod_pais</ColNames>
       <Primary>1</Primary>
     </key>
@@ -498,6 +507,7 @@
       <Unique>1</Unique>
     </index>
     <key id="136" parent="26" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id_usuario</ColNames>
       <Primary>1</Primary>
     </key>
@@ -642,6 +652,7 @@
       <Unique>1</Unique>
     </index>
     <key id="170" parent="27" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -694,6 +705,7 @@
       <ColNames>id_art</ColNames>
     </index>
     <key id="181" parent="29" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -702,8 +714,8 @@
       <RefSchemaName>gamershub</RefSchemaName>
       <RefTableName>articulos</RefTableName>
       <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>
