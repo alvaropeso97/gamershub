@@ -25,7 +25,7 @@
     <link rel="shortcut icon" href="{{ URL::asset('img/favicon.gif') }}">
 
     <!-- CSS -->
-    <link href="{{ URL::asset('css/gamershub_ls01.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
 
@@ -86,7 +86,6 @@
 <script src="{{ URL::asset('plugins/core.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/gamershub.js') }}"></script>
 <script src="{{ URL::asset('pasar/selectivity-jquery.js') }}"></script>
-<script src="{{ URL::asset('pasar/jquery.cookiebar.js') }}"></script>
 <script>
     (function($) {
         "use strict";
@@ -104,10 +103,6 @@
     $('#categorias').selectivity({
         allowClear: true,
         placeholder: 'No has seleccionado ninguna categoría'
-    });
-
-    $(document).ready(function(){
-        $.cookieBar();
     });
     tinymce.init({
         selector: '#editor',
