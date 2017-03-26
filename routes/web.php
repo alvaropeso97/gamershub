@@ -10,11 +10,9 @@
  *
  */
 
-Route::get('/test', function()
+Route::get('/mail', function()
 {
-    $img = Image::make('http://img.gamershub.es/noticias/1484315979Packs.jpg')->resize(942, 530);
-
-    return $img->response('jpg');
+    return view('layouts.mail.newsletter');
 });
 
 /**
