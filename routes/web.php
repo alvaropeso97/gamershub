@@ -16,6 +16,7 @@ Route::get('/test', function()
 
     return $img->response('jpg');
 });
+
 /**
  * Página principal
  */

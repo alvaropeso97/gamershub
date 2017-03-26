@@ -30,7 +30,7 @@
 
 @else
     <section class="hero hero-review height-500"
-             style="background-image: url('{{Config::get('constants.S1_URL')}}/noticias/{{$id->img}}'); height: 400px; ">
+             style="background-image: url('{{Config::get('constants.S1_URL')}}/noticias_rsz/1600x900_{{$id->img}}'); height: 400px; ">
         <div class="hero-bg"></div>
         <div class="container">
             <div class="page-header">

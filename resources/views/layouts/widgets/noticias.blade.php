@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="post-thumbnail">
-                        <a href="/articulo/{{$noticia->id}}/{{$noticia->lnombre}}"><img src="{{Config::get('constants.S1_URL')}}/noticias/{{$noticia->img}}" alt=""></a>
+                        <a href="/articulo/{{$noticia->id}}/{{$noticia->lnombre}}"><img src="{{Config::get('constants.S1_URL')}}/noticias_rsz/500x281_{{$noticia->img}}" alt=""></a>
                         <div class="meta"><a href="/articulo/{{$noticia->id}}/{{$noticia->lnombre}}"><i class="fa fa-comments"></i> <span>{{count($noticia->getComentarios)}}</span></a></div>
                     </div>
                 </div>

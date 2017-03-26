@@ -17,7 +17,7 @@ $contador = 1;
             @endphp
             <div class="post-block first">
                 <a href="/articulo/{{$noticia_destacada->id}}/{{$noticia_destacada->lnombre}}" class="link">
-                    <img src="{{Config::get('constants.S1_URL')}}/noticias/{{$noticia_destacada->img}}" alt="">
+                    <img src="{{Config::get('constants.S1_URL')}}/noticias_rsz/950x534_{{$noticia_destacada->img}}" alt="">
                     <div class="overlay">
                         <div class="caption">
                             @foreach($noticia_destacada->getCategorias as $categoria)

@@ -24,9 +24,6 @@ use App\Http\Requests;
 use Request;
 use Auth;
 use Mail;
-use App\TwitterAPIExchange;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 class ArticulosController extends Controller
 {
@@ -80,48 +77,29 @@ class ArticulosController extends Controller
             ]);
         }
 
-        // ENVIAR TWEET CON IMAGEN A LA CUENTA @GamersHUBes
-        $settings = array(
-            'oauth_access_token' => "727198831117520902-9NtB6KQ30eOoEQnSrqYqkHYKLTs0CFj",
-            'oauth_access_token_secret' => "Xf4zgGn1LTobncBxfdZE8LBw6way5sQuppYvocaFY29wv",
-            'consumer_key' => "0Q9zTglNELrGH4vlHs4v9C6pB",
-            'consumer_secret' => "FjrdyzQcLglYylk59AIwhYPE9aU07x9QeWBm9c9rzApF1lpzSd"
-        );
-        $twitter = new TwitterAPIExchange($settings);
+        /*
+         * Almacenar la imágen en tamaños diferentes
+         */
+        // 1600x900 [BIG]
+        $big = Image::make($request->file('img'))->resize(1600,900);
+        \Storage::disk('s3')->put("/noticias/1600x900_$articulo->img", (string) $big->encode('jpg'));
+        // 950x534 [MEDIUM]
+        $med = Image::make($request->file('img'))->resize(950,534);
+        \Storage::disk('s3')->put("/noticias/950x534_$articulo->img", (string) $med->encode('jpg'));
+        // 500x281 [SMALL]
+        $smll = Image::make($request->file('img'))->resize(500,281);
+        \Storage::disk('s3')->put("/noticias/500x281_$articulo->img", (string) $smll->encode('jpg'));
 
-        $file = file_get_contents('http://img.gamershub.es/noticias/'.$articulo->img);
-        $data = base64_encode($file);
-
-        // Upload image to twitter
-        $url = "https://upload.twitter.com/1.1/media/upload.json";
-        $method = "POST";
-        $params = array(
-            "media_data" => $data,
-        );
-
-
-        $json = $twitter
-            ->setPostfields($params)
-            ->buildOauth($url, $method)
-            ->performRequest();
-
-        // Result is a json string
-        $res = json_decode($json);
-        // Extract media id
-        $id = $res->media_id_string;
-
-        $url = 'https://api.twitter.com/1.1/statuses/update.json';
-
-        $postdata = array(
-            'status' => $articulo->titulo." gamershub.es/articulo/".$articulo->id."/".$articulo->lnombre,
-            'media_ids' => $id
-        );
-
-        $requestMethod = 'POST';
-
-        $twitter = new TwitterAPIExchange($settings);
-        $twitter->setPostfields($postdata)->buildOauth($url,$requestMethod)->performRequest();
         return redirect('/panel/articulos')->with('mensaje', 'Has creado un artículo correctamente.');
+    }
+
+    public static function convertirImagenes() {
+        $articulos = Articulo::all();
+        foreach ($articulos as $articulo) {
+            $link = str_replace(' ','%20',$articulo->img);
+            $big = Image::make("https://s3.eu-central-1.amazonaws.com/img.gamershub.es/noticias/$link")->resize(500,281);
+            \Storage::disk('s3')->put("/noticias_rsz/500x281_$articulo->img", (string) $big->encode());
+        }
     }
 
     /**

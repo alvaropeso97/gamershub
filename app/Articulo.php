@@ -10,8 +10,10 @@
  */
 
 namespace App;
+use App\Http\Controllers\ArticulosController;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Intervention\Image\Facades\Image;
 
 /**
  * Esta clase es el modelo de la tabla "articulos" de la base de datos
@@ -108,9 +110,8 @@ class Articulo extends Model
      * @param $img Imagen destacada del artículo
      */
     public function setImgAttribute($img) {
-        $this->attributes['img'] = Carbon::now()->timestamp.$img->getClientOriginalName();
-        $name = $this->attributes['img'] = Carbon::now()->timestamp.$img->getClientOriginalName();
-        \Storage::disk('s3')->put("/noticias/$name", \File::get($img));
+        $nombre_img = ArticulosController::sanear_string($img->getClientOriginalName());
+        $this->attributes['img'] = Carbon::now()->timestamp.$nombre_img;
     }
 
     /**

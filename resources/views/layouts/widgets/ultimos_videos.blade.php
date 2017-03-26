@@ -11,7 +11,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="card card-video">
                             <div class="card-img">
-                                <a href="/articulo/{{$video->id}}/{{$video->lnombre}}"><img src="{{Config::get('constants.S1_URL')}}/noticias/{{$video->img}}" alt=""></a>
+                                <a href="/articulo/{{$video->id}}/{{$video->lnombre}}"><img src="{{Config::get('constants.S1_URL')}}/noticias_rsz/500x281_{{$video->img}}" alt=""></a>
                                 <div class="time">{{$vid->dur}}</div>
                             </div>
                             <div class="caption">
