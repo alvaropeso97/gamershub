@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4614806-8593-4cd6-9655-d0b9db6de2ae" name="Default" comment="Eliminación del controlador de registro">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -166,7 +166,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/EtiquetasController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/GenerosController.php" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/Analisis.php" />
         <option value="$PROJECT_DIR$/app/Categoria.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/widgets/categoria/busqueda_categoria.blade.php" />
@@ -204,6 +203,7 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/widgets/articulo/cabecera.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/mail/newsletter.blade.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -579,7 +579,7 @@
       <workItem from="1490284931427" duration="4864000" />
       <workItem from="1490340126113" duration="11883000" />
       <workItem from="1490447806292" duration="8134000" />
-      <workItem from="1490522417424" duration="8439000" />
+      <workItem from="1490522417424" duration="8685000" />
     </task>
     <task id="LOCAL-00001" summary="Prueba inicial de GIT en PHPStorm">
       <created>1490109235314</created>
@@ -613,7 +613,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85569000" />
+    <option name="totallyTimeSpent" value="85815000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -697,14 +697,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Privacidad_usuariosController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="13" column="4" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/lang/en/auth.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1155,6 +1147,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
           <folding />
         </state>
       </provider>
