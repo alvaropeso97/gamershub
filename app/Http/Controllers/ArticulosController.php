@@ -17,6 +17,7 @@ use App\Articulo;
 use App\Etiqueta;
 use App\Exceptions\ArticuloNoEncontradoException;
 use App\Juego;
+use App\Mail\ConfirmacionRegistro;
 use App\Video;
 use Illuminate\Routing\Controller;
 use DB;

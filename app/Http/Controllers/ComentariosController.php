@@ -33,7 +33,7 @@ class ComentariosController extends Controller
         ]);
 
         //Almacenar el comentario en la base de datos
-        \App\Comentario::create(Request::all());
+        Comentario::create(Request::all());
 
         //Devolver al usuario al artículo
         return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($id)]);

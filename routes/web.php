@@ -10,9 +10,9 @@
  *
  */
 
-Route::get('/mail', function()
-{
-    return view('layouts.mail.newsletter');
+Route::get('/mail', function () {
+    /*Mail::to('alvaro.peso.97@gmail.com')
+        ->send(new \App\Mail\ConfirmacionRegistro(\App\User::find(1)));*/
 });
 
 /**

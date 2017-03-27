@@ -22,9 +22,8 @@
     <title>Mail</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="{{ URL::asset('img/favicon.gif') }}">
     <!-- CSS -->
-    <link href="{{ URL::asset('css/gamershub_ls01.css') }}" rel="stylesheet">
+    <link href="http://gamershub.es/css/gamershub_ls01.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
 
     <!-- ESTILO -->
