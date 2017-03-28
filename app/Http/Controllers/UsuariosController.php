@@ -12,11 +12,14 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\UsuarioNoEncontradoException;
+use App\Mail\NotificacionRegistro;
 use App\User;
 use App\Order;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Mail;
 use Validator;
+use Illuminate\Http\Request;
 
 class UsuariosController extends Controller
 {
@@ -125,6 +128,81 @@ class UsuariosController extends Controller
 
     public static function devolverPlataformasUsuario($usuario) {
         return DB::select("select id_plataforma from usuarios_plataformas where id_usuario=".$usuario);
+    }
+
+    /**
+     * Esta función verifica un usuario a través de una url formada por el $id del usuario y
+     * el $token de verificación siguiendo una serie de comprobaciones y operaciones:
+     * 0. Comprobar si el usuario obtenido a través de la $id existe
+     * 1. Comprobar si el usuario obtenido a través de la $id ya ha sido verificado
+     * 2. Comprobar que el $token coincida con el usuario obtenido a través de la $id sea correcto
+     * 3. Verificar usuario. En la tabla users cambiar el valor de 'verificada' de 0 a 1
+     * 4. Enviar notificación al correo electrónico correspondiente del usuario
+     * @param $id identificador del usuario
+     * @param $token de verificación contenido en la tabla 'confirm_email'
+     * @return vista de confirmar_email con un mensaje para dar información al usuario del estado
+     * del proceso de confirmación
+     */
+    public static function confirmarEmail($id, $token) {
+        //Comprobar si el usuario existe
+        $usuario = User::find($id);
+        if ($usuario != null) {
+            //Comprobar si el usuario ya está verificado
+            if ($usuario->verificada == 0) {
+                //Comprobar si el token es correcto
+                if ($usuario->getConfirmEmail->token == $token) {
+                    //El usuario existe, no ha sido verificado y el token es correcto
+                    //Verificar cuenta
+                    $usuario->verificada = '1';
+                    $usuario->save();
+                    //Enviar notificación
+                    Mail::to($usuario->email)
+                        ->send(new NotificacionRegistro($usuario));
+                    return view('layouts.paginas.confirmar_email', ['accion' => '3']);
+                } else {
+                    return view('layouts.paginas.confirmar_email', ['accion' => '2']);
+                }
+            } else {
+                return view('layouts.paginas.confirmar_email', ['accion' => '1']);
+            }
+        } else {
+            return view('layouts.paginas.confirmar_email', ['accion' => '0']);
+        }
+    }
+
+    /**
+     * Esta función autentica a un usuario en el sistema a través del formulario /login siguiendo una serie
+     * de operaciones y comprobaciones:
+     * 0. Comprueba que el usuario introducido en el formulario exista en la base de datos
+     * 1. Comprueba que el usuario haya sido verificado
+     * 2. Comprueba que el email introducido coincida con la contraseña
+     * 3. Autentica al usuario
+     * 4. Redirige al usuario a la página principal
+     * @param Request $request datos obtenidos a través del formulario de acceso
+     * @return vista /login si ha ocurrido algún error | redirección a la página principal si se ha autenticado
+     * con éxito
+     */
+    public function autenticar(Request $request)
+    {
+        $email = $request->get('email');
+        $password = $request->get('password');
+        $usuario = User::where('email', $email)->first();
+        //Comprobar si el usuario existe
+        if ($usuario != null) {
+            //Comprobar que el usuario esté verificado
+            if ($usuario->verificada == 1) {
+                if (\Illuminate\Support\Facades\Auth::attempt(['email' => $email, 'password' => $password, 'verificada' => 1])) {
+                    //Autenticación correcta
+                    return redirect('/'); //Redirigir a la página principal
+                } else {
+                    return redirect('/login')->with('error', 'La contraseña introducida es incorrecta');
+                }
+            } else {
+                return redirect('/login')->with('error', 'Ésta cuenta todavía no ha sido confirmada, si eres el propietario revisa tu bandeja de correo electrónico para hacerlo');
+            }
+        } else {
+            return redirect('/login')->with('error', 'El usuario asociado a esa dirección de correo electrónico no existe');
+        }
     }
 
     /*

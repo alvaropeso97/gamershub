@@ -32,10 +32,8 @@ trait RegistersUsers
 
         event(new Registered($user = $this->create($request->all())));
 
-        $this->guard()->login($user);
+        return redirect('/login')->with('mensaje', 'Te has registrado correctamente, revisa tu bandeja de correo electrónico para confirmar tu cuenta');
 
-        return $this->registered($request, $user)
-            ?: redirect($this->redirectPath());
     }
 
     /**

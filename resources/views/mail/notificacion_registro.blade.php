@@ -56,14 +56,9 @@
         <p>
             Hola <span>{{$name}}</span>,
         </p>
-        <p>te damos la bienvenida a <b>GamersHUB</b>.</p>
-        <p>Desde ahora podrás participar en la comunidad hecha por y para
-            jugadores, podrás comentar las últimas novedades del mundo de los videojuegos y participar en los foros y
-            debates que tenemos preparados para tí además de disfrutar de otros servicios que te están esperando en nuestro portal...</p>
-        <p>Antes de continuar deberás confirmar tu dirección
-            de correo electrónico pulsando sobre el botón inferior.</p>
-
-        <p class="center"><a href="http://www.gamershub.es/confirmar_email/{{$id}}/{{$token}}" class="boton">Confirmar</a></p>
+        <p>Has confirmado tu dirección de correo electrónico correctamente, ahora puedes acceder a tu cuenta desde <a
+                    href="http://www.gamershub.es/login">aquí</a>.</p>
+        <p>Un saludo, el equipo de GamersHUB</p>
 
     </div>
     <div class="footer">

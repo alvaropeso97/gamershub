@@ -10,9 +10,8 @@
  *
  */
 
-Route::get('/mail', function () {
-    /*Mail::to('alvaro.peso.97@gmail.com')
-        ->send(new \App\Mail\ConfirmacionRegistro(\App\User::find(1)));*/
+Route::get('/test', function () {
+    //
 });
 
 /**
@@ -32,6 +31,7 @@ Route::get('/videos', function () {
 Route::get('/login', function () {
     return view('layouts.paginas.login');
 });
+Route::post ('/autenticar', 'UsuariosController@autenticar');
 
 /**
  * Búsqueda de artículos, juegos, usuarios...
@@ -74,6 +74,7 @@ Route::get('plataforma/{alias}/{orden}', 'CategoriasController@mostrarPlataforma
  * USUARIOS
  */
 Route::get('usuario/{nombre}', 'UsuariosController@mostrarUsuario');
+Route::get('confirmar_email/{id}/{token}', 'UsuariosController@confirmarEmail');
 
 Route::get('usuario/{nombre}/editar', 'UsuariosController@mostrarEditarPerfilUsuario')->middleware('auth');
 Route::post('usuario/{nombre}/editar/guardar-privacidad', 'Privacidad_usuariosController@actualizar');

@@ -27,7 +27,7 @@ class User extends Authenticatable
     protected $fillable = ['id',
         'name', 'email', 'password','fecha_nacimiento','genero_preferido','pais','ciudad','sexo','fecha_nac',
         'firma_personal','xbox_gamertag','ps_id','nintendo_network','codigo_amigo_wii','codigo_amigo_3ds',
-        'codigo_amigo_ds','microsoft_gamertag','steam_id','twitter','facebook','google','web_blog'
+        'codigo_amigo_ds','microsoft_gamertag','steam_id','twitter','facebook','google','web_blog','verificada'
     ];
 
     protected $hidden = [
@@ -77,5 +77,9 @@ class User extends Authenticatable
                 return "Administrador";
                 break;
         }
+    }
+
+    public function getConfirmEmail() {
+        return $this->hasOne('App\ConfirmEmail', 'user_id', 'id');
     }
 }

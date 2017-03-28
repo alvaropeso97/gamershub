@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmacionRegistro extends Mailable
+class NotificacionRegistro extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -26,20 +26,16 @@ class ConfirmacionRegistro extends Mailable
     }
 
     /**
-     * Construye un correo electrónico a través de la vista mail.confirmacion_registro con los
+     * Construye un correo electrónico a través de la vista mail.notificacion_registro con los
      * datos del $usuario receptor.
-     * El correo electrónico notifica al usuario que ha creado su cuenta correctamente y debe confirmar
-     * su dirección de correo electrónico mediante un enlace autogenerado con su $id y un $token de seguridad
+     * El correo electrónico notifica al usuario que ha confirmado su cuenta correctamente
      * @return $this objeto de tipo Mailable
      */
     public function build()
     {
-        $token = $this->usuario->getConfirmEmail->token; //Obtener token de seguridad generado para el usuario
         return $this->from('no-reply@gamershub.es')
-            ->view('mail.confirmacion_registro')->with([
-                'id' => $this->usuario->id,
+            ->view('mail.notificacion_registro')->with([
                 'name' => $this->usuario->name,
-                'token' => $token,
             ]);
     }
 }
