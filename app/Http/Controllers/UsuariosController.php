@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 class UsuariosController extends Controller
 {
 
+
     /**
      * El usuario introduce en la barra de direcciones .../usuario/nickname y ésta función
      * se encarga de buscar al usuario correspondiente en la base de datos para mostrarlo.

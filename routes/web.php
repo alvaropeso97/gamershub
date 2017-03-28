@@ -150,3 +150,13 @@ Route::group(['middleware' => 'auth'], function()
     Route::post ('/panel/juegos/editar-juego/{id}/modificar', 'JuegosController@modificarJuego');
 });
 });
+
+/**
+ * BACKEND
+ */
+//Login
+Route::get('/backend/login', function () {
+    return view('backend.login');
+});
+//Dashboard
+Route::get ('/backend/dashboard', 'BackendController@mostrarDashboard');
