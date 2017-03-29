@@ -71,6 +71,7 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Messerli90\\IGDB\\' => 16,
         ),
         'L' => 
         array (
@@ -226,6 +227,10 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Messerli90\\IGDB\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/messerli90/igdb/src',
+        ),
         'League\\Flysystem\\AwsS3v3\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem-aws-s3-v3/src',
@@ -343,6 +348,7 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'App\\Articulo' => __DIR__ . '/../..' . '/app/Articulo.php',
         'App\\Categoria' => __DIR__ . '/../..' . '/app/Categoria.php',
         'App\\Comentario' => __DIR__ . '/../..' . '/app/Comentario.php',
+        'App\\ConfirmEmail' => __DIR__ . '/../..' . '/app/ConfirmEmail.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Etiqueta' => __DIR__ . '/../..' . '/app/Etiqueta.php',
         'App\\Exceptions\\ArticuloNoEncontradoException' => __DIR__ . '/../..' . '/app/Exceptions/ArticuloNoEncontradoException.php',
@@ -357,6 +363,7 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\BackendController' => __DIR__ . '/../..' . '/app/Http/Controllers/BackendController.php',
         'App\\Http\\Controllers\\CategoriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoriasController.php',
         'App\\Http\\Controllers\\ComentariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/ComentariosController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -376,6 +383,7 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Juego' => __DIR__ . '/../..' . '/app/Juego.php',
         'App\\Mail\\ConfirmacionRegistro' => __DIR__ . '/../..' . '/app/Mail/ConfirmacionRegistro.php',
+        'App\\Mail\\NotificacionRegistro' => __DIR__ . '/../..' . '/app/Mail/NotificacionRegistro.php',
         'App\\Pais' => __DIR__ . '/../..' . '/app/Pais.php',
         'App\\PrivacidadUsuario' => __DIR__ . '/../..' . '/app/PrivacidadUsuario.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
@@ -2132,6 +2140,9 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'League\\Flysystem\\Util\\ContentListingFormatter' => __DIR__ . '/..' . '/league/flysystem/src/Util/ContentListingFormatter.php',
         'League\\Flysystem\\Util\\MimeType' => __DIR__ . '/..' . '/league/flysystem/src/Util/MimeType.php',
         'League\\Flysystem\\Util\\StreamHasher' => __DIR__ . '/..' . '/league/flysystem/src/Util/StreamHasher.php',
+        'Messerli90\\IGDB\\Facades\\IGDB' => __DIR__ . '/..' . '/messerli90/igdb/src/Facades/IGDB.php',
+        'Messerli90\\IGDB\\IGDB' => __DIR__ . '/..' . '/messerli90/igdb/src/IGDB.php',
+        'Messerli90\\IGDB\\IGDBServiceProvider' => __DIR__ . '/..' . '/messerli90/igdb/src/IGDBServiceProvider.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',

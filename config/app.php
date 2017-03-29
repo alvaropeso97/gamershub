@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         RobbieP\CloudConvertLaravel\CloudConvertLaravelServiceProvider::class,
+        Messerli90\IGDB\IGDBServiceProvider::class,
 
         /*
          * Package Service Providers...

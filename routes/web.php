@@ -13,6 +13,7 @@
 Route::get('/test', function () {
     //
 });
+Route::get ('/api', 'JuegosController@test');
 
 /**
  * Página principal

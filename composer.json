@@ -10,7 +10,8 @@
         "guzzlehttp/guzzle": "^6.2",
         "league/flysystem-aws-s3-v3": "^1.0",
         "intervention/image": "^2.3",
-        "robbiep/cloudconvert-laravel": "2.*"
+        "robbiep/cloudconvert-laravel": "2.*",
+        "messerli90/igdb": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
