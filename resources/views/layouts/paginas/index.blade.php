@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', \App\ConfigGeneral::first()->titulo_inicio)
+@section('titulo', \App\ConfigGeneral::first()->nombre_aplicacion.' - '.\App\ConfigGeneral::first()->titulo_inicio)
 @section('contenido')
     <!-- Noticias destacadas -->
     @include('layouts.widgets.noticias_destacadas')

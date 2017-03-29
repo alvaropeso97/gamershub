@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'Todos los vídeos')
+@section('titulo', 'Todos los vídeos - '.\App\ConfigGeneral::first()->nombre_aplicacion)
 @php $cons =  \App\Articulo::whereRaw('tipo = "vid"')->orderBy('id','desc')->paginate(16); @endphp
 @section('contenido')
 

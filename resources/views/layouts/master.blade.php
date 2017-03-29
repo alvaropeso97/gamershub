@@ -19,7 +19,8 @@
     <meta name="author" content="LynoStudios">
     <meta name='robots' content='NOODP' />
 
-    <title>@yield('titulo') | {{\App\ConfigGeneral::first()->nombre_aplicacion}}</title>
+    <title>@yield('titulo')</title>
+    <title>@yield('titulo-inicio')</title>
 
     <!-- FAVICON -->
     <link rel="shortcut icon" href="{{ URL::asset('img/favicon.gif') }}">

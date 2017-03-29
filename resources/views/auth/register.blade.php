@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'Registro')
+@section('titulo', 'Registrarse en la comunidad de '.\App\ConfigGeneral::first()->nombre_aplicacion)
 
 @section('contenido')
     <section class="hero hero-panel">

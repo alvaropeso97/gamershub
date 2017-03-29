@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('titulo', 'Configuracion')
+@section('titulo', 'Configuración')
 @section('configuracion', 'class="active"')
 @section('contenido')
     <div class="main">
