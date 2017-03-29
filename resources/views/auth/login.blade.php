@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Acceso de usuarios')
+@section('titulo', 'Acceso de usuarios')
 
 @section('contenido')
     <section class="hero hero-panel" style="background-image: url(/img/bg/bgreg.jpg);">

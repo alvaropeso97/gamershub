@@ -1,5 +1,6 @@
 @extends('backend.master')
 @section('titulo', 'Dashboard')
+@section('dashboard', 'class="active"')
 @section('contenido')
 <div class="main">
     <div class="main-inner">

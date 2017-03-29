@@ -1,7 +1,8 @@
-<?php
+@if(\App\ConfigGeneral::first()->noticias_dest == 1)
+@php
 $destacadas = \App\Articulo::orderBy('id','desc')->take(5)->get();
 $contador = 1;
-?>
+@endphp
 <div style="border-top: 1px solid white;">
     @foreach($destacadas as $noticia_destacada)
         <section class="no-padding bg-dark">
@@ -36,3 +37,4 @@ $contador = 1;
             @endforeach
         </section>
 </div>
+@endif

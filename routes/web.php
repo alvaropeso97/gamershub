@@ -157,3 +157,6 @@ Route::group(['middleware' => 'auth'], function()
  */
 //Dashboard
 Route::get ('/backend/dashboard', 'BackendController@mostrarDashboard');
+//Configuración
+Route::get ('/backend/configuracion', 'BackendController@mostrarConfiguracion');
+Route::post('/backend/configuracion/update', 'ConfigGeneralController@update');

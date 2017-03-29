@@ -1,8 +1,8 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Registro')
+@section('titulo', 'Registro')
 
 @section('contenido')
-    <section class="hero hero-panel" style="background-image: url(/img/bg/bgreg.jpg);">
+    <section class="hero hero-panel">
         <div class="hero-bg"></div>
         <div class="container relative">
             <div class="row">

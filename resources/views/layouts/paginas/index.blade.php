@@ -1,6 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores...')
-
+@section('titulo', \App\ConfigGeneral::first()->titulo_inicio)
 @section('contenido')
     <!-- Noticias destacadas -->
     @include('layouts.widgets.noticias_destacadas')

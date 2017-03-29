@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Análisis')
+@section('titulo', 'Análisis')
 
 @section('contenido')
     @php $cons =  \App\Articulo::whereRaw('tipo = "ana"')->orderBy('id','desc')->paginate(3); @endphp
