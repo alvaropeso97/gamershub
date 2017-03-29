@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ConfirmacionRegistro;
 
 class HomeController extends Controller
 {

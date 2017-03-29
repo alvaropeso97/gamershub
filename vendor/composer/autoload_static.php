@@ -71,7 +71,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'M' => 
         array (
             'Monolog\\' => 8,
-            'Messerli90\\IGDB\\' => 16,
         ),
         'L' => 
         array (
@@ -227,10 +226,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Messerli90\\IGDB\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/messerli90/igdb/src',
-        ),
         'League\\Flysystem\\AwsS3v3\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem-aws-s3-v3/src',
@@ -302,6 +297,13 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
     );
 
     public static $prefixesPsr0 = array (
+        'U' => 
+        array (
+            'Unirest\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/mashape/unirest-php/src',
+            ),
+        ),
         'R' => 
         array (
             'RobbieP\\CloudConvertLaravel\\' => 
@@ -2140,9 +2142,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'League\\Flysystem\\Util\\ContentListingFormatter' => __DIR__ . '/..' . '/league/flysystem/src/Util/ContentListingFormatter.php',
         'League\\Flysystem\\Util\\MimeType' => __DIR__ . '/..' . '/league/flysystem/src/Util/MimeType.php',
         'League\\Flysystem\\Util\\StreamHasher' => __DIR__ . '/..' . '/league/flysystem/src/Util/StreamHasher.php',
-        'Messerli90\\IGDB\\Facades\\IGDB' => __DIR__ . '/..' . '/messerli90/igdb/src/Facades/IGDB.php',
-        'Messerli90\\IGDB\\IGDB' => __DIR__ . '/..' . '/messerli90/igdb/src/IGDB.php',
-        'Messerli90\\IGDB\\IGDBServiceProvider' => __DIR__ . '/..' . '/messerli90/igdb/src/IGDBServiceProvider.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
@@ -3794,6 +3793,11 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'Symfony\\Polyfill\\Util\\TestListener' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListener.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'Unirest\\Exception' => __DIR__ . '/..' . '/mashape/unirest-php/src/Unirest/Exception.php',
+        'Unirest\\Method' => __DIR__ . '/..' . '/mashape/unirest-php/src/Unirest/Method.php',
+        'Unirest\\Request' => __DIR__ . '/..' . '/mashape/unirest-php/src/Unirest/Request.php',
+        'Unirest\\Request\\Body' => __DIR__ . '/..' . '/mashape/unirest-php/src/Unirest/Request/Body.php',
+        'Unirest\\Response' => __DIR__ . '/..' . '/mashape/unirest-php/src/Unirest/Response.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',

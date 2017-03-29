@@ -13,7 +13,7 @@
 Route::get('/test', function () {
     //
 });
-Route::get ('/api', 'JuegosController@test');
+Route::get ('/api', 'EtiquetasController@test');
 
 /**
  * Página principal
@@ -155,9 +155,5 @@ Route::group(['middleware' => 'auth'], function()
 /**
  * BACKEND
  */
-//Login
-Route::get('/backend/login', function () {
-    return view('backend.login');
-});
 //Dashboard
 Route::get ('/backend/dashboard', 'BackendController@mostrarDashboard');

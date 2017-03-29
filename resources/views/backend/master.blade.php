@@ -54,6 +54,7 @@
     </div> <!-- /navbar-inner -->
 
 </div> <!-- /navbar -->
+@include('backend.widgets.menu')
 @yield('contenido')
 <script src="{{ URL::asset('backend/js/jquery-1.7.2.min.js') }}"></script>
 <script src="{{ URL::asset('backend/js/bootstrap.js') }}"></script>

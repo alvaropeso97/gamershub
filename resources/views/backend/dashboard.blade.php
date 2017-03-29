@@ -1,7 +1,6 @@
 @extends('backend.master')
 @section('titulo', 'Dashboard')
 @section('contenido')
-@include('backend.widgets.menu')
 <div class="main">
     <div class="main-inner">
         <div class="container">

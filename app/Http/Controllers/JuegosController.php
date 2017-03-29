@@ -18,16 +18,11 @@ use App\Juego;
 use Illuminate\Routing\Controller;
 use DB;
 use App\Http\Requests;
-use Messerli90\IGDB\IGDB;
 use Request;
 use Auth;
 
 class JuegosController extends Controller
 {
-    public static function test() {
-        $api = new IGDB('56HNhTBsfrmshcgMzniDjVqFToC6p1mPDEsjsnkrP01TabILYv');
-        dd($api->searchGames('call of duty'));
-    }
     /**
      * Muestra un juego a través de su id y su título
      * @param $id del juego

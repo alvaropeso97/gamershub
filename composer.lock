@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "398362e689ea2ac9939e59e8f8f20251",
+    "content-hash": "14869ca617268843d2640bb3d7669466",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -884,51 +884,50 @@
             "time": "2016-06-21T21:34:35+00:00"
         },
         {
-            "name": "messerli90/igdb",
-            "version": "dev-master",
+            "name": "mashape/unirest-php",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/messerli90/igdb.git",
-                "reference": "8c9ee67604d6d8b4e40ccfb145a25dd4ce9e2084"
+                "url": "https://github.com/Mashape/unirest-php.git",
+                "reference": "842c0f242dfaaf85f16b72e217bf7f7c19ab12cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/messerli90/igdb/zipball/8c9ee67604d6d8b4e40ccfb145a25dd4ce9e2084",
-                "reference": "8c9ee67604d6d8b4e40ccfb145a25dd4ce9e2084",
+                "url": "https://api.github.com/repos/Mashape/unirest-php/zipball/842c0f242dfaaf85f16b72e217bf7f7c19ab12cb",
+                "reference": "842c0f242dfaaf85f16b72e217bf7f7c19ab12cb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.0"
+                "ext-curl": "*",
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "illuminate/support": ">= 5.0",
-                "phpunit/phpunit": "~5.0"
+                "codeclimate/php-test-reporter": "0.1.*",
+                "phpunit/phpunit": "~4.4"
+            },
+            "suggest": {
+                "ext-json": "Allows using JSON Bodies for sending and parsing requests"
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Messerli90\\IGDB\\": "src/"
+                "psr-0": {
+                    "Unirest\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Michael Messerli",
-                    "email": "michaelamesserli@gmail.com"
-                }
-            ],
-            "description": "Laravel PHP Facade/Wrapper for the IGDB API",
+            "description": "Unirest PHP",
+            "homepage": "https://github.com/Mashape/unirest-php",
             "keywords": [
-                "api",
-                "gaming",
-                "igdb",
-                "laravel",
-                "messerli90"
+                "client",
+                "curl",
+                "http",
+                "https",
+                "rest"
             ],
-            "time": "2017-01-04T10:34:44+00:00"
+            "time": "2016-08-11T17:49:21+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4093,9 +4092,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "messerli90/igdb": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
