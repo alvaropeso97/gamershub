@@ -11,6 +11,7 @@
                                 <h3>[{{$usuario->name}}] Modificar</h3>
                             </div>
                             <div class="widget-content">
+                                @if(Session::has('mensaje')) <div class="alert alert-success"> {{Session::get('mensaje')}} </div> @endif
                                 <form action="/backend/usuarios/{{$usuario->id}}/update" method="POST">
                                     {{ csrf_field() }}
                                     <div class="row">
@@ -39,6 +40,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="span3">
                                             <div class="form-group">
@@ -49,7 +51,11 @@
                                         <div class="span2">
                                             <div class="form-group">
                                                 <label class="control-label" for="pais">Pais</label>
-                                                <input type="text" class="span2" id="pais" name="pais" value="{{$usuario->pais}}">
+                                                <select name="pais" class="span2" id="pais">
+                                                    @foreach($paises as $pais)
+                                                    <option value="{{$pais->cod_pais}}" @if($usuario->pais == $pais->cod_pais) selected @endif>{{$pais->pais}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="span2">
@@ -61,21 +67,26 @@
                                         <div class="span2">
                                             <div class="form-group">
                                                 <label class="control-label" for="sexo">Sexo</label>
-                                                <input type="text" id="email" class="span2" id="sexo" name="sexo" value="{{$usuario->sexo}}">
+                                                <select name="sexo" class="span2" id="sexo">
+                                                    <option value="H" @if($usuario->sexo == "H") selected @endif>Hombre</option>
+                                                    <option value="M" @if($usuario->sexo == "M") selected @endif>Mujer</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
-                                        <div class="span12">
+                                        <div class="span11">
                                             <label for="firma_personal">Firma personal</label>
                                             <textarea name="firma_personal" class="span11" id="firma_personal" rows="5">{{$usuario->firma_personal}}</textarea>
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="span3">
                                             <div class="form-group">
                                                 <label class="control-label" for="password">Contraseña</label>
-                                                <input type="password" class="span3" id="password" name="passsword" value="12345678910111213">
+                                                <input type="password" class="span3" id="password" name="password">
                                             </div>
                                         </div>
                                         <div class="span2">
@@ -92,7 +103,7 @@
                                                 <label class="control-label" for="rol">Rol</label>
                                                 <select name="rol" class="span3" id="rol">
                                                     @foreach($roles as $rol)
-                                                        <option value="{{$rol->id}}">{{$rol->nombre}}</option>
+                                                        <option value="{{$rol->id}}" @if($usuario->acceso == $rol->id) selected @endif>{{$rol->nombre}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -108,4 +119,16 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('#fecha_nacimiento').datepicker({
+            format: "yyyy/mm/dd",
+            autoclose: true,
+            language: "es"
+        });
+        tinymce.init({
+            selector:'textarea'
+        });
+    </script>
 @endsection

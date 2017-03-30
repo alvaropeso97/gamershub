@@ -11,9 +11,11 @@
  */
 
 Route::get('/test', function () {
-    //
+    foreach (\App\User::find(1)->getRol->getPermisos as $permiso) {
+        echo $permiso->nombre;
+    }
+    echo \App\User::find(1)->tienePermiso(1);
 });
-Route::get ('/api', 'EtiquetasController@test');
 
 /**
  * Página principal
@@ -155,18 +157,31 @@ Route::group(['middleware' => 'auth'], function()
 /**
  * BACKEND
  */
-//Dashboard
-Route::get ('/backend/dashboard', 'Backend\DashboardController@show');
-//Configuración general
-Route::get ('/backend/configuracion', 'Backend\ConfigGeneralController@show');
-Route::post('/backend/configuracion/update', 'Backend\ConfigGeneralController@update');
-//Configuración de roles y permisos
-Route::get ('/backend/configuracion/roles', 'Backend\RolesController@show');
-Route::post ('/backend/configuracion/roles/crear-rol', 'Backend\RolesController@storeRol'); //AJAX
-Route::post ('/backend/configuracion/roles/eliminar-rol', 'Backend\RolesController@destroyRol'); //AJAX
-Route::post ('/backend/configuracion/roles/crear-permiso', 'Backend\RolesController@storePermiso'); //AJAX
-Route::post ('/backend/configuracion/roles/eliminar-permiso', 'Backend\RolesController@destroyPermiso'); //AJAX
-//Gestión de usuarios
-Route::get ('/backend/usuarios', 'Backend\UsuariosController@show');
-Route::get ('/backend/usuarios/{id}', 'Backend\UsuariosController@mostrarEditarUsuario');
-Route::post ('/backend/usuarios/{id}/update', 'Backend\UsuariosController@update');
+
+Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:1'], function() //PERM [1] => Acceder al backend
+{
+    //Dashboard
+    Route::get ('/backend/dashboard', 'Backend\DashboardController@show')->middleware('App\Http\Middleware\PermisoMiddleware:2'); //PERM [2] => Acceder al dashboard
+
+    //Gestión de usuarios
+    Route::get ('/backend/usuarios', 'Backend\UsuariosController@show')->middleware('App\Http\Middleware\PermisoMiddleware:3'); //PERM [3] => Listar usuarios
+    Route::get ('/backend/usuarios/{id}', 'Backend\UsuariosController@mostrarEditarUsuario')->middleware('App\Http\Middleware\PermisoMiddleware:2'); //PERM [4] => Modificar usuario
+    Route::post ('/backend/usuarios/{id}/update', 'Backend\UsuariosController@update')->middleware('App\Http\Middleware\PermisoMiddleware:4'); //PERM [4] => Modificar usuario
+
+    //Configuración general
+    Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:6'], function() //PERM [6] => Acceder a la configuración general
+    {
+        Route::get ('/backend/configuracion', 'Backend\ConfigGeneralController@show');
+        Route::post('/backend/configuracion/update', 'Backend\ConfigGeneralController@update');
+    });
+
+    //Configuración de roles y permisos
+    Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:7'], function() //PERM [7] => Gestionar roles y permisos
+    {
+        Route::get('/backend/configuracion/roles', 'Backend\RolesController@show');
+        Route::post('/backend/configuracion/roles/crear-rol', 'Backend\RolesController@storeRol'); //AJAX
+        Route::post('/backend/configuracion/roles/eliminar-rol', 'Backend\RolesController@destroyRol'); //AJAX
+        Route::post('/backend/configuracion/roles/crear-permiso', 'Backend\RolesController@storePermiso'); //AJAX
+        Route::post('/backend/configuracion/roles/eliminar-permiso', 'Backend\RolesController@destroyPermiso'); //AJAX
+    });
+});

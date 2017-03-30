@@ -58,6 +58,22 @@ class User extends Authenticatable
         return $this->belongsTo('App\Pais', 'cod_pais');
     }
 
+    public function getRol() {
+        return $this->belongsTo('App\Rol', 'id');
+    }
+
+    public function tienePermiso($permiso)
+    {
+        $estado = false;
+        $permisos = $this->getRol->getPermisos;
+        foreach ($permisos as $perm) {
+            if ($perm->id == $permiso) {
+                $estado = true;
+            }
+        }
+        return $estado;
+    }
+
     /**
      * Transforma el rango del usuario en una cadena para posteriormente mostrarla
      * @return cadena indicando el rango del usuario

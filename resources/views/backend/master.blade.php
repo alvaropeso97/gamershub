@@ -19,6 +19,8 @@
     <link href="{{ URL::asset('backend/css/style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('backend/css/pages/signin.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('backend/css/pages/dashboard.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('backend/css/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ URL::asset('plugins/tinymce/tinymce.min.js') }}"></script>
 
 </head>
 
@@ -65,6 +67,8 @@
 <script src="{{ URL::asset('backend/js/signin.js') }}"></script>
 <script language="javascript" type="text/javascript" src="{{ URL::asset('backend/js/full-calendar/fullcalendar.min.js') }}"></script>
 <script src="{{ URL::asset('backend/js/base.js') }}"></script>
+<script src="{{ URL::asset('backend/js/bootstrap-datepicker.js') }}"></script>
+<script src="{{ URL::asset('backend/js/bootstrap-datepicker.es.min.js') }}" charset="UTF-8"></script>
 @yield('script')
 </body>
 </html>
