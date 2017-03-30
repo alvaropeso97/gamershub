@@ -20,6 +20,6 @@ class ConfigGeneralController extends Controller
         $configuracion_general->noticias_dest = $request->get('noticias_dest');
         $configuracion_general->copyright = $request->get('copyright');
         $configuracion_general->save();
-        return redirect('/backend/configuracion');
+        return redirect('/backend/configuracion')->with('mensaje', 'Configuración actualizada');
     }
 }
