@@ -156,7 +156,17 @@ Route::group(['middleware' => 'auth'], function()
  * BACKEND
  */
 //Dashboard
-Route::get ('/backend/dashboard', 'BackendController@mostrarDashboard');
-//Configuración
-Route::get ('/backend/configuracion', 'BackendController@mostrarConfiguracion');
-Route::post('/backend/configuracion/update', 'ConfigGeneralController@update');
+Route::get ('/backend/dashboard', 'Backend\DashboardController@show');
+//Configuración general
+Route::get ('/backend/configuracion', 'Backend\ConfigGeneralController@show');
+Route::post('/backend/configuracion/update', 'Backend\ConfigGeneralController@update');
+//Configuración de roles y permisos
+Route::get ('/backend/configuracion/roles', 'Backend\RolesController@show');
+Route::post ('/backend/configuracion/roles/crear-rol', 'Backend\RolesController@storeRol'); //AJAX
+Route::post ('/backend/configuracion/roles/eliminar-rol', 'Backend\RolesController@destroyRol'); //AJAX
+Route::post ('/backend/configuracion/roles/crear-permiso', 'Backend\RolesController@storePermiso'); //AJAX
+Route::post ('/backend/configuracion/roles/eliminar-permiso', 'Backend\RolesController@destroyPermiso'); //AJAX
+//Gestión de usuarios
+Route::get ('/backend/usuarios', 'Backend\UsuariosController@show');
+Route::get ('/backend/usuarios/{id}', 'Backend\UsuariosController@mostrarEditarUsuario');
+Route::post ('/backend/usuarios/{id}/update', 'Backend\UsuariosController@update');

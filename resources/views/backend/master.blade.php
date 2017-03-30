@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>@yield('titulo') | Backend | GAMERSHUB</title>
+    <title>@yield('titulo') | Backend de {{\App\ConfigGeneral::first()->nombre_aplicacion}}</title>
 
     <!-- FAVICON -->
     <link rel="shortcut icon" href="{{ URL::asset('img/favicon.gif') }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    @yield('meta')
 
     <link href="{{ URL::asset('backend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('backend/css/bootstrap-responsive.min.css') }}" rel="stylesheet" type="text/css" />

@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
 use App\Articulo;
 use App\Comentario;
-use App\ConfigGeneral;
+use App\Http\Controllers\Controller;
 use App\Juego;
 use App\User;
-use Illuminate\Http\Request;
 
-class BackendController extends Controller
+class DashboardController extends Controller
 {
-    public static function mostrarDashboard() {
+    public static function show() {
         $estadisticas = array (
             "usuarios"  => count(User::all()),
             "articulos" => count(Articulo::all()),
@@ -20,10 +19,5 @@ class BackendController extends Controller
         $noticias_recientes = Articulo::all()->sortByDesc('id')->take(10);
         $proximos_lanzamientos = Juego::all()->sortByDesc('id');
         return view('backend.dashboard')->with(['estadisticas' => $estadisticas, 'noticias_recientes' => $noticias_recientes, 'proximos_lanzamientos' => $proximos_lanzamientos]);
-    }
-
-    public static function mostrarConfiguracion() {
-            $configuracion_general = ConfigGeneral::first();
-        return view('backend.configuracion')->with(['configuracion_general' => $configuracion_general]);
     }
 }

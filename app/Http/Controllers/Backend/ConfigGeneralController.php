@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
 use App\ConfigGeneral;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ConfigGeneralController extends Controller
 {
+    public function show() {
+        $configuracion_general = ConfigGeneral::first();
+        return view('backend.configuracion')->with(['configuracion_general' => $configuracion_general]);
+    }
     public function update(Request $request) {
         $configuracion_general = ConfigGeneral::first();
         $configuracion_general->nombre_aplicacion = $request->get('nombre_aplicacion');

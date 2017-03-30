@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('titulo', 'Configuración')
-@section('configuracion', 'class="active"')
+@section('configuracion', 'active')
 @section('contenido')
     <div class="main">
         <div class="main-inner">
