@@ -9,9 +9,8 @@
                 <li><a href="/backend/articulos"><i class="icon-file-text"></i><span>Artículos</span></a></li>
                 <li><a href="/backend/juegos"><i class="icon-gamepad"></i><span>Juegos</span></a></li>
                 <li><a href="/backend/videos"><i class="icon-play"></i><span>Vídeos</span></a></li>
-                <li><a href="/backend/imagenes"><i class="icon-picture"></i><span>Imágenes</span></a></li>
+                <li @yield('imagenes')><a href="/backend/imagenes"><i class="icon-picture"></i><span>Imágenes</span></a></li>
                 <li @yield('categorias')><a href="/backend/categorias"><i class="icon-bookmark"></i><span>Categorías</span></a></li>
-                <li><a href="/backend/plataformas"><i class="icon-desktop"></i><span>Plataformas</span></a></li>
                 @if(auth()->user()->tienePermiso(6) || auth()->user()->acceso == 333)
                 <li class="dropdown @yield('configuracion')"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-cog"></i><span>Configuración</span> <b class="caret"></b></a>
                     <ul class="dropdown-menu">

@@ -198,6 +198,12 @@ Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:1'], functi
     Route::post ('/backend/categorias/{id}/destroy', 'Backend\CategoriasController@destroy')->middleware('App\Http\Middleware\PermisoMiddleware:10'); //PERM [10] => Eliminar categorías/plataformas
 
     /*
+     * IMÁGENES
+     */
+    //Mostrar imágenes
+    Route::get ('/backend/imagenes', 'Backend\ImagenesController@show');
+
+    /*
      * CONFIGURACIÓN GENERAL
      */
     Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:6'], function() //PERM [6] => Acceder a la configuración general
@@ -236,3 +242,8 @@ Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:1'], functi
         Route::post('/backend/configuracion/roles/eliminar-permiso', 'Backend\RolesController@destroyPermiso'); //AJAX
     });
 });
+
+/**
+ * RSS FEED
+ */
+Route::get ('/feed/rss', 'FeedController@show');

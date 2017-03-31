@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Unirest\\' => array($vendorDir . '/mashape/unirest-php/src'),
+    'Roumen\\Feed' => array($vendorDir . '/roumen/feed/src'),
     'RobbieP\\CloudConvertLaravel\\' => array($vendorDir . '/robbiep/cloudconvert-laravel/src'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),

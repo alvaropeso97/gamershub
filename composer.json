@@ -11,7 +11,8 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "intervention/image": "^2.3",
         "robbiep/cloudconvert-laravel": "2.*",
-        "mashape/unirest-php": "3.*"
+        "mashape/unirest-php": "3.*",
+        "roumen/feed": "^2.10"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
