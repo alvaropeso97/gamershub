@@ -35,6 +35,18 @@ class UsuariosController extends Controller
         return redirect('/backend/usuarios/'.$id)->with('mensaje', 'Usuario modificado correctamente');
     }
 
+    public function destroy(Request $request) {
+        $id = $request->get('id');
+        $usuario = User::find($id);
+        $usuario->delete();
+        return redirect('/backend/usuarios')->with('mensaje', 'Usuario eliminado correctamente');
+    }
+
+    public function mostrarEliminarUsuario($id) {
+        $usuario = User::find($id);
+        return view('backend.eliminar_usuario')->with(['usuario' => $usuario]);
+    }
+
     public function mostrarEditarUsuario($id) {
         $usuario = User::find($id);
         $roles = Rol::all();

@@ -160,28 +160,79 @@ Route::group(['middleware' => 'auth'], function()
 
 Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:1'], function() //PERM [1] => Acceder al backend
 {
-    //Dashboard
+    /*
+     * DASHBOARD
+     */
+    //Mostrar dashboard
     Route::get ('/backend/dashboard', 'Backend\DashboardController@show')->middleware('App\Http\Middleware\PermisoMiddleware:2'); //PERM [2] => Acceder al dashboard
 
-    //Gestión de usuarios
+    /*
+     * USUARIOS
+     */
+    //Mostrar usuarios
     Route::get ('/backend/usuarios', 'Backend\UsuariosController@show')->middleware('App\Http\Middleware\PermisoMiddleware:3'); //PERM [3] => Listar usuarios
+
+    //Editar usuario
     Route::get ('/backend/usuarios/{id}', 'Backend\UsuariosController@mostrarEditarUsuario')->middleware('App\Http\Middleware\PermisoMiddleware:2'); //PERM [4] => Modificar usuario
     Route::post ('/backend/usuarios/{id}/update', 'Backend\UsuariosController@update')->middleware('App\Http\Middleware\PermisoMiddleware:4'); //PERM [4] => Modificar usuario
 
-    //Configuración general
+    //Eliminar usuario
+    Route::get ('/backend/usuarios/{id}/eliminar', 'Backend\UsuariosController@mostrarEliminarUsuario')->middleware('App\Http\Middleware\PermisoMiddleware:5'); //PERM [5] => Eliminar usuario
+    Route::post ('/backend/usuarios/{id}/destroy', 'Backend\UsuariosController@destroy')->middleware('App\Http\Middleware\PermisoMiddleware:5'); //PERM [5] => Eliminar usuario
+
+    /*
+     * CATEGORÍAS/PLATAFORMAS
+     */
+    //Mostrar CATEGORÍAS/PLATAFORMAS
+    Route::get ('/backend/categorias', 'Backend\CategoriasController@show');
+
+    //Crear CATEGORÍA/PLATAFORMA
+    Route::post ('/backend/categorias/store', 'Backend\CategoriasController@store');
+
+    //Eliminar CATEGORÍA/PLATAFORMA
+    Route::get ('/backend/categorias/{id}/eliminar', 'Backend\CategoriasController@mostrarEliminarCategoria');
+    Route::post ('/backend/categorias/{id}/destroy', 'Backend\CategoriasController@destroy');
+
+    //Modificar CATEGORÍA/PLATAFORMA
+    Route::get ('/backend/categorias/{id}/modificar', 'Backend\CategoriasController@mostrarModificarCategoria');
+    Route::post ('/backend/categorias/{id}/update', 'Backend\CategoriasController@update');
+
+    /*
+     * CONFIGURACIÓN GENERAL
+     */
     Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:6'], function() //PERM [6] => Acceder a la configuración general
     {
+        //Mostrar configuración
         Route::get ('/backend/configuracion', 'Backend\ConfigGeneralController@show');
+
+        //Modificar configuración
         Route::post('/backend/configuracion/update', 'Backend\ConfigGeneralController@update');
     });
 
-    //Configuración de roles y permisos
+    /*
+     * ROLES Y PERMISOS
+     */
     Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:7'], function() //PERM [7] => Gestionar roles y permisos
     {
+        /*
+         * ROLES
+         */
+        //Mostrar ROLES/PERMISOS
         Route::get('/backend/configuracion/roles', 'Backend\RolesController@show');
+
+        //Crear rol
         Route::post('/backend/configuracion/roles/crear-rol', 'Backend\RolesController@storeRol'); //AJAX
+
+        //Eliminar rol
         Route::post('/backend/configuracion/roles/eliminar-rol', 'Backend\RolesController@destroyRol'); //AJAX
+
+        /*
+         * PERMISOS
+         */
+        //Crear permiso
         Route::post('/backend/configuracion/roles/crear-permiso', 'Backend\RolesController@storePermiso'); //AJAX
+
+        //Eliminar permiso
         Route::post('/backend/configuracion/roles/eliminar-permiso', 'Backend\RolesController@destroyPermiso'); //AJAX
     });
 });

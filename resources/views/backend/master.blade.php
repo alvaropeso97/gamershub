@@ -20,6 +20,7 @@
     <link href="{{ URL::asset('backend/css/pages/signin.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('backend/css/pages/dashboard.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('backend/css/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('plugins/colorpicker/css/colorpicker.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ URL::asset('plugins/tinymce/tinymce.min.js') }}"></script>
 
 </head>
@@ -69,6 +70,7 @@
 <script src="{{ URL::asset('backend/js/base.js') }}"></script>
 <script src="{{ URL::asset('backend/js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ URL::asset('backend/js/bootstrap-datepicker.es.min.js') }}" charset="UTF-8"></script>
+<script src="{{ URL::asset('plugins/colorpicker/js/colorpicker.js') }}" charset="UTF-8"></script>
 @yield('script')
 </body>
 </html>

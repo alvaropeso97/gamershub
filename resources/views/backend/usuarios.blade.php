@@ -13,6 +13,7 @@
                                 <h3>Usuarios</h3>
                             </div>
                             <div class="widget-content">
+                                @if(Session::has('mensaje')) <div class="alert alert-success"> {{Session::get('mensaje')}} </div> @endif
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
@@ -34,13 +35,12 @@
                                             <td>{{$usuario->created_at}}</td>
                                             <td>
                                                 <a href="usuarios/{{$usuario->id}}" class="btn btn-small btn-success"><i class="btn-icon-only icon-edit"></i></a>
-                                                <a onclick="" class="btn btn-small btn-success"><i class="btn-icon-only icon-trash"></i></a>
+                                                <a href="usuarios/{{$usuario->id}}/eliminar" class="btn btn-small btn-success"><i class="btn-icon-only icon-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
-                                {{$usuarios->render()}}
                             </div>
                         </div>
                     </div>
