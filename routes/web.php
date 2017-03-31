@@ -184,18 +184,18 @@ Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:1'], functi
      * CATEGORÍAS/PLATAFORMAS
      */
     //Mostrar CATEGORÍAS/PLATAFORMAS
-    Route::get ('/backend/categorias', 'Backend\CategoriasController@show');
+    Route::get ('/backend/categorias', 'Backend\CategoriasController@show')->middleware('App\Http\Middleware\PermisoMiddleware:8'); //PERM [8] => Mostrar/crear categorías/plataformas
 
     //Crear CATEGORÍA/PLATAFORMA
-    Route::post ('/backend/categorias/store', 'Backend\CategoriasController@store');
-
-    //Eliminar CATEGORÍA/PLATAFORMA
-    Route::get ('/backend/categorias/{id}/eliminar', 'Backend\CategoriasController@mostrarEliminarCategoria');
-    Route::post ('/backend/categorias/{id}/destroy', 'Backend\CategoriasController@destroy');
+    Route::post ('/backend/categorias/store', 'Backend\CategoriasController@store')->middleware('App\Http\Middleware\PermisoMiddleware:8'); //PERM [8] => Mostrar/crear categorías/plataformas
 
     //Modificar CATEGORÍA/PLATAFORMA
-    Route::get ('/backend/categorias/{id}/modificar', 'Backend\CategoriasController@mostrarModificarCategoria');
-    Route::post ('/backend/categorias/{id}/update', 'Backend\CategoriasController@update');
+    Route::get ('/backend/categorias/{id}/modificar', 'Backend\CategoriasController@mostrarModificarCategoria')->middleware('App\Http\Middleware\PermisoMiddleware:9'); //PERM [9] => Modificar categorías/plataformas
+    Route::post ('/backend/categorias/{id}/update', 'Backend\CategoriasController@update')->middleware('App\Http\Middleware\PermisoMiddleware:9'); //PERM [9] => Modificar categorías/plataformas
+
+    //Eliminar CATEGORÍA/PLATAFORMA
+    Route::get ('/backend/categorias/{id}/eliminar', 'Backend\CategoriasController@mostrarEliminarCategoria')->middleware('App\Http\Middleware\PermisoMiddleware:10'); //PERM [10] => Eliminar categorías/plataformas
+    Route::post ('/backend/categorias/{id}/destroy', 'Backend\CategoriasController@destroy')->middleware('App\Http\Middleware\PermisoMiddleware:10'); //PERM [10] => Eliminar categorías/plataformas
 
     /*
      * CONFIGURACIÓN GENERAL

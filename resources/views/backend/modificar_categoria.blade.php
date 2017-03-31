@@ -8,7 +8,7 @@
                         <div class="widget ">
                             <div class="widget-header">
                                 <i class="icon-bookmark"></i>
-                                <h3>[{{$categoria->nombre}}] Eliminar</h3>
+                                <h3>[{{$categoria->nombre}}] Modificar</h3>
                             </div>
                             <div class="widget-content">
                                 @if(Session::has('mensaje')) <div class="alert alert-success"> {{Session::get('mensaje')}} </div> @endif
@@ -58,6 +58,7 @@
 @section('script')
     <script>
         $('#color').ColorPicker({
+            color: '{{$categoria->color}}',
             onChange: function (hsb, hex, rgb) {
                 $('#color').val('#'+hex);
             }
