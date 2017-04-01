@@ -112,6 +112,9 @@ class Articulo extends Model
     public function setImgAttribute($img) {
         $nombre_img = ArticulosController::sanear_string($img->getClientOriginalName());
         $this->attributes['img'] = Carbon::now()->timestamp.$nombre_img;
+        $html = "<p>
+    asdasd\"\"asdasd
+</p>";
     }
 
     /**

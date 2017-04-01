@@ -69,8 +69,8 @@
 <script language="javascript" type="text/javascript" src="{{ URL::asset('backend/js/full-calendar/fullcalendar.min.js') }}"></script>
 <script src="{{ URL::asset('backend/js/base.js') }}"></script>
 <script src="{{ URL::asset('backend/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ URL::asset('backend/js/bootstrap-datepicker.es.min.js') }}" charset="UTF-8"></script>
-<script src="{{ URL::asset('plugins/colorpicker/js/colorpicker.js') }}" charset="UTF-8"></script>
+<script src="{{ URL::asset('backend/js/bootstrap-datepicker.es.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/colorpicker/js/colorpicker.js') }}"></script>
 @yield('script')
 </body>
 </html>
