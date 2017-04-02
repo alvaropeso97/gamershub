@@ -9,4 +9,3 @@ La aplicación ha sido desarrollada en PHP 7 mediante el framework Laravel y hac
 <hr>
 <p align="center">© <b>GAMERSHUB 2017</b>. TODOS LOS DERECHOS RESERVADOS. PROHIBIDA LA COPIA Y DISTRIBUCIÓN DEL PROYECTO.</p>
 <p align="center"><i>MARCA, CONTENIDO Y CÓDIGO FUENTE REGISTRADO EN EL DEPÓSITO EUROPEO DE COPYRIGHT CON FINES JURÍDICOS</i></p>
-<p align="center"><img height=150px src="https://pbs.twimg.com/profile_images/835476001933123585/lyYlCdz9.jpg"></p>
