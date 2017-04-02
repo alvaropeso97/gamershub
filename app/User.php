@@ -27,13 +27,75 @@ class User extends Authenticatable
     protected $fillable = ['id',
         'name', 'email', 'password','fecha_nacimiento','genero_preferido','pais','ciudad','sexo','fecha_nac',
         'firma_personal','xbox_gamertag','ps_id','nintendo_network','codigo_amigo_wii','codigo_amigo_3ds',
-        'codigo_amigo_ds','microsoft_gamertag','steam_id','twitter','facebook','google','web_blog'
+        'codigo_amigo_ds','microsoft_gamertag','steam_id','twitter','facebook','google','web_blog','verificada'
     ];
-
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
+    /**
+     * Clave ajena "id_autor", referencia a "id" (users)
+     * @return artículos pertenecientes a este usuario
+     */
+    public function getArticulos() {
+        return $this->hasMany('App\Articulo', 'id_autor', 'id');
+    }
 
+    /**
+     * Clave ajena "id_usuario", referencia a "id" (users)
+     * @return comentarios pertenecientes a este usuario
+     */
+    public function getComentarios() {
+        return $this->hasMany('App\Comentario', 'id_usuario', 'id');
+    }
+
+    /**
+     * Clave ajena "pais", referencia a "cod_pais" (paises)
+     * @return pais del usuario
+     */
+    public function getPais() {
+        return $this->belongsTo('App\Pais', 'cod_pais');
+    }
+
+    public function getRol() {
+        return $this->belongsTo('App\Rol', 'id');
+    }
+
+    public function tienePermiso($permiso)
+    {
+        $estado = false;
+        $permisos = $this->getRol->getPermisos;
+        foreach ($permisos as $perm) {
+            if ($perm->id == $permiso) {
+                $estado = true;
+            }
+        }
+        return $estado;
+    }
+
+    /**
+     * Transforma el rango del usuario en una cadena para posteriormente mostrarla
+     * @return cadena indicando el rango del usuario
+     */
+    public function getRango() {
+        switch ($this->acceso) {
+            case 0:
+                return "Usuario";
+                break;
+            case 1:
+                return "Redactor";
+                break;
+            case 2:
+                return "Moderador";
+                break;
+            case 3:
+                return "Administrador";
+                break;
+        }
+    }
+
+    public function getConfirmEmail() {
+        return $this->hasOne('App\ConfirmEmail', 'user_id', 'id');
+    }
 }

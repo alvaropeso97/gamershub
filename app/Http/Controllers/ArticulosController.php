@@ -15,7 +15,9 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Articulo;
 use App\Etiqueta;
+use App\Exceptions\ArticuloNoEncontradoException;
 use App\Juego;
+use App\Mail\ConfirmacionRegistro;
 use App\Video;
 use Illuminate\Routing\Controller;
 use DB;
@@ -23,140 +25,19 @@ use App\Http\Requests;
 use Request;
 use Auth;
 use Mail;
-use App\TwitterAPIExchange;
+use Intervention\Image\Facades\Image;
 class ArticulosController extends Controller
 {
-    public static function mostrarNoticias() {
-        $cons =  \App\Articulo::whereRaw('tipo = "art"')->orderBy('id','desc')->paginate(9);
-        return view('layouts.paginas.noticias', ['cons' => $cons]);
-    }
-
-    public static function mostrarNoticiasAZ() {
-        $cons =  \App\Articulo::whereRaw('tipo = "art"')->orderBy('titulo','asc')->paginate(9);
-        return view('layouts.paginas.noticias', ['cons' => $cons]);
-    }
-
-    public static function mostrarArticulo($id, $titulo) {
-        $articulo = DB::table('articulos')->where('lnombre', $titulo)->where('id', $id)->first();
-        if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-            $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
-            return redirect("/juego/$juego->id/$juego->lnombre/analisis");
-        } else {
-            return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id)]);
-        }
-    }
-
-    public static function mostrarArticuloDos ($id) {
-        $articulo = DB::table('articulos')->where('id', $id)->first();
-        if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-            $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
-            return redirect("/juego/$juego->id/$juego->lnombre/analisis");
-        } else {
-            return redirect("/articulo/$id/$articulo->lnombre");
-        }
-    }
-
-    public static function mostrarEditarArticulo($id) {
-        return view('layouts.paginas.administracion.edit_art', ['id' => Articulo::findOrFail($id)]);
-    }
-
-    public static function devolverArticulos() {
-        return $articulos = DB::select("select * from articulos order by id desc");
-    }
-
-    public static function devolverArticulosJuego($juego_rel) {
-        return $articulos = DB::select("select * from articulos where juego_rel =".$juego_rel." and tipo = 'art' order by id desc limit 5");
-    }
-
-    public static function devolverNoticiasRecientes($id) {
-        return $articulos = DB::select("select * from articulos where id != ".$id." and tipo = 'art' order by id desc LIMIT 3");
-    }
-
-    public static function devolverMasComentados() {
-        return $articulos = DB::select("select * from articulos order by id desc limit 4");
-    }
-
-    public static function devolverTipo ($tipo) {
-        if ($tipo == "art") {
-            return "Noticia";
-        } elseif ($tipo == "vid") {
-            return "Vídeo";
-        } elseif ($tipo == "ana") {
-            return "Análisis";
-        }
-    }
-
-    public static function devolverVideo ($id) {
-        return $video = DB::select("select * from videos where id_art=".$id);
-    }
-
-    public static function devolverUnVideo($articulo) {
-        return DB::table('videos')->where('id_art', $articulo)->first();
-    }
-
-    public static function devolverUltimoVideo() {
-        return DB::table('videos')->orderBy('id', 'DESC')->first();
-    }
-
-    public static function devolverAutor ($id) {
-        return DB::table('users')->where('id', $id)->first();
-    }
-
-    public static function devolverEtiquetas ($id) {
-        return $etiquetas = DB::select("select * from etiquetas where cod_art=".$id);
-    }
-
-    public static function devolverEtiquetasCadena ($id) {
-        $resultado = DB::select("select * from etiquetas where cod_art=".$id);
-        $etiquetas_cadena = "";
-
-        foreach ($resultado as $etiqueta) {
-            $etiquetas_cadena .= $etiqueta->nombre.",";
-        }
-
-        return $etiquetas_cadena;
-    }
-
     /**
-     * Reemplaza todos los acentos por sus equivalentes sin ellos
-     *
-     * @param $string
-     *  string la cadena a sanear
-     *
-     * @return $string
-     *  string saneada
+     * Recibe los datos del formulario de creación para el nuevo artículo, sanea la cadena del enlace,
+     * asigna las categorías al artículo, las etiquetas, crea un registro de tipo análisis o de tipo vídeo si lo es,
+     * envía un tweet a la cuenta @GamersHUBes con el título, enlace e imágen del artículo
+     * @param datos del formulario de creación
+     * @return redirección a la vista de administracion.articulo
      */
-    public static function sanear_string($s)
-    {
-        $s = preg_replace("/á|à|â|ã|ª/","a",$s);
-        $s = preg_replace("/Á|À|Â|Ã/","a",$s);
-        $s = preg_replace("/é|è|ê/","e",$s);
-        $s = preg_replace("/É|È|Ê/","e",$s);
-        $s = preg_replace("/í|ì|î/","i",$s);
-        $s = preg_replace("/Í|Ì|Î/","i",$s);
-        $s = preg_replace("/ó|ò|ô|õ|º/","o",$s);
-        $s = preg_replace("/Ó|Ò|Ô|Õ/","o",$s);
-        $s = preg_replace("/ú|ù|û/","u",$s);
-        $s = preg_replace("/Ú|Ù|Û/","u",$s);
-        $s = str_replace(" ","-",$s);
-        $s = str_replace("ñ","n",$s);
-        $s = str_replace("Ñ","n",$s);
-
-        $s = preg_replace('/[^a-zA-Z0-9_.-]/', '', $s);
-        return strtolower($s);
-    }
-
-    public function nuevoArticulo() {
-        if (Auth::user()->acceso == 2) { //Los moderadores no pueden crear artículos
-            return redirect('/panel/articulos')->with('error', 'No tienes los permisos para crear artículos.');
-        } else {
-            return view('layouts.paginas.administracion.nuev_art');
-        }
-    }
-
     public function store(\Illuminate\Http\Request $request)
     {
-        \App\Articulo::create(Request::all());
+        Articulo::create(Request::all());
 
         //Validar el artículo
 
@@ -197,65 +78,43 @@ class ArticulosController extends Controller
             ]);
         }
 
-        // ENVIAR TWEET CON IMAGEN A LA CUENTA @GamersHUBes
-        $settings = array(
-            'oauth_access_token' => "727198831117520902-9NtB6KQ30eOoEQnSrqYqkHYKLTs0CFj",
-            'oauth_access_token_secret' => "Xf4zgGn1LTobncBxfdZE8LBw6way5sQuppYvocaFY29wv",
-            'consumer_key' => "0Q9zTglNELrGH4vlHs4v9C6pB",
-            'consumer_secret' => "FjrdyzQcLglYylk59AIwhYPE9aU07x9QeWBm9c9rzApF1lpzSd"
-        );
-        $twitter = new TwitterAPIExchange($settings);
+        /*
+         * Almacenar la imágen en tamaños diferentes
+         */
+        // 1600x900 [BIG]
+        $big = Image::make($request->file('img'))->resize(1600,900);
+        \Storage::disk('s3')->put("/noticias/1600x900_$articulo->img", (string) $big->encode('jpg'));
+        // 950x534 [MEDIUM]
+        $med = Image::make($request->file('img'))->resize(950,534);
+        \Storage::disk('s3')->put("/noticias/950x534_$articulo->img", (string) $med->encode('jpg'));
+        // 500x281 [SMALL]
+        $smll = Image::make($request->file('img'))->resize(500,281);
+        \Storage::disk('s3')->put("/noticias/500x281_$articulo->img", (string) $smll->encode('jpg'));
 
-        $file = file_get_contents('http://img.gamershub.es/noticias/'.$articulo->img);
-        $data = base64_encode($file);
-
-        // Upload image to twitter
-        $url = "https://upload.twitter.com/1.1/media/upload.json";
-        $method = "POST";
-        $params = array(
-            "media_data" => $data,
-        );
-
-
-        $json = $twitter
-            ->setPostfields($params)
-            ->buildOauth($url, $method)
-            ->performRequest();
-
-        // Result is a json string
-        $res = json_decode($json);
-        // Extract media id
-        $id = $res->media_id_string;
-
-        $url = 'https://api.twitter.com/1.1/statuses/update.json';
-
-        $postdata = array(
-            'status' => $articulo->titulo." gamershub.es/articulo/".$articulo->id."/".$articulo->lnombre,
-            'media_ids' => $id
-        );
-
-        $requestMethod = 'POST';
-
-        $twitter = new TwitterAPIExchange($settings);
-        $twitter->setPostfields($postdata)->buildOauth($url,$requestMethod)->performRequest();
         return redirect('/panel/articulos')->with('mensaje', 'Has creado un artículo correctamente.');
     }
 
-    public function eliminarArticulo($id) {
-        if (Auth::user()->acceso == 2) { //Los moderadores no pueden eliminar artículos
-            return redirect('/panel/articulos')->with('error', 'No tienes los permisos para eliminar artículos.');
-        } else {
-            DB::table('articulos')->where('id', $id)->delete();
-            return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
+    public static function convertirImagenes() {
+        $articulos = Articulo::all();
+        foreach ($articulos as $articulo) {
+            $link = str_replace(' ','%20',$articulo->img);
+            $big = Image::make("https://s3.eu-central-1.amazonaws.com/img.gamershub.es/noticias/$link")->resize(500,281);
+            \Storage::disk('s3')->put("/noticias_rsz/500x281_$articulo->img", (string) $big->encode());
         }
     }
 
-    public function modificarArticulo($id, \Illuminate\Http\Request $request) {
+    /**
+     * Modifica un artículo en concreto y lo actualiza en la base de datos incluyendo sus categorías, etiquetas...
+     * @param $id artículo a editar
+     * @param datos del formulario
+     * @return redirección a la vista de administracion.articulo
+     */
+    public function update($id, \Illuminate\Http\Request $request) {
         //Obtener el artículo
-        $articulo = DB::table('articulos')->where('id', $id)->first();
+        $articulo = Articulo::find($id)->first();
 
         //Actualizar la información del artículo genérica
-        Articulo::where('id', $id)
+        Articulo::find($id)
             ->update(['titulo' => $request->get('titulo'), 'lnombre' => $request->get('lnombre'), 'juego_rel' => $request->get('juego_rel')
                 , 'descripcion' => $request->get('descripcion'), 'cont' => $request->get('cont')]);
 
@@ -296,8 +155,111 @@ class ArticulosController extends Controller
     }
 
     /**
+     * Elimina un artículo determinado de la base de datos
+     * @param $id artículo a eliminar
+     * @return redirección a la vista de administracion.articulos
+     */
+    public function destroy($id) {
+        Articulo::find($id)->delete();
+        return redirect('/panel/articulos')->with('mensaje', 'El artículo ha sido eliminado correctamente de la base de datos.');
+    }
+
+    /**
+     * Muestra un listado de todos los artículos de tipo "art"
+     * @return vista de paginas.noticias
+     */
+    public static function mostrarNoticias() {
+        $cons =  \App\Articulo::whereRaw('tipo = "art"')->orderBy('id','desc')->paginate(9);
+        return view('layouts.paginas.noticias', ['cons' => $cons]);
+    }
+
+    /**
+     * Muestra un listado de todos los artículos de tipo "art" ordenados de ascendentemente por el título
+     * @return vista de paginas.noticias
+     */
+    public static function mostrarNoticiasAZ() {
+        $cons =  \App\Articulo::whereRaw('tipo = "art"')->orderBy('titulo','asc')->paginate(9);
+        return view('layouts.paginas.noticias', ['cons' => $cons]);
+    }
+
+    /**
+     * Muestra un artículo a través de su id y título, comprueba si es un análisis y si lo es lo muestra.
+     * Si es un vídeo, envía a la vista los datos del vídeo
+     * @param $id artículo a mostrar
+     * @param $titulo título del artículo formateado
+     * @return vista paginas.articulo
+     * @throws ArticuloNoEncontradoException si no encuentra el artículo asociado con el id y el título
+     */
+    public static function mostrarArticulo($id, $titulo) {
+        $articulo = Articulo::where('lnombre', $titulo)->where('id', $id)->first();
+        if (!$articulo) {
+            throw new ArticuloNoEncontradoException;
+        } else {
+            if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
+                $juego = $articulo->getJuego;
+                return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+            } else {
+                switch ($articulo->tipo) {
+                    case "vid":
+                        return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id), 'vid' => $articulo->getVideo]);
+                        break;
+                    case "art":
+                        return view('layouts.paginas.articulo', ['id' => Articulo::findOrFail($articulo->id)]);
+                        break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Muestra un artículo únicamente a través de su id, comprueba si es un análisis y si lo es lo muestra.
+     * Redirige a la vista de la noticia con el id y el enlace formateado al igual que en mostrarArticulo()
+     * @param $id artículo a mostrar
+     * @return redirección a /articulo/id-articulo/titulo-formateado
+     * @throws ArticuloNoEncontradoException si no encuentra el artículo asociado con el id
+     */
+    public static function mostrarArticuloDos ($id) {
+        $articulo = Articulo::where('id', $id)->first();
+        if (!$articulo) {
+            throw new ArticuloNoEncontradoException;
+        } else {
+            if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
+                $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
+                return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+            } else {
+                return redirect("/articulo/$id/$articulo->lnombre");
+            }
+        }
+    }
+
+    /**
+     * Sanea una cadena de caracteres
+     * @param string la cadena a sanear
+     * @return string cadena saneada
+     */
+    public static function sanear_string($s)
+    {
+        $s = preg_replace("/á|à|â|ã|ª/","a",$s);
+        $s = preg_replace("/Á|À|Â|Ã/","a",$s);
+        $s = preg_replace("/é|è|ê/","e",$s);
+        $s = preg_replace("/É|È|Ê/","e",$s);
+        $s = preg_replace("/í|ì|î/","i",$s);
+        $s = preg_replace("/Í|Ì|Î/","i",$s);
+        $s = preg_replace("/ó|ò|ô|õ|º/","o",$s);
+        $s = preg_replace("/Ó|Ò|Ô|Õ/","o",$s);
+        $s = preg_replace("/ú|ù|û/","u",$s);
+        $s = preg_replace("/Ú|Ù|Û/","u",$s);
+        $s = str_replace(" ","-",$s);
+        $s = str_replace("ñ","n",$s);
+        $s = str_replace("Ñ","n",$s);
+
+        $s = preg_replace('/[^a-zA-Z0-9_.-]/', '', $s);
+        return strtolower($s);
+    }
+
+    /**
      * Esta función recibe una fecha en formato UNIX y la convierte a un formato en español
-     * legible para los usuarios.
+     * legible para los usuarios
      * @param $fecha Fecha a traducir
      * @return string Fecha traducida
      */
@@ -358,29 +320,58 @@ class ArticulosController extends Controller
     function mostrarBusqueda($tipo,$tag) {
         if ($tipo == 'articulos') {
             //Seleccionar todos los artículos que se asemejen a la búsqueda
-            $busqueda_a = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','art')->orderBy('id','desc')->paginate(10);
+            $busqueda_a = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','art')->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'videos') {
-            $busqueda_v = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','vid')->orderBy('id','desc')->paginate(10);
+            $busqueda_v = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','vid')->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_v, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'analisis') {
-            $busqueda_an = DB::table('articulos')->where('titulo','LIKE',"%$tag%")->where('tipo','ana')->orderBy('id','desc')->paginate(10);
+            $busqueda_an = Articulo::where('titulo','LIKE',"%$tag%")->where('tipo','ana')->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_an, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'juegos') {
-            $busqueda_j = DB::table('juegos')->where('titulo','LIKE',"%$tag%")->orderBy('id','desc')->paginate(9);
+            $busqueda_j = Juego::where('titulo','LIKE',"%$tag%")->orderBy('id','desc')->paginate(9);
             return view('layouts.paginas.busqueda_juegos', ['busq_j' => $busqueda_j, 'tag' => $tag, 'tipo' => $tipo]);
         }
 
         if ($tipo == 'etiquetas') {
             $art_etiq = EtiquetasController::devolverArticulosEtiqueta($tag);
-            $busqueda_a = DB::table('articulos')->whereIn('id',$art_etiq)->orderBy('id','desc')->paginate(10);
+            $busqueda_a = Articulo::whereIn('id',$art_etiq)->orderBy('id','desc')->paginate(10);
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
         }
+    }
+
+    /*
+     * ADMINISTRACIÓN
+     */
+    /**
+     * Muestra la vista donde se listan todos los artículos existentes en la base de datos
+     * @return vista de administracion.noticias
+     */
+    function mostrarArticulos() {
+        $cons =  Articulo::select()->orderBy('id','desc')->paginate(10);
+        return view('layouts.paginas.administracion.articulos', ['cons' => $cons]);
+    }
+
+    /**
+     * Muestra la vista para crear un nuevo artículo rellenando un formulario
+     * @return vista de administracion.nuev_art
+     */
+    public function nuevoArticulo() {
+        return view('layouts.paginas.administracion.nuev_art');
+    }
+
+    /**
+     * Muestra la vista para editar los datos de un artículo concreto
+     * @param $id artículo que mostrará la vista de edición
+     * @return redirección a la vista de administracion.edit_art
+     */
+    public static function mostrarEditarArticulo($id) {
+        return view('layouts.paginas.administracion.edit_art', ['id' => Articulo::findOrFail($id)]);
     }
 }

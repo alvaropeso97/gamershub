@@ -68,7 +68,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Categorías/Plataformas</label>
                                 <select id="categorias" name="categorias[]" multiple  class="form-control" style="height: 45px; padding: 0px;">
-                                    @foreach(\App\Http\Controllers\CategoriasController::allCategorias() as $categoria)
+                                    @foreach(\App\Categoria::all() as $categoria)
                                         <option name="categorias[]" value="{{$categoria->id}}" style="color: {{$categoria->color}};">{{$categoria->nombre}}</option>
                                     @endforeach
                                 </select>

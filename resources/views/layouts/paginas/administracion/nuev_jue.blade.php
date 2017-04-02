@@ -38,7 +38,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Plataformas</label>
                                 <select id="categorias" name="plataformas[]" multiple class="form-control" style="height: 45px; padding: 0px;">
-                                    @foreach(\App\Http\Controllers\CategoriasController::allPlataformas() as $plataforma)
+                                    @foreach(\App\Categoria::where('esplataforma','1')->get() as $plataforma)
                                         <option name="plataformas[]" value="{{$plataforma->id}}" style="color: {{$plataforma->color}};">{{$plataforma->nombre}}</option>
                                     @endforeach
                                 </select>

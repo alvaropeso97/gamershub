@@ -1,28 +1,3 @@
-<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-<div class="card">
-    <div class="card-img">
-        <a href="/articulo/200/los-10-juegos-mas-esperados-del-2017"><img src="http://img.gamershub.es/noticias/1483031189losmasesperados2017.jpg" alt=""></a>
-    </div>
-    <div class="caption">
-        <h3 class="card-title"><a href="/articulo/200">Los 10 juegos más esperados del 2017</a></h3>
-        <ul>
-            Repasamos los lanzamientos más esperados del 2017
-        </ul>
-    </div>
-</div>
-<div class="card">
-    <div class="card-img">
-        <a href="/articulo/199/buscamos-redactoresas-y-presentadoresas"><img src="http://img.gamershub.es/noticias/1483019063sebusca.png" alt=""></a>
-    </div>
-    <div class="caption">
-        <h3 class="card-title"><a href="/articulo/199">Buscamos redactores/as y presentadores/as</a></h3>
-        <ul>
-            ¿Te gustaría trabajar con nosotros?
-        </ul>
-    </div>
-</div>
-<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
 @php $contador = 1; @endphp
 <div class="widget widget-games">
     <div class="title">Próximos Lanzamientos</div>

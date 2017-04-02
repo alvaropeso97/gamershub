@@ -12,78 +12,115 @@
 namespace App\Http\Controllers;
 
 
+use App\Articulo;
 use App\Categoria;
+use App\Exceptions\CategoriaNoEncontradaException;
 use Illuminate\Routing\Controller;
 use DB;
 
 class CategoriasController extends Controller
 {
-    public static function mostrarCategoria($alias) {
-        $categoria = DB::table('categorias')->where('alias', $alias)->first();
-        if ($categoria->esplataforma == 1) {
-            return redirect("/plataforma/$alias");
+    /**
+     * Recibe el alias de la categoria/plataforma, si es una plataforma redirige a /plataforma/alias y si no lo es
+     * muestra todos los artículos de la categoría ordenados por fecha
+     * @param $alias de la categoría/plataforma
+     * @return redirección a /plataforma/alias | vista con todos los artículos paginados de la categoría
+     * @throws CategoriaNoEncontradaException si no encuentra la categoría asociada con el alias
+     */
+    public static function mostrarCategoria($alias)
+    {
+        //Obtener la categoría/plataforma a partir de su alias
+        $categoria = Categoria::where('alias', $alias)->first();
+        if (!$categoria) {
+            throw new CategoriaNoEncontradaException;
         } else {
-            $cons =  \App\Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat='.$categoria->id.')')->orderBy('id','desc')->paginate(9);
-            return view('layouts.paginas.categoria', ['id' => Categoria::findOrFail($categoria->id), 'cons' => $cons]);
-        }
-    }
-
-    public static function mostrarPlataforma($alias) {
-        $categoria = DB::table('categorias')->where('alias', $alias)->first();
-        if ($categoria->esplataforma == 1) {
-            $cons =  \App\Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat='.$categoria->id.')')->orderBy('id','desc')->paginate(9);
-            return view('layouts.paginas.categoria', ['id' => Categoria::findOrFail($categoria->id), 'cons' => $cons]);
-        } else {
-            return redirect("/categoria/$alias");
-        }
-    }
-
-    public static function mostrarPlataformaAZ($alias, $orden) {
-        $categoria = DB::table('categorias')->where('alias', $alias)->first();
-        if ($categoria->esplataforma == 1) {
-            if ($orden == "a-z") {
-                $cons =  \App\Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat='.$categoria->id.')')->orderBy('titulo','asc')->paginate(9);
+            if ($categoria->esplataforma == 1) {
+                //Redirigir a /plataforma/alias
+                return redirect("/plataforma/$alias");
+            } else {
+                //Obtener los artículos pertenecientes a esta categoría
+                $cons = Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat=' . $categoria->id . ')')
+                    ->orderBy('id', 'desc')->paginate(9);
+                return view('layouts.paginas.categoria', ['categoria' => $categoria, 'cons' => $cons]);
             }
-            return view('layouts.paginas.categoria', ['id' => Categoria::findOrFail($categoria->id), 'cons' => $cons]);
-        } else {
-            return redirect("/categoria/$alias");
-        }
-    }
-
-    public static function mostrarCategoriaAZ($alias, $orden) {
-        $categoria = DB::table('categorias')->where('alias', $alias)->first();
-        if ($categoria->esplataforma == 1) {
-            return redirect("/plataforma/$alias/a-z");
-        } else {
-            if ($orden == "a-z") {
-                $cons =  \App\Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat='.$categoria->id.')')->orderBy('titulo','asc')->paginate(9);
-            }
-            return view('layouts.paginas.categoria', ['id' => Categoria::findOrFail($categoria->id), 'cons' => $cons]);
         }
     }
 
     /**
-     * Devuelve los datos de las categorías a las que pertenece un artículo.
-     * @param $id noticia
-     * @return categorías a las que pertenece un artículo
+     * Recibe el alias de la categoría/plataforma, si es una plataforma muestra todos los artículos de la misma ordenados
+     * por fecha, si no lo es redirige a /categoria/alias
+     * @param $alias de la categoría/plataforma
+     * @return vista con todos los artículos paginados de la plataforma | redirección a /categoria/alias
+     * @throws CategoriaNoEncontradaException si no encuentra la categoría asociada con el alias
      */
-    public static function devolverCategorias ($id) {
-        return $categorias = DB::select("select * from categorias where id in (select id_cat from categorias_articulos where cod_art=".$id.")");
+    public static function mostrarPlataforma($alias)
+    {
+        //Obtener la categoría/plataforma a partir de su alias
+        $categoria = Categoria::where('alias', $alias)->first();
+        if (!$categoria) {
+            throw new CategoriaNoEncontradaException;
+        } else {
+            if ($categoria->esplataforma == 1) {
+                //Obtener los artículos pertenecientes a esta plataforma
+                $cons = Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat=' . $categoria->id . ')')
+                    ->orderBy('id', 'desc')->paginate(9);
+                return view('layouts.paginas.categoria', ['categoria' => $categoria, 'cons' => $cons]);
+            } else {
+                //Redirigir a /categoria/alias
+                return redirect("/categoria/$alias");
+            }
+        }
     }
 
-    public static function devolverIdCategorias ($id) {
-        return $categorias = DB::select("select id from categorias where id in (select id_cat from categorias_articulos where cod_art=".$id.")");
+    /**
+     * Recibe el alias de la categoria/plataforma, si es una plataforma redirige a /plataforma/alias y si no lo es
+     * muestra todos los artículos de la categoría ordenados por el parametro $orden
+     * @param $alias de la categoría/plataforma
+     * @param $orden orden de los artículos
+     * @return redirección a /plataforma/alias | vista con todos los artículos paginados de la categoría
+     * @throws CategoriaNoEncontradaException si no encuentra la categoría asociada con el alias
+     */
+    public static function mostrarPlataformaAZ($alias, $orden)
+    {
+        //Obtener la categoría/plataforma a partir de su alias
+        $categoria = Categoria::where('alias', $alias)->first();
+        if (!$categoria) {
+            throw new CategoriaNoEncontradaException;
+        } else {
+            if ($categoria->esplataforma == 1) {
+                if ($orden == "a-z") {
+                    $cons = Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat=' . $categoria->id . ')')->orderBy('titulo', 'asc')->paginate(9);
+                }
+                return view('layouts.paginas.categoria', ['categoria' => $categoria, 'cons' => $cons]);
+            } else {
+                return redirect("/categoria/$alias");
+            }
+        }
     }
 
-    public static function allCategorias(){
-        return $categorias = DB::select("select * from categorias");
+    /**
+     * Recibe el alias de la categoría/plataforma, si es una plataforma muestra todos los artículos de la misma ordenados
+     * por titulo, si no lo es redirige a /categoria/alias
+     * @param $alias de la categoría/plataforma
+     * @param $orden orden de los artículos
+     * @return vista con todos los artículos paginados de la plataforma | redirección a /categoria/alias
+     * @throws CategoriaNoEncontradaException si no encuentra la categoría asociada con el alias
+     */
+    public static function mostrarCategoriaAZ($alias, $orden)
+    {
+        //Obtener la categoría/plataforma a partir de su alias
+        $categoria = Categoria::where('alias', $alias)->first();
+        if (!$categoria) {
+            throw new CategoriaNoEncontradaException;
+        } else {
+            if ($categoria->esplataforma == 1) {
+                return redirect("/plataforma/$alias/a-z");
+            } else {
+                if ($orden == "a-z") {
+                    $cons = \App\Articulo::whereRaw('id in (select cod_art from categorias_articulos where id_cat=' . $categoria->id . ')')->orderBy('titulo', 'asc')->paginate(9);
+                }
+                return view('layouts.paginas.categoria', ['categoria' => $categoria, 'cons' => $cons]);
+            }
+        }
     }
-
-    public static function allPlataformas(){
-        return $categorias = DB::select("select * from categorias where esplataforma = 1");
-    }
-
-    public static function devolverCategoria($id) {
-        return DB::table('categorias')->where('id', $id)->first();
-}
 }

@@ -69,7 +69,7 @@
                                             <label>Plataformas</label>
                                             @php $plataformas_usuario = \App\Http\Controllers\UsuariosController::devolverPlataformasUsuario($id->id) @endphp
                                             <select id="categorias" name="plataformas[]" multiple class="form-control" style="height: 90px; padding: 0px;">
-                                                @foreach(\App\Http\Controllers\CategoriasController::allPlataformas() as $plataforma)
+                                                @foreach(\App\Categoria::where('esplataforma','1')->get() as $plataforma)
                                                     <option id="categorias" name="plataformas[]" value="{{$plataforma->id}}" style="color: {{$plataforma->color}};" @if(count($plataformas_usuario) > 0 && in_array($plataforma->id, array_column($plataformas_usuario, "id_plataforma"))) selected @endif >{{$plataforma->nombre}}</option>
                                                 @endforeach
                                             </select>
@@ -81,7 +81,7 @@
                                                 <label>Me gustan los juegos de</label>
                                                 <select name="genero_preferido" class="form-control">
                                                     <option name="genero_preferido" value="-1" selected>Seleccina un género</option>
-                                                    @foreach(\App\Http\Controllers\GenerosController::devolverAllGeneros() as $genero)
+                                                    @foreach(\App\Genero::all() as $genero)
                                                         <option name="genero_preferido" @if($UsrInfo->genero_preferido == $genero->id) selected @endif value="{{$genero->id}}">{{$genero->nombre}}</option>
                                                     @endforeach
                                                 </select>
@@ -95,7 +95,7 @@
                                                 <i class="ion-earth"></i>
                                                 <select name="pais" class="form-control">
                                                     <option name="pais" value="-1" selected>Seleccina tu país</option>
-                                                    @foreach(\App\Http\Controllers\PaisesController::devolverTodosPaises() as $pais)
+                                                    @foreach(\App\Pais::all() as $pais)
                                                         <option name="pais" @if($UsrInfo->pais == $pais->cod_pais) selected @endif value="{{$pais->cod_pais}}">{{$pais->pais}}</option>
                                                     @endforeach
                                                 </select>

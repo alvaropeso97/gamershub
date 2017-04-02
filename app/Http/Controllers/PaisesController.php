@@ -14,11 +14,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use DB;
-use Illuminate\Http\Request;
 
 class PaisesController extends Controller
 {
-    public static function devolverTodosPaises() {
-        return DB::select("select * from paises");
-    } 
+
 }

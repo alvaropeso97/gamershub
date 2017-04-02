@@ -19,8 +19,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Video extends Model
 {
-    protected $table = 'videos'; // Obtener la tabla artículos de la base de datos
+    protected $table = 'videos';
     protected $fillable = ['id','id_art','cod_yt','dur','visitas'];
     public $timestamps = false;
 
+    public function getArticulo() {
+        return $this->belongsTo('App\Articulo', 'id_art');
+    }
 }

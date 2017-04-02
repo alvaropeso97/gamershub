@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Acceso de usuarios')
+@section('titulo', 'Acceso de usuarios de '.\App\ConfigGeneral::first()->nombre_aplicacion)
 
 @section('contenido')
     <section class="hero hero-panel" style="background-image: url(/img/bg/bgreg.jpg);">
@@ -14,19 +14,23 @@
                         <div class="panel-body">
                             <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Contectar con Facebook</a>
                             <div class="separator"></div>
-                            <form role="form" method="POST" action="{{ url('/login') }}">
-
+                            <form role="form" method="POST" action="{{ url('/autenticar') }}">
                                 {{ csrf_field() }}
-                                @if ($errors->has('email'))
-                                <div class="alert alert-danger">
-                                    El e-mail y la contraseña no coinciden, si todavía no estás registrado puedes hacerlo desde <a href="/register"><b>aquí</b></a>
-                                </div>
+                                @if(Session::has('error'))
+                                    <div class="alert alert-danger">
+                                        {{Session::get('error')}}
+                                    </div>
                                 @endif
-                                <div class="form-group input-icon-left {{ $errors->has('email') ? ' has-error' : '' }}">
+                                @if(Session::has('mensaje'))
+                                    <div class="alert alert-success">
+                                        {{Session::get('mensaje')}}
+                                    </div>
+                                @endif
+                                <div class="form-group input-icon-left">
                                     <i class="fa fa-envelope"></i>
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="E-mail" required autofocus>
+                                    <input id="email" type="email" class="form-control" name="email" placeholder="E-mail" required autofocus>
                                 </div>
-                                <div class="form-group input-icon-left {{ $errors->has('email') ? ' has-error' : '' }}">
+                                <div class="form-group input-icon-left">
                                     <i class="fa fa-lock"></i>
                                     <input id="password" type="password" class="form-control" name="password" placeholder="Constraseña" required>
                                 </div>

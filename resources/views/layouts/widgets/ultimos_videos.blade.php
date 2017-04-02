@@ -6,13 +6,12 @@
             </div>
             <!-- Inicio Video -->
             <div class="row">
-                <?php $videos = DB::select("select * from articulos WHERE tipo = 'vid' ORDER BY id DESC LIMIT 4"); ?>
-                @foreach($videos as $video)
-                    @php $vid = \App\Http\Controllers\ArticulosController::devolverUnVideo($video->id) @endphp
+                @foreach(\App\Articulo::where('tipo', 'vid')->orderBy('id', 'desc')->take(4)->get() as $video)
+                    @php $vid = $video->getVideo @endphp
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="card card-video">
                             <div class="card-img">
-                                <a href="/articulo/{{$video->id}}/{{$video->lnombre}}"><img src="{{Config::get('constants.S1_URL')}}/noticias/{{$video->img}}" alt=""></a>
+                                <a href="/articulo/{{$video->id}}/{{$video->lnombre}}"><img src="{{Config::get('constants.S1_URL')}}/noticias_rsz/500x281_{{$video->img}}" alt=""></a>
                                 <div class="time">{{$vid->dur}}</div>
                             </div>
                             <div class="caption">

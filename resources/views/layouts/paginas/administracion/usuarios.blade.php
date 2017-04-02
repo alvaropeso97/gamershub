@@ -46,11 +46,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach(\App\Http\Controllers\UsuariosController::devolverUsuarios() as $usuario)
+                            @foreach($usuarios as $usuario)
                             <tr>
                                 <td>{{$usuario->id}}</td>
                                 <td class="hidden-xs"><a href="/usuario/{{$usuario->name}}">{{$usuario->name}}</a></td>
-                                <td class="hidden-xs">{{\App\Http\Controllers\UsuariosController::devolverRango($usuario->acceso)}}</td>
+                                <td class="hidden-xs">{{$usuario->getRango()}}</td>
                                 <td>{{$usuario->created_at}}</td>
                                 <td>
                                     <button class="btn btn-primary btn-circle btn-sm" onclick="window.location.href='/panel/usuarios/editar-usuario/{{$usuario->id}}'" data-toggle="tooltip" title="" data-original-title="editar"><i class="fa fa-pencil"></i></button>

@@ -6,7 +6,7 @@
     <div class="container">
         <ol class="breadcrumb">
             <li><a href="/">Portal</a></li>
-            <li><a href="/">{{\App\Http\Controllers\ArticulosController::devolverTipo($id->tipo)}}@if($id->tipo != "ana")s @endif </a></li>
+            <li><a href="/">{{$id->getTipo()}}@if($id->tipo != "ana")s @endif </a></li>
             <li class="active">{{$id->titulo}}</li>
         </ol>
     </div>

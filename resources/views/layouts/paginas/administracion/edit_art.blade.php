@@ -56,7 +56,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <div class="form-group">
                                     <label>Autor</label>
-                                    <input type="text" id="autor" name="autor" class="form-control" value="{{\App\Http\Controllers\UsuariosController::devolverUsuario($id->id_autor)->name}}" disabled>
+                                    <input type="text" id="autor" name="autor" class="form-control" value="{{$id->getAutor->name}}" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -67,11 +67,11 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Categorías/Plataformas</label>
-                                @php $categorias = \App\Http\Controllers\CategoriasController::devolverIdCategorias($id->id); @endphp
+                                @php $categorias_articulo = $id->getCategorias->toArray(); @endphp
 
                                 <select id="categorias" name="categorias[]" multiple class="form-control" style="height: 45px; padding: 0px;">
-                                    @foreach(\App\Http\Controllers\CategoriasController::allCategorias() as $categoria)
-                                    <option name="categorias[]" value="{{$categoria->id}}" style="color: {{$categoria->color}};" @if(in_array($categoria->id, array_column($categorias, "id"))) selected @endif >{{$categoria->nombre}}</option>
+                                    @foreach(\App\Categoria::all() as $categoria)
+                                    <option name="categorias[]" value="{{$categoria->id}}" style="color: {{$categoria->color}};" @if(in_array($categoria->id, array_column($categorias_articulo, "id"))) selected @endif >{{$categoria->nombre}}</option>
 
                                         @endforeach
                                 </select>
@@ -108,14 +108,14 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <label style="margin-top: 15px;" >Etiquetas (<span class="bold">INTRO</span> para añadir nueva)</label>
-                                        <input type="text" data-role="tagsinput" name="etiquetas" class="form-control" value="{{\App\Http\Controllers\ArticulosController::devolverEtiquetasCadena($id->id)}}"><br>
+                                        <input type="text" data-role="tagsinput" name="etiquetas" class="form-control" value="{{$id->getEtiquetasCadena()}}"><br>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         @if($id->tipo == "vid")
-                            @php $video = \App\Http\Controllers\ArticulosController::devolverUnVideo($id->id) @endphp
+                            @php $video = $id->getVideo @endphp
                             <hr>
 
                             <div class="row margin-top-30">
@@ -132,7 +132,7 @@
 
                         @if($id->tipo == "ana")
                             <hr>
-                            @php $analisis = \App\Http\Controllers\AnalisisController::devolverAnalisis($id->juego_rel) @endphp
+                            @php $analisis = $id->getAnalisis; @endphp
                         <div class="row margin-top-30">
                             <h3>Análisis</h3>
                             <p>Solo si es un análisis de un título y tiene un juego asociado.</p>

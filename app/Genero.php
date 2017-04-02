@@ -22,5 +22,4 @@ class Genero extends Model
     protected $table = 'generos';
     protected $fillable = ['id','nombre'];
     public $timestamps = false;
-
 }

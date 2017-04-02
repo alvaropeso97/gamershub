@@ -1,10 +1,10 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Todos los vídeos')
+@section('titulo', 'Todos los vídeos - '.\App\ConfigGeneral::first()->nombre_aplicacion)
 @php $cons =  \App\Articulo::whereRaw('tipo = "vid"')->orderBy('id','desc')->paginate(16); @endphp
 @section('contenido')
 
     <!-- PRIMER VÍDEO -->
-    @php $ultimo_video = \App\Http\Controllers\ArticulosController::devolverUltimoVideo() @endphp
+    @php $ultimo_video = \App\Video::orderBy('id', 'DESC')->first(); @endphp
     <div class="background-image" style="background-image: url(http://img.youtube.com/vi/{{$ultimo_video->cod_yt}}/maxresdefault.jpg);">
         <span class="background-overlay"></span>
         <div class="container">
@@ -30,7 +30,7 @@
                 <div class="dropdown">
                     <a href="#" class="btn btn-default btn-icon-left btn-icon-right dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gamepad"></i> Plataforma <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu">
-                        @foreach(\App\Http\Controllers\CategoriasController::allPlataformas() as $plataforma)
+                        @foreach(\App\Categoria::where('esplataforma','1')->get() as $plataforma)
                             <li><a href="#" style="color: {{$plataforma->color}};">{{$plataforma->nombre}}</a></li>
                         @endforeach
 
@@ -54,7 +54,7 @@
             <div class="card-group">
                 <div class="row">
                     @foreach($cons as $video)
-                        @php $vid = \App\Http\Controllers\ArticulosController::devolverUnVideo($video->id) @endphp
+                        @php $vid = $video->getVideo @endphp
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="card card-video">
                             <div class="card-img">

@@ -25,6 +25,14 @@ class Juego extends Model
     protected $fillable = ['id','titulo','caratula','descripcion','dispo_en','desarrollador','distribuidor','jugadores','duracion','idioma','fecha_lanzamiento','img_header','img_box','lnombre'];
     public $timestamps = false;
 
+    /**
+     * Clave ajena "juego_rel", referencia a "id" (juegos)
+     * @return articulos pertenecientes a este juego
+     */
+    public function getArticulos() {
+        return $this->hasMany('App\Articulo', 'juego_rel', 'id');
+    }
+
     public function setImgheaderAttribute($img_header) {
         $this->attributes['img_header'] = Carbon::now()->second.$img_header->getClientOriginalName();
         $name = $this->attributes['img_header'] = Carbon::now()->second.$img_header->getClientOriginalName();

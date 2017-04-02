@@ -1,6 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'GamersHUB - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores...')
-
+@section('titulo', \App\ConfigGeneral::first()->nombre_aplicacion.' - '.\App\ConfigGeneral::first()->titulo_inicio)
 @section('contenido')
     <!-- Noticias destacadas -->
     @include('layouts.widgets.noticias_destacadas')
@@ -12,7 +11,6 @@
     <!-- Últimas noticias -->
         <section>
             <div class="container">
-                <!-- <center><img src="img/weblogo_2017.png" class="img-responsive" style="margin-bottom: 70px" alt="FELIZ2017"></center> -->
                 <div class="row sidebar">
                     <!-- Noticias -->
                     @include('layouts.widgets.noticias')
@@ -24,20 +22,10 @@
                         <!-- Comentarios recientes -->
                         @include('layouts.widgets.comentarios_recientes')
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- Principal -->
-                        <ins class="adsbygoogle"
-                             style="display:inline-block;width:270px;height:270px"
-                             data-ad-client="ca-pub-6228540434295821"
-                             data-ad-slot="7686710196"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
                     </div><!-- Fin Sidebar -->
 
 
                 </div>
             </div>
         </section><!-- Fin Últimas noticias -->
-
-
     @endsection

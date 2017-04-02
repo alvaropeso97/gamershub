@@ -11,13 +11,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Genero;
 use DB;
 use Request;
 
 class GenerosController extends Controller
 {
-    public static function devolverAllGeneros() {
-        return Genero::all();
-    }
+
 }

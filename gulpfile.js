@@ -13,7 +13,13 @@ require('laravel-elixir-vue');
  |
  */
 
-elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+elixir(function(mix) {
+    mix.styles([
+        "bootstrap-tagsinput.css",
+        "gamershub_ls01.css",
+        "gheditor-theme.css",
+        "helpers.min.css",
+        "selectivity-jquery.css",
+        "theme.min.css"
+    ], 'public/css/app.css');
 });
