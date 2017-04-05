@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Esta clase es el modelo de la tabla "categorias" de la base de datos
- * Class Categorias
+ * Class Categoria
  * @package App
  */
 class Categoria extends Model

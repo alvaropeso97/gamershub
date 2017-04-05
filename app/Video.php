@@ -23,6 +23,10 @@ class Video extends Model
     protected $fillable = ['id','id_art','cod_yt','dur','visitas'];
     public $timestamps = false;
 
+    /**
+     * Devuelve el artículo perteneciente a este video
+     * @return Video
+     */
     public function getArticulo() {
         return $this->belongsTo('App\Articulo', 'id_art');
     }

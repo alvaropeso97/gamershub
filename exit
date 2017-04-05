@@ -1,0 +1,203 @@
+[33mcommit 5a65a598b26684dc8ddabb7cf617626b860599ac[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Fri Mar 31 14:33:58 2017 +0200
+
+    Añadido controlador y modelo para gestionar imágenes, rss atom
+
+[33mcommit 73cf2e6964ba2970bc1bf6f0de7eb4b651eae8b5[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Fri Mar 31 12:50:02 2017 +0200
+
+    Añadido selector de colores al modificar categorías, permisos para la gestión de categorías
+
+[33mcommit 437a7c235d4438e3a30190334940012631db0331[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Fri Mar 31 12:36:51 2017 +0200
+
+    Añadidas opciones en el backend: eliminar usuarios, mostrar-crear-eliminar-modificar categorías/plataformas
+
+[33mcommit 9308a3ae0f5b867d3b293675a4f5ddb3639dfb2e[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Thu Mar 30 19:31:17 2017 +0200
+
+    Pequeñas modificaciones visuales
+
+[33mcommit 9cef8f846244529a19cbf8f68fe6d99e9798df98[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Thu Mar 30 18:14:51 2017 +0200
+
+    Añadido datepicker, actualizado editor TinyMCE, creación del middleware para los permisos, modificaciones de usuarios
+
+[33mcommit 161f1a2d9176c1048df7defa0a0ef5f0c11d8231[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Thu Mar 30 13:41:18 2017 +0200
+
+    Añadida gestión de roles desde el backend, listado de usuarios
+
+[33mcommit 3cc77399a7b0f1d8215e6bbc261736bb36e01f9e[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 29 21:02:26 2017 +0200
+
+    Pequeñas modificaciones de diseño
+
+[33mcommit bc53ea3ba34ea55c16be9d947f0b496efeafe49a[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 29 18:33:33 2017 +0200
+
+    Añadida la configuración general en el backend
+
+[33mcommit 70ead17028bddeb863dba52bd78d3d09c420d29d[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 29 11:32:56 2017 +0200
+
+    Modificaciones en el menú del backend, configuración de la API IGDB para UNIREST
+
+[33mcommit 6adbe671ca440021bbd8cb55514c32a161cb0894[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 29 09:26:04 2017 +0200
+
+    Añadir API IGDB
+
+[33mcommit f1b9d29a6a7961a7083047158b586f9aaba906b6[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Tue Mar 28 18:28:13 2017 +0200
+
+    Creación del nuevo diseño para el backend (dashboard) con estadísticas, calendario de lanzamientos y últimas noticias
+
+[33mcommit 1b2d1da749f2f3131570f5f922c7c9f06e4b4354[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Tue Mar 28 13:26:02 2017 +0200
+
+    Confirmación de correo electrónico tras realizarse un registro, notificar al usuario cuando haya confirmado su dirección de correo electrónico, optimización y documentación del código
+
+[33mcommit e4a074f6c3cd34f939c77db1ef2b0c6d57bebb7e[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Mon Mar 27 18:20:18 2017 +0200
+
+    Añadir al fichero .gitignore el directorio /node_modules
+
+[33mcommit fd079ae98e15b08e39f260f7806c6aad7c3bf0e8[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Mon Mar 27 18:12:13 2017 +0200
+
+    Creación de plantilla para notificaciones por correo y configuración SMTP de AMAZON SES
+
+[33mcommit b88b960193bc222c767b343b7df7d7d6d4c44c68[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Sun Mar 26 21:24:00 2017 +0200
+
+    Optimización código CSS con Laravel Elixir (gulp)
+
+[33mcommit de54939a0db8360dcf2846ace01941dbf59229b0[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Sun Mar 26 17:44:01 2017 +0200
+
+    Elimino archivos de configuración de IntelliJ
+
+[33mcommit 493627a7f0d3697c5f8daea6327d85fc5cdea51c[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Sun Mar 26 17:39:57 2017 +0200
+
+    Ignorar archivos de configuración de /.idea
+
+[33mcommit 9bb500f8b7628bc9e2fa8e4a7a1c790ee3abc392[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Sun Mar 26 17:37:17 2017 +0200
+
+    Inicio del diseño para la newsletter semanal
+
+[33mcommit fb3a4a999cb8d1b72585f6dcd2a5d5887f01ae51[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Sun Mar 26 14:02:38 2017 +0200
+
+    Subida de imágenes de artículos a Amazon AWS S3 en 3 tamaños diferentes y optimización de la visualización de las mismas en las diferentes vistas
+
+[33mcommit c171db1df2235699411b73d59f2c9d664600c0e1[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Sat Mar 25 19:10:42 2017 +0100
+
+    Subida de librerías y dependencias
+
+[33mcommit e4824ae5178ab334a123b9934223fc1b04ea2ab7[m
+Author: Alvaro Peso <alvaro.peso.97@gmail.com>
+Date:   Sat Mar 25 14:11:36 2017 +0100
+
+    Subida de librerías y dependencias
+
+[33mcommit dcbc1ffa4a0976b3674bbb9384c67d8883f5c5e1[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Fri Mar 24 13:16:09 2017 +0100
+
+    Excepciones para búsquedas no encontradas en: artículos, categorías, juegos y usuarios. Optimización del código
+
+[33mcommit b4bdabc893c6d8b78a015bdacdacf7070a238348[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Fri Mar 24 09:45:54 2017 +0100
+
+    Optimización del código. Análisis y categorías
+
+[33mcommit 2ef62a7b72600775dfe002b3d97603f0d92be9c6[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Thu Mar 23 18:20:00 2017 +0100
+
+    Añadir al repositorio el archivo de configuración de Laravel .env y la confuguarción de IntelliJ para el IDE
+
+[33mcommit 3855ae41ac28b4da5851403f5f788c51b0831181[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Thu Mar 23 18:15:47 2017 +0100
+
+    Optimización de código. Comentarios, Análisis...
+
+[33mcommit 9d7ad87639f5345c8e5e5a7ffd58c1faed34a71e[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Thu Mar 23 16:55:01 2017 +0100
+
+    Optimización de código. Análisis
+
+[33mcommit a5b1e0a22b56f5c01a7bd25d169b0cd4e8867859[m
+Author: root <root@noreply.csa.es>
+Date:   Thu Mar 23 16:03:59 2017 +0100
+
+    Optimización del código, creación del modelo para la tabla paises, limpieza en el controlador de categorias
+
+[33mcommit ab4421ea907e5062ae6fe6a6950e58a99b3f4a02[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Thu Mar 23 12:32:08 2017 +0100
+
+    Optimización de código. Artículos, Géneros, Juegos, Usuarios
+
+[33mcommit 37fb4c762f42ec6b201ba9e44dd93a303015ba16[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Thu Mar 23 10:55:52 2017 +0100
+
+    Optimización de código, relaciones en Eloquent
+
+[33mcommit 1e9dbf48078efd73ecf5a6186d0b9d11c19c83d9[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 22 18:28:24 2017 +0100
+
+    Optimización del código y creación de relaciones en Eloquent
+
+[33mcommit 5abaacc81288822c4c7967fc18b83f50ed133afc[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 22 13:07:07 2017 +0100
+
+    Optimización del código y documentación del mismo
+
+[33mcommit addef8c762621a0fb64dc8182cc7e94012905570[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 22 11:03:16 2017 +0100
+
+    Eliminación del controlador de registro
+
+[33mcommit c415e21b201a8bc7b87efd5546d1a9bc4ad5000c[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 22 09:47:56 2017 +0100
+
+    Prueba de commit en GitHUB
+
+[33mcommit 2ce1445812fb501bd6cb4a02b04a7f344b65218f[m
+Author: Alvaro Peso <alvaro.peso@csa.es>
+Date:   Wed Mar 22 09:41:06 2017 +0100
+
+    Subida de ficheros inicial
