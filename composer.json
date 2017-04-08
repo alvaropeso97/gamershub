@@ -12,7 +12,8 @@
         "intervention/image": "^2.3",
         "robbiep/cloudconvert-laravel": "2.*",
         "mashape/unirest-php": "3.*",
-        "roumen/feed": "^2.10"
+        "roumen/feed": "^2.10",
+        "tcg/voyager": "^0.11.9"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

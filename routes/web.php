@@ -247,3 +247,7 @@ Route::group(['middleware' => 'App\Http\Middleware\PermisoMiddleware:1'], functi
  * RSS FEED
  */
 Route::get ('/feed/rss', 'FeedController@show');
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
