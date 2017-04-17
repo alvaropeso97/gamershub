@@ -82,6 +82,10 @@ class Articulo extends Model
         return $this->belongsTo('App\Juego', 'juego_rel');
     }
 
+    public function juegoRel() {
+        return $this->getJuego();
+    }
+
     /**
      * Clave ajena "cod_art", referencia a "id" (articulos)
      * @return etiquetas relacionadas con el artículo

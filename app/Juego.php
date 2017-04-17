@@ -33,6 +33,14 @@ class Juego extends Model
         return $this->hasMany('App\Articulo', 'juego_rel', 'id');
     }
 
+    public function desarrollador() {
+        return $this->belongsToMany(Desarrollador::class, 'juegos_desarrolladores');
+    }
+
+    public function distribuidor() {
+        return $this->belongsToMany(Distribuidor::class, 'juegos_distribuidores');
+    }
+
     public function setImgheaderAttribute($img_header) {
         $this->attributes['img_header'] = Carbon::now()->second.$img_header->getClientOriginalName();
         $name = $this->attributes['img_header'] = Carbon::now()->second.$img_header->getClientOriginalName();
