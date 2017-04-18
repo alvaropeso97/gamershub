@@ -345,33 +345,4 @@ class ArticulosController extends Controller
             return view('layouts.paginas.busqueda', ['busq_a' => $busqueda_a, 'tag' => $tag, 'tipo' => $tipo]);
         }
     }
-
-    /*
-     * ADMINISTRACIÓN
-     */
-    /**
-     * Muestra la vista donde se listan todos los artículos existentes en la base de datos
-     * @return vista de administracion.noticias
-     */
-    function mostrarArticulos() {
-        $cons =  Articulo::select()->orderBy('id','desc')->paginate(10);
-        return view('layouts.paginas.administracion.articulos', ['cons' => $cons]);
-    }
-
-    /**
-     * Muestra la vista para crear un nuevo artículo rellenando un formulario
-     * @return vista de administracion.nuev_art
-     */
-    public function nuevoArticulo() {
-        return view('layouts.paginas.administracion.nuev_art');
-    }
-
-    /**
-     * Muestra la vista para editar los datos de un artículo concreto
-     * @param $id artículo que mostrará la vista de edición
-     * @return redirección a la vista de administracion.edit_art
-     */
-    public static function mostrarEditarArticulo($id) {
-        return view('layouts.paginas.administracion.edit_art', ['id' => Articulo::findOrFail($id)]);
-    }
 }

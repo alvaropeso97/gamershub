@@ -10,10 +10,10 @@ class DataTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $dataType = $this->dataType('slug', 'posts');
+        $dataType = $this->dataType('slug', 'articulos');
         if (!$dataType->exists) {
             $dataType->fill([
-                'name'                  => 'posts',
+                'name'                  => 'articulos',
                 'display_name_singular' => 'Post',
                 'display_name_plural'   => 'Posts',
                 'icon'                  => 'voyager-news',

@@ -68,7 +68,7 @@ class MultilingualTest extends TestCase
     public function testGettingTranslatorModelOfExistingTranslation()
     {
         DB::table('translations')->insert([
-            'table_name'  => 'posts',
+            'table_name'  => 'articulos',
             'column_name' => 'title',
             'foreign_key' => 1,
             'locale'      => 'da',
@@ -128,7 +128,7 @@ class MultilingualTest extends TestCase
     public function testSavingExistingTranslatorModel()
     {
         DB::table('translations')->insert([
-            'table_name'  => 'posts',
+            'table_name'  => 'articulos',
             'column_name' => 'title',
             'foreign_key' => 1,
             'locale'      => 'da',
@@ -199,7 +199,7 @@ class MultilingualTest extends TestCase
     public function testUpdatingTranslation()
     {
         DB::table('translations')->insert([
-            'table_name'  => 'posts',
+            'table_name'  => 'articulos',
             'column_name' => 'title',
             'foreign_key' => 1,
             'locale'      => 'da',
@@ -246,7 +246,7 @@ class MultilingualTest extends TestCase
 
 class TranslatableModel extends Model
 {
-    protected $table = 'posts';
+    protected $table = 'articulos';
 
     use Translatable;
 
@@ -264,7 +264,7 @@ class TranslatableModel extends Model
 
 class NotTranslatableModel extends Model
 {
-    protected $table = 'posts';
+    protected $table = 'articulos';
 
     /**
      * The attributes that are mass assignable.
@@ -278,7 +278,7 @@ class NotTranslatableModel extends Model
 
 class StillNotTranslatableModel extends Model
 {
-    protected $table = 'posts';
+    protected $table = 'articulos';
 
     /**
      * The attributes that are mass assignable.
@@ -294,7 +294,7 @@ class StillNotTranslatableModel extends Model
 
 class ActuallyTranslatableModel extends Model
 {
-    protected $table = 'posts';
+    protected $table = 'articulos';
 
     use Translatable;
 

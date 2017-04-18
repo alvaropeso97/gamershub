@@ -224,7 +224,7 @@ class VoyagerMediaController extends Controller
     public function remove(Request $request)
     {
         try {
-            // GET THE SLUG, ex. 'posts', 'pages', etc.
+            // GET THE SLUG, ex. 'articulos', 'pages', etc.
             $slug = $request->get('slug');
 
             // GET image name

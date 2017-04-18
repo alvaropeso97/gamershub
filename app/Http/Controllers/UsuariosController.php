@@ -55,32 +55,6 @@ class UsuariosController extends Controller
         }
     }
 
-    public function eliminarUsuario($id) {
-        //Comprobar si es admin
-        $usuario =  DB::table('users')->where('id', $id)->first();
-        if ($usuario->acceso == 3 || Auth::user()->acceso < 3) {
-            return redirect('/panel/usuarios')->with('error', 'No tienes los permisos para eliminar a este usuario.');
-        } else {
-            DB::table('users')->where('id', $id)->delete();
-            return redirect('/panel/usuarios')->with('mensaje', 'El usuario ha sido eliminado correctamente de la base de datos.');
-        }
-    }
-
-    public function mostrarEditarUsuario($id) {
-        return view('layouts.paginas.administracion.edit_usr', ['id' => User::findOrFail($id)]);
-    }
-
-    public function modificarUsuario($id, \Illuminate\Http\Request $request) {
-        //Validar formulario
-
-        //Actualizar la información del usuario genérica
-        User::where('id', $id)
-            ->update(['name' => $request->get('name')],['email' => $request->get('email'),'fecha_nacimiento' => $request->get('fecha_nacimiento'),
-                'password' => bcrypt($request->get('password'))]);
-
-        return redirect('/panel/usuarios')->with('mensaje', 'Has modificado el usuario correctamente.');
-    }
-
     public function actualizarInfo(\Illuminate\Http\Request $request) {
         //Obtener el usuario a modificar
         $usuario = User::find($request->get('id'));

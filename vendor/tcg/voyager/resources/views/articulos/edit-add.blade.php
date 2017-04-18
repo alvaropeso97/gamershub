@@ -62,7 +62,7 @@
 
 @section('content')
     <div class="page-content container-fluid">
-        <form role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.posts.update', $dataTypeContent->id) }}@else{{ route('voyager.posts.store') }}@endif" method="POST" enctype="multipart/form-data">
+        <form role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.'.$dataType->slug.'.update', $dataTypeContent->id) }}@else{{ route('voyager.articulos.store') }}@endif" method="POST" enctype="multipart/form-data">
             <!-- PUT Method if we are editing -->
             @if(isset($dataTypeContent->id))
                 {{ method_field("PUT") }}
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <input type="text" class="form-control" name="title" placeholder="Title" value="@if(isset($dataTypeContent->title)){{ $dataTypeContent->title }}@endif">
+                            <input type="text" class="form-control" name="title" placeholder="Title" value="@if(isset($dataTypeContent->titulo)){{ $dataTypeContent->titulo }}@endif">
                         </div>
                     </div>
 
@@ -149,14 +149,10 @@
                             <div class="form-group">
                                 <label for="name">Post Category</label>
                                 <select class="form-control" name="category_id">
-                                    @foreach(TCG\Voyager\Models\Category::all() as $category)
-                                        <option value="{{ $category->id }}" @if(isset($dataTypeContent->category_id) && $dataTypeContent->category_id == $category->id){{ 'selected="selected"' }}@endif>{{ $category->name }}</option>
+                                    @foreach(\App\Categoria::all() as $category)
+                                        <option value="{{ $category->id }}" @if(isset($dataTypeContent->category_id) && $dataTypeContent->category_id == $category->id){{ 'selected="selected"' }}@endif>{{ $category->nombre }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Featured</label>
-                                <input type="checkbox" name="featured" @if(isset($dataTypeContent->featured) && $dataTypeContent->featured){{ 'checked="checked"' }}@endif>
                             </div>
                         </div>
                     </div>

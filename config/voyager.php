@@ -135,7 +135,7 @@ return [
             'name'  => 'Post',
             'icon'  => 'voyager-news',
             'model' => TCG\Voyager\Models\Post::class,
-            'url'   => 'admin/posts',
+            'url'   => 'admin/articulos',
             'image' => '/images/widget-backgrounds/03.png',
         ],
         [

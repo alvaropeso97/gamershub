@@ -51,7 +51,7 @@ class MenuItemsTableSeeder extends Seeder
             $menuItem = MenuItem::firstOrNew([
                 'menu_id'    => $menu->id,
                 'title'      => 'Posts',
-                'url'        => route('voyager.posts.index', [], false),
+                'url'        => route('voyager.articulos.index', [], false),
             ]);
             if (!$menuItem->exists) {
                 $menuItem->fill([

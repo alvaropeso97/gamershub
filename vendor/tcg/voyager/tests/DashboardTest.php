@@ -35,12 +35,12 @@ class DashboardTest extends TestCase
         $this->click('Dashboard');
         $this->seePageIs(route('voyager.dashboard'));
 
-        // We can see number of posts.
-        $this->see('4 posts');
+        // We can see number of articulos.
+        $this->see('4 articulos');
 
         // list them.
-        $this->click('View all posts');
-        $this->seePageIs(route('voyager.posts.index'));
+        $this->click('View all articulos');
+        $this->seePageIs(route('voyager.articulos.index'));
 
         // and return to dashboard from there.
         $this->click('Dashboard');
