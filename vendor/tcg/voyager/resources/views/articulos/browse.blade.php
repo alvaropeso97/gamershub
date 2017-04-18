@@ -26,7 +26,7 @@
                                     @foreach($dataType->browseRows as $row)
                                     <th>{{ $row->display_name }}</th>
                                     @endforeach
-                                    <th class="actions">Actions</th>
+                                    <th class="actions">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,17 +44,17 @@
                                     <td class="no-sort no-click">
                                         @if (Voyager::can('delete_'.$dataType->name))
                                             <div class="btn-sm btn-danger pull-right delete" data-id="{{ $data->id }}">
-                                                <i class="voyager-trash"></i> Delete
+                                                <i class="voyager-trash"></i>
                                             </div>
                                         @endif
                                         @if (Voyager::can('edit_'.$dataType->name))
                                             <a href="{{ route('voyager.'.$dataType->slug.'.edit', $data->id) }}" class="btn-sm btn-primary pull-right edit">
-                                                <i class="voyager-edit"></i> Edit
+                                                <i class="voyager-edit"></i>
                                             </a>
                                         @endif
                                         @if (Voyager::can('read_'.$dataType->name))
                                             <a href="{{ route('voyager.'.$dataType->slug.'.show', $data->id) }}" class="btn-sm btn-warning pull-right">
-                                                <i class="voyager-eye"></i> View
+                                                <i class="voyager-eye"></i>
                                             </a>
                                         @endif
                                     </td>

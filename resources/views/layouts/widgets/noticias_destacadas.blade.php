@@ -1,4 +1,4 @@
-@if(\App\ConfigGeneral::first()->noticias_dest == 1)
+@if(1 == 1)
 @php
 $destacadas = \App\Articulo::orderBy('id','desc')->take(5)->get();
 $contador = 1;

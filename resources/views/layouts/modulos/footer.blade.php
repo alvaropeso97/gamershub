@@ -71,7 +71,7 @@
                 <li><a href="http://steamcommunity.com/groups/GHUBes" target="_blank" class="btn btn-circle btn-social-icon" data-toggle="tooltip" title="Síguenos en Steam"><i class="fa fa-steam"></i></a></li>
             </ul>
             <div class="margin-top-20">
-                <p>{{\App\ConfigGeneral::first()->copyright}} | <a href="/contacto">CONTACTO</a> | <a href="/aviso-legal">AVISO LEGAL</a></p>
+                <p>© GAMERSHUB 2017. TODOS LOS DERECHOS RESERVADOS. SOBRE GAMERSHUB | <a href="/contacto">CONTACTO</a> | <a href="/aviso-legal">AVISO LEGAL</a></p>
                 <img style="opacity: 0.5;" src="/img/ls.png"/>
             </div>
         </div>

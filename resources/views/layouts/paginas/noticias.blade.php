@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'Todas las noticias - '.\App\ConfigGeneral::first()->nombre_aplicacion)
+@section('titulo', 'Todas las noticias - GamersHUB')
 
 @section('contenido')
     <section class="hero hero-games height-300">

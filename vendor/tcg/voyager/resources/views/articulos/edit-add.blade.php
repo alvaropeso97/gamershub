@@ -85,41 +85,41 @@
                     
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <i class="voyager-character"></i> Post Title
-                                <span class="panel-desc"> The title for your post</span>
+                                <i class="voyager-character"></i> Título
+                                <span class="panel-desc"> El titulo del artículo</span>
                             </h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <input type="text" class="form-control" name="title" placeholder="Title" value="@if(isset($dataTypeContent->titulo)){{ $dataTypeContent->titulo }}@endif">
+                            <input type="text" class="form-control" name="titulo" placeholder="Título" value="@if(isset($dataTypeContent->titulo)){{ $dataTypeContent->titulo }}@endif">
+                        </div>
+                    </div>
+
+                    <!-- ### EXCERPT ### -->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Descripción <small>Pequeña descripción del articulo</small></h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <textarea class="form-control" name="descripcion">@if (isset($dataTypeContent->descripcion)){{ $dataTypeContent->descripcion }}@endif</textarea>
                         </div>
                     </div>
 
                     <!-- ### CONTENT ### -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-book"></i> Post Content</h3>
+                            <h3 class="panel-title"><i class="icon wb-book"></i> Contenido</h3>
                             <div class="panel-actions">
                                 <a class="panel-action voyager-resize-full" data-toggle="panel-fullscreen" aria-hidden="true"></a>
                             </div>
                         </div>
-                        <textarea class="richTextBox" name="body" style="border:0px;">@if(isset($dataTypeContent->body)){{ $dataTypeContent->body }}@endif</textarea>
+                        <textarea class="richTextBox" name="cont" style="border:0px;">@if(isset($dataTypeContent->cont)){{ $dataTypeContent->cont }}@endif</textarea>
                     </div><!-- .panel -->
-
-                    <!-- ### EXCERPT ### -->
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Excerpt <small>Small description of this post</small></h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                          <textarea class="form-control" name="excerpt">@if (isset($dataTypeContent->excerpt)){{ $dataTypeContent->excerpt }}@endif</textarea>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <!-- ### DETAILS ### -->
