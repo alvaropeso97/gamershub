@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'Registrarse en la comunidad de '.\App\ConfigGeneral::first()->nombre_aplicacion)
+@section('titulo', 'Registrarse en la comunidad de GamersHUB')
 
 @section('contenido')
     <section class="hero hero-panel">
