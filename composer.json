@@ -13,14 +13,17 @@
         "robbiep/cloudconvert-laravel": "2.*",
         "mashape/unirest-php": "3.*",
         "roumen/feed": "^2.10",
-        "tcg/voyager": "^0.11.9"
+        "backpack/base": "^0.7.16",
+        "backpack/crud": "^3.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
         "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*"
+        "symfony/dom-crawler": "3.1.*",
+        "backpack/generators": "^1.1",
+        "laracasts/generators": "^1.1"
     },
     "autoload": {
         "classmap": [

@@ -96,6 +96,11 @@ Route::get('/sobre-nosotros', function () {
  */
 Route::get ('/feed/rss', 'FeedController@show');
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+Route::group([
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['admin'],
+    'namespace' => 'Admin'
+], function() {
+    // your CRUD resources and other admin routes here
+    CRUD::resource('user', 'UserCrudController');
 });
