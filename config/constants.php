@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'S1_URL' => env('S1_URL','http://img.gamershub.es'),
+    'S1_URL' => env('S1_URL','http://img.gamershub.es.s3-website.eu-central-1.amazonaws.com'),
 
 
 ];
