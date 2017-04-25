@@ -21,7 +21,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -36,6 +35,10 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'W' => 
         array (
             'Webmozart\\Assert\\' => 17,
+        ),
+        'T' => 
+        array (
+            'TCG\\Voyager\\' => 12,
         ),
         'S' => 
         array (
@@ -66,8 +69,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
             'Psy\\' => 4,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
-            'Psr\\Cache\\' => 10,
-            'Prologue\\Alerts\\' => 16,
             'PhpParser\\' => 10,
             'Patchwork\\' => 10,
         ),
@@ -77,15 +78,13 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         ),
         'L' => 
         array (
-            'League\\Flysystem\\Cached\\' => 24,
             'League\\Flysystem\\AwsS3v3\\' => 25,
             'League\\Flysystem\\' => 17,
-            'Laracasts\\Generators\\' => 21,
+            'Larapack\\DoctrineSupport\\' => 25,
         ),
         'J' => 
         array (
             'JmesPath\\' => 9,
-            'Jenssegers\\Date\\' => 16,
         ),
         'I' => 
         array (
@@ -114,21 +113,13 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'C' => 
         array (
             'Cron\\' => 5,
-            'Collective\\Html\\' => 16,
             'ClassPreloader\\' => 15,
             'Carbon\\' => 7,
-        ),
-        'B' => 
-        array (
-            'Barryvdh\\elFinderFlysystemDriver\\' => 33,
-            'Barryvdh\\Elfinder\\' => 18,
-            'Backpack\\Generators\\' => 20,
-            'Backpack\\CRUD\\' => 14,
-            'Backpack\\Base\\' => 14,
         ),
         'A' => 
         array (
             'Aws\\' => 4,
+            'Arrilot\\Widgets\\' => 16,
             'App\\' => 4,
         ),
     );
@@ -147,6 +138,10 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'TCG\\Voyager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tcg/voyager/src',
         ),
         'Symfony\\Polyfill\\Util\\' => 
         array (
@@ -232,14 +227,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
-        ),
-        'Prologue\\Alerts\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/prologue/alerts/src',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -252,10 +239,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'League\\Flysystem\\Cached\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/flysystem-cached-adapter/src',
-        ),
         'League\\Flysystem\\AwsS3v3\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem-aws-s3-v3/src',
@@ -264,17 +247,13 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
-        'Laracasts\\Generators\\' => 
+        'Larapack\\DoctrineSupport\\' => 
         array (
-            0 => __DIR__ . '/..' . '/laracasts/generators/src',
+            0 => __DIR__ . '/..' . '/larapack/doctrine-support/src',
         ),
         'JmesPath\\' => 
         array (
             0 => __DIR__ . '/..' . '/mtdowling/jmespath.php/src',
-        ),
-        'Jenssegers\\Date\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/jenssegers/date/src',
         ),
         'Intervention\\Image\\' => 
         array (
@@ -328,10 +307,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
         ),
-        'Collective\\Html\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
-        ),
         'ClassPreloader\\' => 
         array (
             0 => __DIR__ . '/..' . '/classpreloader/classpreloader/src',
@@ -340,29 +315,13 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
-        'Barryvdh\\elFinderFlysystemDriver\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/barryvdh/elfinder-flysystem-driver/src',
-        ),
-        'Barryvdh\\Elfinder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/barryvdh/laravel-elfinder/src',
-        ),
-        'Backpack\\Generators\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/backpack/generators/src',
-        ),
-        'Backpack\\CRUD\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/backpack/crud/src',
-        ),
-        'Backpack\\Base\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/backpack/base/src',
-        ),
         'Aws\\' => 
         array (
             0 => __DIR__ . '/..' . '/aws/aws-sdk-php/src',
+        ),
+        'Arrilot\\Widgets\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/arrilot/laravel-widgets/src',
         ),
         'App\\' => 
         array (
@@ -371,13 +330,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
     );
 
     public static $prefixesPsr0 = array (
-        'V' => 
-        array (
-            'Venturecraft\\Revisionable' => 
-            array (
-                0 => __DIR__ . '/..' . '/venturecraft/revisionable/src',
-            ),
-        ),
         'U' => 
         array (
             'Unirest\\' => 
@@ -387,10 +339,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         ),
         'R' => 
         array (
-            'Roumen\\Feed' => 
-            array (
-                0 => __DIR__ . '/..' . '/roumen/feed/src',
-            ),
             'RobbieP\\CloudConvertLaravel\\' => 
             array (
                 0 => __DIR__ . '/..' . '/robbiep/cloudconvert-laravel/src',
@@ -408,13 +356,6 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
             'Mockery' => 
             array (
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
-            ),
-        ),
-        'L' => 
-        array (
-            'LiveControl\\EloquentDataTable' => 
-            array (
-                0 => __DIR__ . '/..' . '/livecontrol/eloquent-datatable/src',
             ),
         ),
         'J' => 
@@ -450,25 +391,28 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
     );
 
     public static $classMap = array (
-        'AnalisisMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_102212_AnalisisMigration.php',
-        'ArticulosMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_101304_ArticulosMigration.php',
-        'CategoriasArticulosMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_102801_CategoriasArticulosMigration.php',
-        'CategoriasMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_083403_CategoriasMigration.php',
-        'CategoriasSeeder' => __DIR__ . '/../..' . '/database/seeds/CategoriasSeeder.php',
-        'ComentariosMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_103008_ComentariosMigration.php',
-        'ConfirmEmailMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_103245_ConfirmEmailMigration.php',
-        'CreateRevisionsTable' => __DIR__ . '/..' . '/venturecraft/revisionable/src/migrations/2013_04_09_062329_create_revisions_table.php',
-        'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
-        'DesarrolladoresMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_081108_DesarrolladoresMigration.php',
-        'DesarrolladoresSeeder' => __DIR__ . '/../..' . '/database/seeds/DesarrolladoresSeeder.php',
-        'DistribuidoresMigrations' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_082942_DistribuidoresMigrations.php',
-        'DistribuidoresSeeder' => __DIR__ . '/../..' . '/database/seeds/DistribuidoresSeeder.php',
-        'EtiquetasMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_083902_EtiquetasMigration.php',
+        'AddControllerToDataTypesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_06_000000_add_controller_to_data_types_table.php',
+        'AddPermissionGroupIdToPermissionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_15_000000_add_permission_group_id_to_permissions_table.php',
+        'AddRouteToMenuItemsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_13_000000_add_route_to_menu_items_table.php',
+        'AddVoyagerUserFields' => __DIR__ . '/../..' . '/database/migrations/2016_01_01_000000_add_voyager_user_fields.php',
+        'CategoriesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CategoriesTableSeeder.php',
+        'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2016_02_15_204651_create_categories_table.php',
+        'CreateDataTypesTable' => __DIR__ . '/../..' . '/database/migrations/2016_01_01_000000_create_data_types_table.php',
+        'CreateMenuTable' => __DIR__ . '/../..' . '/database/migrations/2016_05_19_173453_create_menu_table.php',
+        'CreatePagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_01_01_000000_create_pages_table.php',
+        'CreatePermissionGroupsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_15_000000_create_permission_groups_table.php',
+        'CreatePermissionRoleTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_30_141208_create_permission_role_table.php',
+        'CreatePermissionTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_30_135954_create_permission_table.php',
+        'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2016_01_01_000000_create_posts_table.php',
+        'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_21_190000_create_roles_table.php',
+        'CreateSettingsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_21_190000_create_settings_table.php',
+        'CreateTranslationsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_14_005015_create_translations_table.php',
+        'DataRowsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DataRowsTableSeeder.php',
+        'DataTypesAddServerSide' => __DIR__ . '/../..' . '/database/migrations/2016_12_26_201236_data_types__add__server_side.php',
+        'DataTypesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DataTypesTableSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
-        'GenerosMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_084135_GenerosMigration.php',
-        'GenerosSeeder' => __DIR__ . '/../..' . '/database/seeds/GenerosSeeder.php',
         'Hamcrest\\Arrays\\IsArray' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
         'Hamcrest\\Arrays\\IsArrayContaining' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
         'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',
@@ -537,12 +481,9 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
-        'ImagenesModel' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_103937_ImagenesModel.php',
-        'JuegosCategoriasMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_104724_JuegosCategoriasMigration.php',
-        'JuegosDesarrolladoresMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_104154_JuegosDesarrolladoresMigration.php',
-        'JuegosDistribuidoresMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_104344_JuegosDistribuidoresMigration.php',
-        'JuegosGenerosMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_104547_JuegosGenerosMigration.php',
-        'JuegosMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_103452_JuegosMigration.php',
+        'MakeTableNameNullableInPermissionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_15_000000_make_table_name_nullable_in_permissions_table.php',
+        'MenuItemsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/MenuItemsTableSeeder.php',
+        'MenusTableSeeder' => __DIR__ . '/../..' . '/database/seeds/MenusTableSeeder.php',
         'Normalizer' => __DIR__ . '/..' . '/patchwork/utf8/src/Normalizer.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
@@ -923,10 +864,11 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'PHP_Token_XOR_EQUAL' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
-        'PaisesMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_080330_PaisesMigration.php',
-        'PaisesSeeder' => __DIR__ . '/../..' . '/database/seeds/PaisesSeeder.php',
-        'PrivacidadUsuariosMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_100756_PrivacidadUsuariosMigration.php',
-        'RecursiveCallbackFilterIterator' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeLocalFileSystem.class.php',
+        'PagesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PagesTableSeeder.php',
+        'PermissionRoleTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PermissionRoleTableSeeder.php',
+        'PermissionsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PermissionsTableSeeder.php',
+        'PostsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PostsTableSeeder.php',
+        'RolesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/RolesTableSeeder.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',
@@ -1006,33 +948,13 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'SettingsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/SettingsTableSeeder.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
-        'UsersMigration' => __DIR__ . '/../..' . '/database/migrations/2017_04_20_084419_UsersMigration.php',
-        'elFinder' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinder.class.php',
-        'elFinderConnector' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderConnector.class.php',
-        'elFinderLibGdBmp' => __DIR__ . '/..' . '/studio-42/elfinder/php/libs/GdBmp.php',
-        'elFinderPlugin' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderPlugin.php',
-        'elFinderPluginAutoResize' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/AutoResize/plugin.php',
-        'elFinderPluginAutoRotate' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/AutoRotate/plugin.php',
-        'elFinderPluginNormalizer' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/Normalizer/plugin.php',
-        'elFinderPluginSanitizer' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/Sanitizer/plugin.php',
-        'elFinderPluginWatermark' => __DIR__ . '/..' . '/studio-42/elfinder/php/plugins/Watermark/plugin.php',
-        'elFinderSession' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderSession.php',
-        'elFinderSessionInterface' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderSessionInterface.php',
-        'elFinderVolumeBox' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeBox.class.php',
-        'elFinderVolumeDriver' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeDriver.class.php',
-        'elFinderVolumeDropbox' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeDropbox.class.php',
-        'elFinderVolumeDropbox2' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeDropbox2.class.php',
-        'elFinderVolumeFTP' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeFTP.class.php',
-        'elFinderVolumeFlysystem' => __DIR__ . '/..' . '/barryvdh/elfinder-flysystem-driver/elFinderVolumeFlysystem.php',
-        'elFinderVolumeFlysystemGoogleDriveCache' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderFlysystemGoogleDriveNetmount.php',
-        'elFinderVolumeFlysystemGoogleDriveNetmount' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderFlysystemGoogleDriveNetmount.php',
-        'elFinderVolumeGoogleDrive' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeGoogleDrive.class.php',
-        'elFinderVolumeGroup' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeGroup.class.php',
-        'elFinderVolumeLocalFileSystem' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeLocalFileSystem.class.php',
-        'elFinderVolumeMySQL' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeMySQL.class.php',
-        'elFinderVolumeOneDrive' => __DIR__ . '/..' . '/studio-42/elfinder/php/elFinderVolumeOneDrive.class.php',
+        'TranslationsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TranslationsTableSeeder.php',
+        'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
+        'VoyagerDatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/VoyagerDatabaseSeeder.php',
+        'VoyagerDummyDatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/VoyagerDummyDatabaseSeeder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

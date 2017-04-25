@@ -6,13 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Venturecraft\\Revisionable' => array($vendorDir . '/venturecraft/revisionable/src'),
     'Unirest\\' => array($vendorDir . '/mashape/unirest-php/src'),
-    'Roumen\\Feed' => array($vendorDir . '/roumen/feed/src'),
     'RobbieP\\CloudConvertLaravel\\' => array($vendorDir . '/robbiep/cloudconvert-laravel/src'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
-    'LiveControl\\EloquentDataTable' => array($vendorDir . '/livecontrol/eloquent-datatable/src'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),

@@ -164,12 +164,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         RobbieP\CloudConvertLaravel\CloudConvertLaravelServiceProvider::class,
-        Roumen\Feed\FeedServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
-
+        TCG\Voyager\VoyagerServiceProvider::class,
 
         //
 
@@ -181,13 +180,6 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        /*
-        * Backpack Service Providers...
-        */
-        Backpack\Base\BaseServiceProvider::class,
-        Backpack\CRUD\CrudServiceProvider::class,
-
     ],
 
     /*

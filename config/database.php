@@ -54,7 +54,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'produccion-gamershub.cbgyskn58fzl.eu-west-1.rds.amazonaws.com:3306'),
+            'host' => env('DB_HOST', 'preprod-gamershub.cbgyskn58fzl.eu-west-1.rds.amazonaws.com'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'gamershub'),
             'username' => env('DB_USERNAME', 'GHdatabase'),
