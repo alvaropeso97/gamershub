@@ -57,6 +57,10 @@ class Handler extends ExceptionHandler
             return response()->view('errores.usuario_no_encontrado');
         } else if ($exception instanceof JuegoNoEncontradoException) {
             return response()->view('errores.juego_no_encontrado');
+        } else if ($exception instanceof ForoNoEncontradoException) {
+            return response()->view('errores.foro_no_encontrado');
+        } else if ($exception instanceof TemaNoEncontradoException) {
+            return response()->view('errores.tema_no_encontrado');
         }
         return parent::render($request, $exception);
     }

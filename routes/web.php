@@ -79,6 +79,15 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 
 /**
+ * FOROS
+ */
+Route::get('foro/{id}', 'ForosController@mostrarForo');
+Route::get('plataforma/{alias}/foro', 'ForosController@mostrarForoCategoria');
+Route::get('juego/{id}/foro', 'ForosController@mostrarForoJuego');
+
+Route::get('foro/{foro_id}/{tema_id}', 'ForosTemasController@mostrarTema');
+
+/**
  * PÁGINAS SIMPLES
  */
 Route::get('/aviso-legal', function () {
