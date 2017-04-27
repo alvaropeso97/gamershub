@@ -1,6 +1,6 @@
 <div class="widget widget-list">
     <div class="title">Comentarios recientes</div>
-    <?php $comentarios = \App\Comentario::orderBy('id', 'desc')->take(5)->get(); ?>
+    <?php $comentarios = \App\Comentario::orderBy('created_at', 'desc')->take(5)->get(); ?>
     <ul>
         @foreach($comentarios as $comentario)
             <?php

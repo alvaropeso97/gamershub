@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use MercurySeries\Flashy\Flashy;
+
 class HomeController extends Controller
 {
     /**

@@ -13,6 +13,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Esta clase es el modelo de la tabla "users" de la base de datos
@@ -48,6 +49,14 @@ class User extends Authenticatable
      */
     public function getComentarios() {
         return $this->hasMany('App\Comentario', 'id_usuario', 'id');
+    }
+
+    /**
+     * Clave ajena "user_id", referencia a "id" (users)
+     * @return temas pertenecientes a este usuario
+     */
+    public function getTemas() {
+        return $this->hasMany('App\ForoTema', 'user_id', 'id');
     }
 
     /**
@@ -97,5 +106,10 @@ class User extends Authenticatable
 
     public function getConfirmEmail() {
         return $this->hasOne('App\ConfirmEmail', 'user_id', 'id');
+    }
+
+    public function estaConectado()
+    {
+        return Cache::has('usuario-esta-conectado-' . $this->id);
     }
 }

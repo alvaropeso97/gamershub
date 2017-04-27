@@ -207,7 +207,8 @@ class UrlGenerator implements UrlGeneratorContract
      * @param  bool|null  $secure
      * @return string
      */
-    public function asset($path, $secure = null)
+    //ToDo Cambiar URL SSL
+    public function asset($path, $secure = true)
     {
         if ($this->isValidUrl($path)) {
             return $path;

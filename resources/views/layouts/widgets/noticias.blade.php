@@ -33,4 +33,5 @@
         </div>
         <!-- Fin Artículo -->
     @endforeach
+    {{$cons->render()}}
 </div>

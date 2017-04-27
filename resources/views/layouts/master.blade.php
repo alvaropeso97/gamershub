@@ -28,7 +28,7 @@
     <!-- CSS -->
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
 
     <!-- SCRIPTS -->
     <script src="{{ URL::asset('plugins/tinymce/tinymce.min.js') }}"></script>

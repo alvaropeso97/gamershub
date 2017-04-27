@@ -13,6 +13,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\ForoNoEncontradoException;
 use App\Foro;
+use App\ForoTema;
 
 class ForosController extends Controller
 {
@@ -22,9 +23,10 @@ class ForosController extends Controller
         if (!$foro) { //El foro no existe o no es del tipo
             throw new ForoNoEncontradoException;
         } else { //El foro existe y es del tipo
+            $temas = ForoTema::where('foro_id', $id)->where('tipo', 0)->paginate(20);
             switch ($foro->tipo) {
                 case 0: //Normal
-                    return view('layouts.foros.index', ['foro' => $foro]);
+                    return view('layouts.foros.index', ['foro' => $foro, 'temas' => $temas]);
                     break;
                 case 1: //Juego
                     //ToDo Añadir redirección al foro de tipo juego

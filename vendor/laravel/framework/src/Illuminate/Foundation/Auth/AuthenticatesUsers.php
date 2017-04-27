@@ -4,6 +4,7 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Lang;
 
 trait AuthenticatesUsers
@@ -149,6 +150,9 @@ trait AuthenticatesUsers
      */
     public function logout(Request $request)
     {
+        //Borrar caché de seguimiento de conexión del usuario
+        Cache::forget('usuario-esta-conectado-' . Auth::id());
+
         $this->guard()->logout();
 
         $request->session()->flush();
