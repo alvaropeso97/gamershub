@@ -2711,7 +2711,7 @@ section.hero p{font-size:13px}
 }
 /*# sourceMappingURL=app.css.map */
 
-/* Consentimiento de cookies */
+/* Consentimiento de cookies
 .cookie-consent {
     position:fixed;
     left:0px;
@@ -2735,4 +2735,4 @@ a.cookie-consent__agree {
 a.cookie-consent__agree:hover {
     font-weight: bolder;
     cursor: hand;
-}
+}*/
