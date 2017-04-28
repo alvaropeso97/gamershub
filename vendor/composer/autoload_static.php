@@ -59,6 +59,7 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'SuperClosure\\' => 13,
+            'Spatie\\CookieConsent\\' => 21,
         ),
         'R' => 
         array (
@@ -210,6 +211,10 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'SuperClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src',
+        ),
+        'Spatie\\CookieConsent\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-cookie-consent/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -435,6 +440,7 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'App\\Http\\Controllers\\UsuariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsuariosController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
+        'App\\Http\\Middleware\\LogUltimaActividadUsuario' => __DIR__ . '/../..' . '/app/Http/Middleware/LogUltimaActividadUsuario.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Imagen' => __DIR__ . '/../..' . '/app/Imagen.php',
@@ -3705,6 +3711,8 @@ class ComposerStaticInit31598a2cec835da52ffbf400b5772a3d
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'SettingsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/SettingsTableSeeder.php',
+        'Spatie\\CookieConsent\\CookieConsentMiddleware' => __DIR__ . '/..' . '/spatie/laravel-cookie-consent/src/CookieConsentMiddleware.php',
+        'Spatie\\CookieConsent\\CookieConsentServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-cookie-consent/src/CookieConsentServiceProvider.php',
         'SuperClosure\\Analyzer\\AstAnalyzer' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Analyzer/AstAnalyzer.php',
         'SuperClosure\\Analyzer\\ClosureAnalyzer' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Analyzer/ClosureAnalyzer.php',
         'SuperClosure\\Analyzer\\Token' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Analyzer/Token.php',

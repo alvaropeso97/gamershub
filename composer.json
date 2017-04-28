@@ -12,7 +12,8 @@
         "intervention/image": "^2.3",
         "robbiep/cloudconvert-laravel": "2.*",
         "mashape/unirest-php": "3.*",
-        "tcg/voyager": "^0.11.9"
+        "tcg/voyager": "^0.11.9",
+        "spatie/laravel-cookie-consent": "^1.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

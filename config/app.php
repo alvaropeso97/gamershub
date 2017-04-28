@@ -169,6 +169,7 @@ return [
          * Package Service Providers...
          */
         TCG\Voyager\VoyagerServiceProvider::class,
+        Spatie\CookieConsent\CookieConsentServiceProvider::class,
 
         //
 

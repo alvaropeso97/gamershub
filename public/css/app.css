@@ -2710,3 +2710,29 @@ section.hero p{font-size:13px}
     padding: 5px 10px 5px 10px;
 }
 /*# sourceMappingURL=app.css.map */
+
+/* Consentimiento de cookies */
+.cookie-consent {
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    text-align: center;
+    color: #fff;
+    background:#232428;
+}
+
+.cookie-consent__message {
+    padding: 10px;
+}
+
+a.cookie-consent__agree {
+    color: white;
+    font-weight: bold;
+}
+
+a.cookie-consent__agree:hover {
+    font-weight: bolder;
+    cursor: hand;
+}

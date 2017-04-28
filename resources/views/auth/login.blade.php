@@ -14,7 +14,7 @@
                         <div class="panel-body">
                             <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Contectar con Facebook</a>
                             <div class="separator"></div>
-                            <form role="form" method="POST" action="{{ url('/autenticar') }}">
+                            <form role="form" method="POST" action="{{ secure_url('/autenticar') }}">
                                 {{ csrf_field() }}
                                 @if(Session::has('error'))
                                     <div class="alert alert-danger">

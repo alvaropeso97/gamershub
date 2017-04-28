@@ -29,7 +29,7 @@
                                 <h2><i>Y mucho más...</i></h2>
                             </div>
                             <div class="col-lg-6">
-                                <form role="form" method="POST" action="{{ url('/register') }}">
+                                <form role="form" method="POST" action="{{ secure_url('/register') }}">
 
                                     {{ csrf_field() }}
 
