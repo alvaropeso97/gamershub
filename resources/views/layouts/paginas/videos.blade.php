@@ -5,7 +5,7 @@
 
     <!-- PRIMER VÍDEO -->
     @php $ultimo_video = \App\Video::orderBy('id', 'DESC')->first(); @endphp
-    <div class="background-image" style="background-image: url(http://img.youtube.com/vi/{{$ultimo_video->cod_yt}}/maxresdefault.jpg);">
+    <div class="background-image" style="background-image: url(https://img.youtube.com/vi/{{$ultimo_video->cod_yt}}/maxresdefault.jpg);">
         <span class="background-overlay"></span>
         <div class="container">
             <div class="embed-responsive embed-responsive-16by9">

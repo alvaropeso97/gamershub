@@ -65,10 +65,10 @@
         <div class="container">
 
             <ul class="list-inline">
-                <li><a href="https://twitter.com/GamersHUBes" target="_blank" class="btn btn-circle btn-social-icon" data-toggle="tooltip" title="Sígenos en Twitter"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#" class="btn btn-circle btn-social-icon" data-toggle="tooltip" title="Síguenos en Facebook"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#" class="btn btn-circle btn-social-icon" data-toggle="tooltip" title="Síguenos en Google+"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="http://steamcommunity.com/groups/GHUBes" target="_blank" class="btn btn-circle btn-social-icon" data-toggle="tooltip" title="Síguenos en Steam"><i class="fa fa-steam"></i></a></li>
+                <li><a href="https://twitter.com/GamersHUBes" target="_blank" class="btn btn-circle btn-social-icon" title="Sígenos en Twitter"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#" class="btn btn-circle btn-social-icon" title="Síguenos en Facebook"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#" class="btn btn-circle btn-social-icon" title="Síguenos en Google+"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="http://steamcommunity.com/groups/GHUBes" target="_blank" class="btn btn-circle btn-social-icon" title="Síguenos en Steam"><i class="fa fa-steam"></i></a></li>
             </ul>
             <div class="margin-top-20">
                 <p>© GAMERSHUB 2017. TODOS LOS DERECHOS RESERVADOS. SOBRE GAMERSHUB | <a href="/contacto">CONTACTO</a> | <a href="/aviso-legal">AVISO LEGAL</a></p>

@@ -21,7 +21,6 @@
 
                         <!-- Comentarios recientes -->
                         @include('layouts.widgets.comentarios_recientes')
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     </div><!-- Fin Sidebar -->
 
 

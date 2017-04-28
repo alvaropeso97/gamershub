@@ -7,7 +7,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="card">
                         <div class="card-img">
-                            <a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}"><img style="border-radius: 10px 10px 0px 0px;-webkit-border-radius: 10px 10px 0px 0px;" src="{{Config::get('constants.S1_URL')}}/noticias/{{$articulo->img}}" alt=""></a>
+                            <a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}"><img style="border-radius: 10px 10px 0px 0px;-webkit-border-radius: 10px 10px 0px 0px;" src="{{Config::get('constants.S1_URL')}}/noticias_rsz/950x534_{{$articulo->img}}" alt=""></a>
                             <div class="category">@foreach($articulo->getCategorias as $categoria) <a href="/categoria/{{$categoria->alias}}"><span  class="label" style="background:{{$categoria->color}};">{{$categoria->nombre}}</span></a> @endforeach</div>
 
                             <div class="meta"><a href="/articulo/{{$articulo->id}}/{{$articulo->lnombre}}"></a></div>

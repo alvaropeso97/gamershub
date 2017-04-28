@@ -334,5 +334,16 @@
             </div>
         </div>
     </section>
+@endsection
 
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#categorias').multiselect();
+        });
+        $('#categorias').selectivity({
+            allowClear: true,
+            placeholder: 'No has seleccionado ninguna categoría'
+        });
+    </script>
 @endsection

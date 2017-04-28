@@ -5,7 +5,7 @@
                 <li><a href="https://twitter.com/GamersHUBes" target="_blank"><span class="fa fa-twitter"></span></a></li>
                 <li><a href="https://www.facebook.com/gamershubes/" target="_blank"><span class="fa fa-facebook"></span></a></li>
                 <li><a href="https://aboutme.google.com/u/0/b/112136234025326970209/" target="_blank"><span class="fa fa-google-plus"></span></a></li>
-                <li><a href="http://steamcommunity.com/groups/GHUBes" target="_blank"><span class="fa fa-steam"></span></a></li>
+                <li><a href="https://steamcommunity.com/groups/GHUBes" target="_blank"><span class="fa fa-steam"></span></a></li>
                 <li><a href="https://www.twitch.tv/gamershubtv" target="_blank"><span class="fa fa-twitch"></span></a></li>
             </ul>
     </div>

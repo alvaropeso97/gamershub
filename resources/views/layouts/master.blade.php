@@ -50,15 +50,6 @@
         ga('create', 'UA-85725549-1', 'auto');
         ga('send', 'pageview');
     </script>
-
-    <!-- ANUNCIOS GOOGLE -->
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-8196983918540803",
-            enable_page_level_ads: true
-        });
-    </script>
 </head>
 
 <body>
@@ -84,27 +75,10 @@
 </main>
 <!-- Javascript -->
 <script src="{{ URL::asset('plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ URL::asset('plugins/core.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/gamershub.js') }}"></script>
 <script src="{{ URL::asset('pasar/selectivity-jquery.js') }}"></script>
+@yield('script')
 <script>
-    (function($) {
-        "use strict";
-        var config1 = {
-            "id": $('#twitter').data("twitter"),
-            "domId": 'twitter',
-            "maxTweets": 1,
-            "enableLinks": true
-        };
-        twitterFetcher.fetch(config1);
-    })(jQuery);
-    $(document).ready(function() {
-        $('#categorias').multiselect();
-    });
-    $('#categorias').selectivity({
-        allowClear: true,
-        placeholder: 'No has seleccionado ninguna categoría'
-    });
     tinymce.init({
         selector: '#editor',
         height: 500,
@@ -132,27 +106,6 @@
     $('.abrir-menu').on('click', function () {
         $('#wrapper').toggleClass('abierto');
         $('.menu_lateral').toggleClass('cerrado');
-    })
-
-    $( document ).ready(function( $ ) {
-        $( '#example1' ).sliderPro({
-            width: 960,
-            height: 500,
-            arrows: true,
-            buttons: false,
-            waitForLayers: true,
-            thumbnailWidth: 200,
-            thumbnailHeight: 100,
-            thumbnailPointer: true,
-            autoplay: false,
-            autoScaleLayers: false,
-            breakpoints: {
-                500: {
-                    thumbnailWidth: 120,
-                    thumbnailHeight: 50
-                }
-            }
-        });
     });
 </script>
 </body>
