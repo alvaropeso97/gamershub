@@ -67,43 +67,6 @@ class User extends Authenticatable
         return $this->belongsTo('App\Pais', 'cod_pais');
     }
 
-    public function getRol() {
-        return $this->belongsTo('App\Rol', 'id');
-    }
-
-    public function tienePermiso($permiso)
-    {
-        $estado = false;
-        $permisos = $this->getRol->getPermisos;
-        foreach ($permisos as $perm) {
-            if ($perm->id == $permiso) {
-                $estado = true;
-            }
-        }
-        return $estado;
-    }
-
-    /**
-     * Transforma el rango del usuario en una cadena para posteriormente mostrarla
-     * @return cadena indicando el rango del usuario
-     */
-    public function getRango() {
-        switch ($this->acceso) {
-            case 0:
-                return "Usuario";
-                break;
-            case 1:
-                return "Redactor";
-                break;
-            case 2:
-                return "Moderador";
-                break;
-            case 3:
-                return "Administrador";
-                break;
-        }
-    }
-
     public function getConfirmEmail() {
         return $this->hasOne('App\ConfirmEmail', 'user_id', 'id');
     }

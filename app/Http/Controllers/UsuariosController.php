@@ -177,16 +177,4 @@ class UsuariosController extends Controller
             return redirect('/login')->with('error', 'El usuario asociado a esa dirección de correo electrónico no existe');
         }
     }
-
-    /*
-     * ADMINISTRACIÓN
-     */
-    /**
-     * Muestra un listado de todos los usuarios existentes en la base de datos con opciones para eliminar o modificar
-     * @return vista de paginas.administracion.usuarios
-     */
-    public function mostrarUsuarios() {
-        $usuarios = User::orderBy('id', 'desc')->get();
-        return view('layouts.paginas.administracion.usuarios', ['usuarios' => $usuarios]);
-    }
 }
