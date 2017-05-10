@@ -50,6 +50,15 @@
         ga('create', 'UA-85725549-1', 'auto');
         ga('send', 'pageview');
     </script>
+
+    <!-- PUBLICIDAD DE GOOGLE -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2885854253727480",
+            enable_page_level_ads: true
+        });
+    </script>
 </head>
 
 <body>
