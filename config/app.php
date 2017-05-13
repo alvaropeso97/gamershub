@@ -168,9 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
-        TCG\Voyager\VoyagerServiceProvider::class,
-        Spatie\CookieConsent\CookieConsentServiceProvider::class,
-
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         //
 
         /*
@@ -228,7 +226,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Feed' => Roumen\Feed\Feed::class
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
     ],
 
 ];

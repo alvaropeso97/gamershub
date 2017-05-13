@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('master')
 @section('titulo', 'Acceso de usuarios de GamersHUB')
 
 @section('contenido')
@@ -9,12 +9,12 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-none margin-auto">
                     <div class="panel panel-default panel-login">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-user"></i> Accede a GamersHUB</h3>
+                            <h3 class="panel-title"><i class="fa fa-user"></i>@lang('auth.login.title')</h3>
                         </div>
                         <div class="panel-body">
-                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Contectar con Facebook</a>
+                            <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i>@lang('auth.facebook_login.button')</a>
                             <div class="separator"></div>
-                            <form role="form" method="POST" action="{{ secure_url('/autenticar') }}">
+                            <form role="form" method="POST" action="/autenticar">
                                 {{ csrf_field() }}
                                 @if(Session::has('error'))
                                     <div class="alert alert-danger">
@@ -28,24 +28,24 @@
                                 @endif
                                 <div class="form-group input-icon-left">
                                     <i class="fa fa-envelope"></i>
-                                    <input id="email" type="email" class="form-control" name="email" placeholder="E-mail" required autofocus>
+                                    <input id="email" type="email" class="form-control" name="email" placeholder="@lang('auth.email.input')" required autofocus>
                                 </div>
                                 <div class="form-group input-icon-left">
                                     <i class="fa fa-lock"></i>
-                                    <input id="password" type="password" class="form-control" name="password" placeholder="Constraseña" required>
+                                    <input id="password" type="password" class="form-control" name="password" placeholder="@lang('auth.password.input')" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                                <button type="submit" class="btn btn-primary btn-block">@lang('auth.enter.button')</button>
 
                                 <div class="form-actions">
                                     <div class="checkbox checkbox-primary">
                                         <input name="remember" type="checkbox" id="checkbox">
-                                        <label for="checkbox">Recordarme la próxima vez que inicie sesión</label>
+                                        <label for="checkbox">@lang('auth.remember_me.checkbox')</label>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="panel-footer">
-                            ¿Todavía no tienes una cuenta en GamersHUB? <a href="/register">Crea una nueva ahora</a>
+                            @lang('auth.register.text')
                         </div>
                     </div>
                 </div>

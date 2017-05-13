@@ -44,7 +44,7 @@ class NotificacionRegistro extends Mailable
     {
         return $this->from('no-reply@gamershub.es')
             ->view('mail.notificacion_registro')->with([
-                'name' => $this->usuario->name,
+                'name' => $this->usuario->nickname,
             ]);
     }
 }

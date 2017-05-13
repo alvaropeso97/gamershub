@@ -4,7 +4,7 @@ $(function() {
   editor = ace.edit("code-preview-card");
   editor.getSession().setMode(new HtmlMode());
   editor.setTheme("ace/theme/github");
-  editor = ace.edit("code-preview-card-profile");
+  editor = ace.edit("code-preview-card-user");
   editor.getSession().setMode(new HtmlMode());
   editor.setTheme("ace/theme/github");
   editor = ace.edit("code-preview-card-banner");

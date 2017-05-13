@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'Foro no encontrado')
+@section('titulo', 'Forum')
 @section('contenido')
     <section>
         <div class="container">

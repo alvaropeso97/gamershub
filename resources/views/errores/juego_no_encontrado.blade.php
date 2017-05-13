@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('titulo', 'Juego no encontrado')
+@section('titulo', 'Game')
 @section('contenido')
     <section>
         <div class="container">

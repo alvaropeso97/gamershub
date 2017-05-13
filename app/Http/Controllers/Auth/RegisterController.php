@@ -1,10 +1,26 @@
 <?php
+/**
+ *  ____  _             _     _ _
+ * |  _ \| | __ _ _   _| |__ (_) |_   ___  ___
+ * | |_) | |/ _` | | | | '_ \| | __| / _ \/ __|
+ * |  __/| | (_| | |_| | |_) | | |_ |  __/\__ \
+ * |_|   |_|\__,_|\__, |_.__/|_|\__(_)___||___/
+ *                |___/
+ *
+ * TODOS LOS DERECHOS RESERVADOS ÁLVARO PESO GARCÍA
+ * WWW.PLAYBIT.ES
+ * CONTACTO@PLAYBIT.ES
+ * ALVARO.PESO@PLAYBIT.ES
+ * @PlaybitES
+ * 2017
+ *
+ */
 
 namespace App\Http\Controllers\Auth;
 
-use App\ConfirmEmail;
+use App\UserEmailToken;
 use App\Mail\ConfirmacionRegistro;
-use App\PrivacidadUsuario;
+use App\UserPrivacy;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use Validator;
@@ -38,10 +54,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:50|unique:users',
+            'nickname' => 'required|max:25|unique:users',
+            'name' => 'required|max:50',
             'email' => 'required|email|max:255|unique:users|confirmed',
+            'country' => 'required',
+            'city' => 'required|max:25',
             'ano' => 'required', 'mes' => 'required', 'dia' => 'required',
             'password' => 'required|min:6|confirmed',
+            'g-recaptcha-response' => 'required|recaptcha',
             'condiciones' => 'required',
         ]);
     }
@@ -59,22 +79,26 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $usuario_creado = User::create([
+            'nickname' => $data['nickname'],
             'name' => $data['name'],
+            'surname' => $data['surname'],
+            'country_id' => $data['country'],
+            'city' => $data['city'],
             'email' => $data['email'],
-            'fecha_nacimiento' => $data["ano"].'-'.$data["mes"].'-'.$data["dia"],
+            'birthdate' => $data["ano"].'-'.$data["mes"].'-'.$data["dia"],
             'password' => bcrypt($data['password']),
         ]);
 
         $user = User::orderby('id','DESC')->first();
 
         //Crear opciones de privacidad
-        PrivacidadUsuario::create([
-            'id_usuario' => $user->id
+        UserPrivacy::create([
+            'user_id' => $user->id
         ]);
 
         //Generar token de confirmación de email
         $token = self::generarToken($data['name']);
-        ConfirmEmail::create([
+        UserEmailToken::create([
             'user_id' => $user->id,
             'token' => $token
         ]);

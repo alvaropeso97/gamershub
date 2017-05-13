@@ -14,7 +14,7 @@
  * Página principal
  */
 Route::get('/', function () {
-    return view('layouts.paginas.index');
+    return view('main.index');
 });
 
 Route::get('/videos', function () {
@@ -27,22 +27,22 @@ Route::get('/videos', function () {
 Route::get('/login', function () {
     return view('layouts.paginas.login');
 });
-Route::post ('/autenticar', 'UsuariosController@autenticar');
+Route::post ('/autenticar', 'UsersController@autenticar');
 
 /**
  * Búsqueda de artículos, juegos, usuarios...
  */
-Route::get ('/busqueda/{tipo}/{tag}', 'ArticulosController@mostrarBusqueda');
+Route::get ('/busqueda/{tipo}/{tag}', 'ArticlesController@mostrarBusqueda');
 
 /**
  * Página para mostrar un artículo / review / avance...
  */
-Route::get('articulo/{id}/{nombre}', 'ArticulosController@mostrarArticulo');
-Route::get('articulo/{id}', 'ArticulosController@mostrarArticuloDos');
-Route::post ('articulo/{id}/add-comentario', 'ComentariosController@store')->middleware('auth');
+Route::get('articulo/{id}/{nombre}', 'ArticlesController@mostrarArticulo');
+Route::get('articulo/{id}', 'ArticlesController@mostrarArticuloDos');
+Route::post ('articulo/{id}/add-comentario', 'CommentsController@store')->middleware('auth');
 
-Route::get('noticias', 'ArticulosController@mostrarNoticias');
-Route::get('noticias/a-z', 'ArticulosController@mostrarNoticiasAZ');
+Route::get('noticias', 'ArticlesController@mostrarNoticias');
+Route::get('noticias/a-z', 'ArticlesController@mostrarNoticiasAZ');
 
 Route::get('/analisis', function () {
     return view('layouts.paginas.analisis');
@@ -51,41 +51,41 @@ Route::get('/analisis', function () {
 /**
  * Página para mostrar un juego...
  */
-Route::get('juego/{id}/{titulo}', 'JuegosController@mostrarJuego');
-Route::get('juego/{id}', 'JuegosController@mostrarJuegoDos');
+Route::get('juego/{id}/{titulo}', 'GamesController@mostrarJuego');
+Route::get('juego/{id}', 'GamesController@mostrarJuegoDos');
 //Mostrar análisis
-Route::get('juego/{id}/{titulo}/analisis', 'JuegosController@mostrarAnalisis');
-Route::get('juego/{id}/{titulo}/noticias', 'JuegosController@mostrarNoticias');
+Route::get('juego/{id}/{titulo}/analisis', 'GamesController@mostrarAnalisis');
+Route::get('juego/{id}/{titulo}/noticias', 'GamesController@mostrarNoticias');
 
 /**
  * Página para mostrar una categoría/plataforma
  */
-Route::get('categoria/{alias}', 'CategoriasController@mostrarCategoria');
-Route::get('plataforma/{alias}', 'CategoriasController@mostrarPlataforma');
+Route::get('categoria/{alias}', 'CategoriesController@mostrarCategoria');
+Route::get('plataforma/{alias}', 'CategoriesController@mostrarPlataforma');
 
-Route::get('categoria/{alias}/{orden}', 'CategoriasController@mostrarCategoriaAZ');
-Route::get('plataforma/{alias}/{orden}', 'CategoriasController@mostrarPlataformaAZ');
+Route::get('categoria/{alias}/{orden}', 'CategoriesController@mostrarCategoriaAZ');
+Route::get('plataforma/{alias}/{orden}', 'CategoriesController@mostrarPlataformaAZ');
 
 /**
  * USUARIOS
  */
-Route::get('usuario/{nombre}', 'UsuariosController@mostrarUsuario');
-Route::get('confirmar_email/{id}/{token}', 'UsuariosController@confirmarEmail');
+Route::get('usuario/{nombre}', 'UsersController@mostrarUsuario');
+Route::get('confirmar_email/{id}/{token}', 'UsersController@confirmarEmail');
 
-Route::get('usuario/{nombre}/editar', 'UsuariosController@mostrarEditarPerfilUsuario')->middleware('auth');
-Route::post('usuario/{nombre}/editar/guardar-privacidad', 'Privacidad_usuariosController@actualizar');
-Route::post('usuario/{nombre}/editar/guardar-info', 'UsuariosController@actualizarInfo');
+Route::get('usuario/{nombre}/editar', 'UsersController@mostrarEditarPerfilUsuario')->middleware('auth');
+Route::post('usuario/{nombre}/editar/guardar-privacidad', 'UsersPrivacyController@actualizar');
+Route::post('usuario/{nombre}/editar/guardar-info', 'UsersController@actualizarInfo');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 
 /**
  * FOROS
  */
-Route::get('foro/{id}', 'ForosController@mostrarForo');
-Route::get('plataforma/{alias}/foro', 'ForosController@mostrarForoCategoria');
-Route::get('juego/{id}/foro', 'ForosController@mostrarForoJuego');
+Route::get('foro/{id}', 'ForumsController@mostrarForo');
+Route::get('plataforma/{alias}/foro', 'ForumsController@mostrarForoCategoria');
+Route::get('juego/{id}/foro', 'ForumsController@mostrarForoJuego');
 
-Route::get('foro/{foro_id}/{tema_id}', 'ForosTemasController@mostrarTema');
+Route::get('foro/{foro_id}/{tema_id}', 'ForumsTopicsController@mostrarTema');
 
 /**
  * PÁGINAS SIMPLES
@@ -98,8 +98,4 @@ Route::get('/contacto', function () {
 });
 Route::get('/sobre-nosotros', function () {
     return view('layouts.paginas_simples.sobre-nosotros');
-});
-
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
 });

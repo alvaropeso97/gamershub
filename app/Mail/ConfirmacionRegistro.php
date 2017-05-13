@@ -43,11 +43,11 @@ class ConfirmacionRegistro extends Mailable
      */
     public function build()
     {
-        $token = $this->usuario->getConfirmEmail->token; //Obtener token de seguridad generado para el usuario
+        $token = $this->usuario->userEmailToken->token; //Obtener token de seguridad generado para el usuario
         return $this->from('no-reply@gamershub.es')
             ->view('mail.confirmacion_registro')->with([
                 'id' => $this->usuario->id,
-                'name' => $this->usuario->name,
+                'name' => $this->usuario->nickname,
                 'token' => $token,
             ]);
     }

@@ -160,7 +160,7 @@ return [
         // Add custom list items to navbar's dropdown
         'navbar_items' => [
             'Profile' => [
-                'route'         => 'voyager.profile',
+                'route'         => 'voyager.user',
                 'classes'       => 'class-full-of-rum',
                 'icon_class'    => 'voyager-person',
             ],

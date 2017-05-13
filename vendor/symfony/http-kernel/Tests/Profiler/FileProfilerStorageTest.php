@@ -110,9 +110,9 @@ class FileProfilerStorageTest extends \PHPUnit_Framework_TestCase
         $profile->setUrl('http://example.net/');
 
         $this->assertTrue($this->storage->write($profile), '->write() returns true when the token is already present in the storage');
-        $this->assertEquals('http://example.net/', $this->storage->read('token')->getUrl(), '->write() overwrites the current profile data');
+        $this->assertEquals('http://example.net/', $this->storage->read('token')->getUrl(), '->write() overwrites the current user data');
 
-        $this->assertCount(1, $this->storage->find('', '', 1000, ''), '->find() does not return the same profile twice');
+        $this->assertCount(1, $this->storage->find('', '', 1000, ''), '->find() does not return the same user twice');
     }
 
     public function testRetrieveByIp()
