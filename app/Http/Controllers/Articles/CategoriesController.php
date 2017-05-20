@@ -16,17 +16,74 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Articles;
 
 
 use App\Article;
-use App\Category;
+use App\Models\Articles\Category;
 use App\Exceptions\CategoriaNoEncontradaException;
+use App\Http\Requests\Articles\StoreUpdateCategory;
 use Illuminate\Routing\Controller;
 use DB;
+use Illuminate\Support\Facades\Request;
 
 class CategoriesController extends Controller
 {
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id) {
+        $category = Category::find($id);
+        return view('admin.categories.addEdit', ['category' => $category]);
+    }
+
+    /**
+     * @param StoreUpdateCategory $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreUpdateCategory $request) {
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->alias = $request->input('alias');
+        $category->color = $request->input('color');
+        $itsPlatform = $request->input('its_platform');
+        if ($itsPlatform == "on") {
+            $category->its_platform = 1;
+        } else {
+            $category->its_platform = 0;
+        }
+        $category->save();
+
+        return redirect()->route('admin.categories.show', [$category]);
+    }
+
+    /**
+     * @param $id
+     * @param StoreUpdateCategory $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id, StoreUpdateCategory $request) {
+        $category = Category::find($id);
+        $category->name = $request->input('name');
+        $category->alias = $request->input('alias');
+        $category->color = $request->input('color');
+        $itsPlatform = $request->input('its_platform');
+        if ($itsPlatform == "on") {
+            $category->its_platform = 1;
+        } else {
+            $category->its_platform = 0;
+        }
+        $category->save();
+
+        return redirect()->route('admin.categories.show', [$category]);
+    }
+
+    public function destroy($id) {
+        $category = Category::find($id);
+        $category->delete();
+    }
+
     /**
      * Recibe el alias de la categoria/plataforma, si es una plataforma redirige a /plataforma/alias y si no lo es
      * muestra todos los artículos de la categoría ordenados por fecha

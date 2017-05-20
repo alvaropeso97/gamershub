@@ -1,13 +1,13 @@
-@extends('layouts.master')
-@section('titulo', $id->titulo)
+@extends('master')
+@section('titulo', $id->title)
 
 @section('contenido')
 <section class="bg-grey-50 border-bottom-1 border-grey-300 padding-10">
     <div class="container">
         <ol class="breadcrumb">
             <li><a href="/">Portal</a></li>
-            <li><a href="/">{{$id->getTipo()}}@if($id->tipo != "ana")s @endif </a></li>
-            <li class="active">{{$id->titulo}}</li>
+            <li><a href="/">@if($id->type == 0) Noticias @endif</a></li>
+            <li class="active">{{$id->title}}</li>
         </ol>
     </div>
 </section>

@@ -16,7 +16,7 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Articles;
 
 use Illuminate\Routing\Controller;
 use DB;

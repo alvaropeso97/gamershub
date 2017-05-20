@@ -16,7 +16,7 @@
  *
  */
 
-namespace App;
+namespace App\Models\Articles;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,9 +26,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
-    protected $table = 'articles_categories';
+    protected $table = 'categories';
     protected $fillable = ['name','color','alias','its_platform'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * Devuelve todas los artículos pertenecientes a una categoría

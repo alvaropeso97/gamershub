@@ -16,7 +16,7 @@
  *
  */
 
-namespace App;
+namespace App\Models\Users;
 use Illuminate\Database\Eloquent\Model;
 
 /**

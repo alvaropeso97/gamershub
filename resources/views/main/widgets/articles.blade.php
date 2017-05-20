@@ -1,5 +1,5 @@
 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 leftside">
-@php $articles =  \App\Article::select()->orderBy('id','desc')->paginate(10); @endphp
+@php $articles =  \App\Models\Articles\Article::select()->orderBy('id','desc')->paginate(10); @endphp
 @foreach($articles as $article)
     @php $user = $article->user; @endphp
     <!-- Artículo -->
@@ -18,11 +18,11 @@
                             <span class="nota_analisis {{$article->review->getColor()}}">{{$score}}</span>
                         @endif
                         <div class="post-title">
-                            <div class="tipo">{{$article->getTipo()}}</div>
+                            <div class="tipo">{{$article->getType()}}</div>
                             <h4><a href="/articulo/{{$article->id}}/{{$article->seo_optimized_name}}">{{$article->title}}</a></h4>
                             <ul class="post-meta">
                                 <li><a href="/usuario/{{$user->nickname}}"><i class="fa fa-user"></i> {{$user->name}} {{$user->surname}}</a></li>
-                                <li><i class="fa fa-clock-o"></i>{{$noticia->getFecha()}}</li>
+                                <li><i class="fa fa-clock-o"></i>{{$article->getFecha()}}</li>
                                 <li>@foreach($article->categories as $category) <a href="/categoria/{{$category->alias}}"><span  class="label" style="color:{{$category->color}};">{{$category->name}}</span></a> @endforeach</li>
                             </ul>
                         </div>

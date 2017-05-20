@@ -16,11 +16,12 @@
  *
  */
 
-namespace App;
-use App\Http\Controllers\ArticlesController;
+namespace App\Models\Articles;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
-use Intervention\Image\Facades\Image;
+use App\Models\Users\User;
+use Illuminate\Support\Facades\Config;
+use App\Models\Games\Game;
 
 /**
  * Esta clase es el modelo de la tabla "articulos" de la base de datos
@@ -32,6 +33,11 @@ class Article extends Model
     protected $table = 'articles';
     protected $fillable = ['user_id', 'game_id', 'type', 'image', 'title', 'description', 'content', 'seo_optimized_name'];
     public $timestamps = true;
+
+    const TYPE_NEW = 0;
+    const TYPE_ADVANCE = 1;
+    const TYPE_VIDEO = 2;
+    const TYPE_REVIEW = 3;
 
     /**
      * Clave ajena "id_autor", referencia a "id" (users)
@@ -48,6 +54,18 @@ class Article extends Model
     public function categories() {
         return $this->belongsToMany(Category::class, 'articles_categories', 'article_id',
             'category_id');
+    }
+
+    /**
+     * @return array
+     */
+    public function categoriesArray() {
+        $categoriesArray = array();
+        $categories = $this->categories;
+        foreach ($categories as $category) {
+            $categoriesArray[] = $category->id;
+        }
+        return $categoriesArray;
     }
 
     /**
@@ -92,12 +110,21 @@ class Article extends Model
     }
 
     /**
-     * Establecer la imágen destacada para el artículo
-     * @param $img
+     * @param $size
+     * @return string
      */
-    public function setImgAttribute($img) {
-        $nombre_img = ArticlesController::sanear_string($img->getClientOriginalName());
-        $this->attributes['img'] = Carbon::now()->timestamp.$nombre_img;
+    public function getImageUrl($size) {
+        switch ($size) {
+            case "sm":
+                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->created_at))."/500x281_".$this->image;
+                break;
+            case "md":
+                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->created_at))."/950x534_".$this->image;
+                break;
+            case "lg":
+                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->created_at))."/1600x900_".$this->image;
+                break;
+        }
     }
 
     /**
@@ -116,7 +143,7 @@ class Article extends Model
      * @return string fecha formateada al español
      */
     public function getFechaLocal() {
-        $fecha = $this->fecha;
+        $fecha = $this->created_at;
         $fecha_n = new \DateTime($fecha);
         return $fecha_n->format('d \d\e F \d\e Y');
     }
@@ -127,7 +154,7 @@ class Article extends Model
      * @return string cadena indicando el tiempo que ha pasado desde que el artículo fué publicado
      */
     public function getFecha() {
-        $fecha = $this->fecha;
+        $fecha = $this->created_at;
         $diferencia = time() - strtotime($fecha) ;
         $segundos = $diferencia ;
         $minutos = round($diferencia / 60 );
@@ -173,9 +200,9 @@ class Article extends Model
             }
         }else{
             if($anio==1){
-                $return = "hace un a&ntilde;o";
+                $return = "hace un año";
             }else{
-                $return = "hace $anio a&ntildeo;s";
+                $return = "hace $anio años";
             }
         }
         return $return;

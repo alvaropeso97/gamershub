@@ -1,5 +1,5 @@
 @php
-    $highlighteds = \App\Article::orderBy('id','desc')->take(5)->get();
+    $highlighteds = \App\Models\Articles\Article::orderBy('id','desc')->take(5)->get();
     $counter = 1;
 @endphp
 <div style="border-top: 1px solid white;">
@@ -17,10 +17,10 @@
             @endphp
             <div class="post-block first">
                 <a href="/articulo/{{$highlighted_article->id}}/{{$highlighted_article->seo_optimized_name}}" class="link">
-                    <img src="{{Config::get('constants.S1_URL')}}/noticias_rsz/950x534_{{$highlighted_article->image}}" alt="">
+                    <img src="{{$highlighted_article->getImageUrl('md')}}" alt="">
                     <div class="overlay">
                         <div class="caption">
-                            @foreach($highlighted_article-$category as $category)
+                            @foreach($highlighted_article->categories as $category)
                                 <a href="/categoria/{{$category->alias}}"><span class="label" style="background-color: {{$category->color}}; margin-left: 5px;">{{$category->name}}</span></a>
                             @endforeach
                             <div class="post-title">

@@ -16,7 +16,7 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Games;
 
 use DB;
 use Request;

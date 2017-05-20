@@ -56,10 +56,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'AKIAJX4XIG53GSADLZSQ',
-            'secret' => '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',
-            'region' => 'eu-central-1',
-            'bucket' => 'img.gamershub.es',
+            'key' => 'AKIAIDLZUWRYKHZMQ66A',
+            'secret' => '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',
+            'region' => 'eu-west-1',
+            'bucket' => 'img.playbit.es',
         ],
 
     ],

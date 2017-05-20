@@ -18,7 +18,7 @@ class CreateVideosTable extends Migration
             $table->integer('article_id')->unsigned();
             $table->string('youtube_code');
             $table->string('duration');
-            $table->integer('views_count');
+            $table->integer('views_count')->default(0);
 
             $table->foreign('article_id')
                 ->references('id')->on('articles')->onDelete('cascade');
@@ -35,6 +35,6 @@ class CreateVideosTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('videos');
     }
 }

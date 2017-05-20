@@ -16,7 +16,7 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Articles;
 
 use App\Comment;
 use App\Article;

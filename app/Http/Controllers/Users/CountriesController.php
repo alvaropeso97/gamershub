@@ -16,7 +16,7 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
 
 use Illuminate\Routing\Controller;

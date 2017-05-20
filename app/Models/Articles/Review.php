@@ -16,7 +16,8 @@
  *
  */
 
-namespace App;
+namespace App\Models\Articles;
+use App\Models\Games\Game;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -36,6 +37,14 @@ class Review extends Model
      */
     public function article() {
         return $this->belongsTo(Article::class, 'article_id');
+    }
+
+    /**
+     * Clave ajena "game", referencia a "id" (games)
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo juego perteneciente a este análisis
+     */
+    public function game() {
+        return $this->belongsTo(Game::class, 'game_id');
     }
 
     /**

@@ -16,7 +16,7 @@
  *
  */
 
-namespace App;
+namespace App\Models\Users;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -30,10 +30,6 @@ class Country extends Model
     protected $fillable = ['code','country'];
     public $timestamps = false;
 
-    /**
-     * Clave ajena "pais", referencia a "cod_pais" (paises)
-     * @return Country del usuario
-     */
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

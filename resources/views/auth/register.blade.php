@@ -91,7 +91,7 @@
                                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                                     <label>@lang('auth.country.label')</label>
                                                     <select name="country" class="form-control" style="height: 45px;">
-                                                        @foreach(\App\Country::all() as $country)
+                                                        @foreach(\App\Models\Users\Country::all() as $country)
                                                             <option name="country" value="{{$country->id}}" @if(App::isLocale(strtolower($country->code))) selected @endif>{{$country->country}}</option>
                                                         @endforeach
                                                     </select>

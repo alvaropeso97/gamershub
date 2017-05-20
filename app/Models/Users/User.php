@@ -16,8 +16,9 @@
  *
  */
 
-namespace App;
+namespace App\Models\Users;
 
+use App\Models\Roles\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Cache;
@@ -33,7 +34,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $table = 'users';
-    protected $fillable = ['nickname', 'email', 'password', 'name', 'surname', 'birthdate', 'country_id', 'city', 'gender',
+    protected $fillable = ['nickname', 'email', 'password', 'role_id', 'name', 'surname', 'birthdate', 'country_id', 'city', 'gender',
         'avarar', 'favourite_genre', 'signature', 'xbox_gamertag', 'ps_id', 'nintendo_network', 'friend_code_wii',
         'friend_code_3ds', 'friend_code_ds', 'microsoft_gamertag', 'steam_id', 'twitter', 'facebook', 'google',
         'web_blog', 'verified'];
@@ -73,6 +74,10 @@ class User extends Authenticatable
      */
     public function country() {
         return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function role() {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     /**

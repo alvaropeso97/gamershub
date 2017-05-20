@@ -16,9 +16,11 @@
  *
  */
 
-namespace App;
+namespace App\Models\Games;
 use App\Http\Controllers\TS3Server;
+use App\Models\Articles\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 
 /**
@@ -45,8 +47,39 @@ class Game extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+    public function categories() {
+        return $this->belongsToMany(Category::class, 'games_categories');
+    }
+
+    /**
+     * @return array
+     */
+    public function categoriesArray() {
+        $categoriesArray = array();
+        $categories = $this->categories;
+        foreach ($categories as $category) {
+            $categoriesArray[] = $category->id;
+        }
+        return $categoriesArray;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function developers() {
         return $this->belongsToMany(Developer::class, 'games_developers');
+    }
+
+    /**
+     * @return array
+     */
+    public function developersArray() {
+        $developersArray = array();
+        $developers = $this->developers;
+        foreach ($developers as $developer) {
+            $developersArray[] = $developer->id;
+        }
+        return $developersArray;
     }
 
     /**
@@ -57,6 +90,18 @@ class Game extends Model
     }
 
     /**
+     * @return array
+     */
+    public function distributorsArray() {
+        $distributorsArray = array();
+        $distributors = $this->distributors;
+        foreach ($distributors as $distributor) {
+            $distributorsArray[] = $distributor->id;
+        }
+        return $distributorsArray;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function genres() {
@@ -64,25 +109,50 @@ class Game extends Model
     }
 
     /**
-     * @param $img_header
+     * @return array
      */
-    public function setImgheaderAttribute($img_header) {
-        $this->attributes['header_image'] = Carbon::now()->second.$img_header->getClientOriginalName();
-        $name = $this->attributes['header_image'] = Carbon::now()->second.$img_header->getClientOriginalName();
-        \Storage::disk('s3')->put("/juegos/cabeceras/$name", \File::get($img_header));
+    public function genresArray() {
+        $genresArray = array();
+        $genres = $this->genres;
+        foreach ($genres as $genre) {
+            $genresArray[] = $genre->id;
+        }
+        return $genresArray;
     }
 
     /**
-     * @param $caratula
+     * @param $size
+     * @return string
      */
-
-    /**
-     * @param $img_box
-     */
-    public function setImgboxAttribute($img_box) {
-        $this->attributes['boxed_image'] = Carbon::now()->second.$img_box->getClientOriginalName();
-        $name = $this->attributes['boxed_image'] = Carbon::now()->second.$img_box->getClientOriginalName();
-        \Storage::disk('s3')->put("/juegos/img/$name", \File::get($img_box));
+    public function getHeaderImageUrl($size) {
+        switch ($size) {
+            case "sm":
+                return Config::get('constants.S1_URL')."/juegos/".$this->id."/cabeceras/500x281_".$this->header_image;
+                break;
+            case "md":
+                return Config::get('constants.S1_URL')."/juegos/".$this->id."/cabeceras/950x534_".$this->header_image;
+                break;
+            case "lg":
+                return Config::get('constants.S1_URL')."/juegos/".$this->id."/cabeceras/1600x900_".$this->header_image;
+                break;
+        }
     }
 
+    /**
+     * @param $size
+     * @return string
+     */
+    public function getBoxedImageUrl($size) {
+        switch ($size) {
+            case "sm":
+                return Config::get('constants.S1_URL')."/juegos/".$this->id."/caratulas/500x281_".$this->boxed_image;
+                break;
+            case "md":
+                return Config::get('constants.S1_URL')."/juegos/".$this->id."/caratulas/950x534_".$this->boxed_image;
+                break;
+            case "lg":
+                return Config::get('constants.S1_URL')."/juegos/".$this->id."/caratulas/1600x900_".$this->boxed_image;
+                break;
+        }
+    }
 }

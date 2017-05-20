@@ -1,18 +1,18 @@
 <a name="comentarios"></a>
 <div class="comments">
-    <h4 class="page-header"><i class="fa fa-comment-o"></i> Comentarios ({{count($id->getComentarios)}})</h4>
-    @foreach($id->getComentarios as $comentario)
-        @php $usuario = $comentario->getAutor; @endphp
+    <h4 class="page-header"><i class="fa fa-comment-o"></i> Comentarios ({{count($id->comments)}})</h4>
+    @foreach($id->comments as $comentario)
+        @php $usuario = $comentario->user; @endphp
 
         <div class="media">
             <a class="media-left" href="/usuario/{{$usuario->name}}">
-                <img src="{{$usuario->img_perfil}}" alt="">
+                <img src="{{$usuario->avatar}}" alt="">
             </a>
             <div class="media-body">
                 <div class="media-content">
                     <a href="/usuario/{{$usuario->name}}" class="media-heading">{{$usuario->name}}</a>
                     <span class="date">{{$comentario->getFecha()}}</span>
-                    <p>{{$comentario->comentario}}</p>
+                    <p>{{$comentario->comment}}</p>
                     @if(Auth::check() && Auth::user()->acceso > 2)
                         <h6 class="text-right"><a href="{{$comentario->id}}/eliminar">Eliminar</a></h6>
                     @endif

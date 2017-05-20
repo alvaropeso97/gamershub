@@ -16,7 +16,7 @@
  *
  */
 
-namespace App;
+namespace App\Models\Games;
 use Illuminate\Database\Eloquent\Model;
 
 /**

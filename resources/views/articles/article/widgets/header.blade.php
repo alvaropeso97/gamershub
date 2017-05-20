@@ -1,4 +1,4 @@
-@if($id->tipo == "vid")
+@if($id->type == 2)
     <section class="background-image padding-top-50 padding-bottom-50"
              style="background-image: url(https://i.ytimg.com/vi/{{$vid->cod_yt}}/maxresdefault.jpg);">
         <span class="background-overlay"></span>
@@ -17,10 +17,10 @@
     <section class="hero bg-white border-bottom-1 border-grey-200">
         <div class="container">
             <div class="page-header">
-                @foreach($id->getCategorias as $categoria) <a
+                @foreach($id->categories as $categoria) <a
                         href="/categoria/{{$categoria->alias}}"><span class="art_categoria categoria_borde"
-                                                                      style="border-color:{{$categoria->color}}; color: #000;">{{$categoria->nombre}}</span></a> @endforeach</p>
-                <div class="page-title"><b>{{$id->titulo}}</b></div>
+                                                                      style="border-color:{{$categoria->color}}; color: #000;">{{$categoria->name}}</span></a> @endforeach</p>
+                <div class="page-title"><b>{{$id->title}}</b></div>
                 <ol class="breadcrumb">
                     {{$id->descripcion}}
                 </ol>
@@ -30,15 +30,15 @@
 
 @else
     <section class="hero hero-review height-500"
-             style="background-image: url('{{Config::get('constants.S1_URL')}}/noticias_rsz/1600x900_{{$id->img}}'); height: 400px; ">
+             style="background-image: url('{{Config::get('constants.S1_URL')}}/noticias_rsz/1600x900_{{$id->image}}'); height: 400px; ">
         <div class="hero-bg"></div>
         <div class="container">
             <div class="page-header">
-                @foreach($id->getCategorias as $categoria) <a
+                @foreach($id->categories as $categoria) <a
                         href="/categoria/{{$categoria->alias}}"><span class="art_categoria categoria_borde"
-                                                                      style="border-color:{{$categoria->color}};">{{$categoria->nombre}}</span></a> @endforeach</p>
-                <div class="page-title">{{$id->titulo}}</div>
-                <p>{{$id->descripcion}}<br><br></div>
+                                                                      style="border-color:{{$categoria->color}};">{{$categoria->name}}</span></a> @endforeach</p>
+                <div class="page-title">{{$id->title}}</div>
+                <p>{{$id->description}}<br><br></div>
         </div>
     </section>
 @endif

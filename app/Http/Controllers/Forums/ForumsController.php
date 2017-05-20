@@ -16,7 +16,7 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Forums;
 
 use App\Exceptions\ForoNoEncontradoException;
 use App\Forum;

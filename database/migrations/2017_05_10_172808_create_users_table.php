@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname', 255);
             $table->string('email', 255)->unique();
             $table->string('password', 255);
+            $table->integer('role_id')->unsigned()->default(1);
             $table->string('name', 30);
             $table->string('surname', 30);
             $table->date('birthdate');
@@ -43,6 +44,8 @@ class CreateUsersTable extends Migration
             $table->boolean('verified')->default(0);
             $table->timestamps();
 
+            $table->foreign('role_id')
+                ->references('id')->on('roles');
             $table->foreign('country_id')
                 ->references('id')->on('countries');
             $table->engine = 'InnoDB';

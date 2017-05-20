@@ -1,60 +1,30 @@
-<html>
-  <head>
-    <title>{{ config('backpack.base.project_name') }} Error 400</title>
-
-    <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        color: #B0BEC5;
-        display: table;
-        font-weight: 100;
-        font-family: 'Lato';
-      }
-
-      .container {
-        text-align: center;
-        display: table-cell;
-        vertical-align: middle;
-      }
-
-      .content {
-        text-align: center;
-        display: inline-block;
-      }
-
-      .title {
-        font-size: 156px;
-      }
-
-      .quote {
-        font-size: 36px;
-      }
-
-      .explanation {
-        font-size: 24px;
-      }
-    </style>
-  </head>
-  <body>
+@extends('master')
+@section('titulo', 'Página no encontrada')
+@section('contenido')
+  <section>
     <div class="container">
-      <div class="content">
-        <div class="title">400</div>
-        <div class="quote">Bad request.</div>
-        <div class="explanation">
-          <br>
-          <small>
-            <?php
-              $default_error_message = "Please return to <a href='".url('')."'>our homepage</a>.";
-            ?>
-            {!! isset($exception)? ($exception->getMessage()?$exception->getMessage():$default_error_message): $default_error_message !!}
-         </small>
-       </div>
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 text-center">
+          <div class="title">
+            <h4><i class="fa fa-bug"></i> Error 404 - Página no encontrada</h4>
+          </div>
+          <p>La página a la que intentas acceder no existe</p>
+          <form>
+            <div class="col-lg-8 pull-none display-inline-block">
+              <div class="btn-inline">
+                <input type="text" class="form-control input-lg padding-right-40"
+                       placeholder="Buscar contenido">
+                <button type="submit" class="btn btn-link color-grey-700 padding-top-10"><i
+                          class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </form>
+          <a href="/" class="btn btn-primary btn-lg margin-top-20 btn-shadow btn-rounded">Página principal</a>
+        </div>
+        <div class="col-lg-5 height-300">
+          <img src="/img/content/error_busq.png" class="image-right" alt="">
+        </div>
       </div>
     </div>
-  </body>
-</html>
+  </section>
+@endsection

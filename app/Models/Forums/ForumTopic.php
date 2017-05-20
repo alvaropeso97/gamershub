@@ -15,7 +15,7 @@
  * 2017
  *
  */
-namespace App;
+namespace App\Models\Forums;
 
 /**
  * Esta clase es el modelo de la tabla "foros_temas" de la base de datos

@@ -61,6 +61,8 @@ class Handler extends ExceptionHandler
             return response()->view('errores.foro_no_encontrado');
         } else if ($exception instanceof TemaNoEncontradoException) {
             return response()->view('errores.tema_no_encontrado');
+        } else if ($exception instanceof PageNotFoundException) {
+            return response()->view('errors.404');
         }
         return parent::render($request, $exception);
     }

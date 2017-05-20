@@ -1,60 +1,39 @@
 <header>
-    <div class="barra-top">
-        <span class="fa fa-bars abrir-menu"></span>
-            <ul>
-                <li><a href="https://twitter.com/GamersHUBes" target="_blank"><span class="fa fa-twitter"></span></a></li>
-                <li><a href="https://www.facebook.com/gamershubes/" target="_blank"><span class="fa fa-facebook"></span></a></li>
-                <li><a href="https://plus.google.com/b/115509563036983669622/115509563036983669622" target="_blank"><span class="fa fa-google-plus"></span></a></li>
-                <li><a href="https://steamcommunity.com/groups/GHUBes" target="_blank"><span class="fa fa-steam"></span></a></li>
-                <li><a href="https://www.twitch.tv/gamershubtv" target="_blank"><span class="fa fa-twitch"></span></a></li>
-            </ul>
-    </div>
-
-    <div class="menu_top text-center">
-        <a href="/" alt="Ir al inicio"><img width="150px" src="/img/logo_dark.png"></a>
-    </div>
-
-    <div class="menu_lateral cerrado">
-
-        @if(Auth::user())
-        <div class="menu_usuario">
-            <img src="{{Auth::user()->img_perfil}}" class="img-circle" alt="">
-            <h3>{{Auth::user()->name}}</h3>
+    <div class="container">
+        <span class="bar hide"></span>
+        <a href="#" class="logo"><img src="/img/playbit_p_logo_temp.png" width="40px" alt=""></a>
+        <nav>
+            <div class="nav-control">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="nav-right">
+            <div class="nav-profile dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="https://conferencecloud-assets.s3.amazonaws.com/default_avatar.png" alt=""> <span>Usuario anónimo</span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                    <li><a href="#"><i class="fa fa-heart"></i> Likes <span class="label label-info">32</span></a></li>
+                    <li><a href="#"><i class="fa fa-gamepad"></i> Games</a></li>
+                    <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                    <li class="divider"></li>
+                    <li><a href="login.html"><i class="fa fa-power-off"></i> Sign Out</a></li>
+                </ul>
+            </div>
+            <div class="nav-dropdown dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <span class="label label-danger">3</span></a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header"><i class="fa fa-bell"></i> You have 5 new games</li>
+                    <li><a href="#">Alien Isolation</a></li>
+                    <li><a href="#">Witcher 3 <span class="label label-success">XBOX</span></a></li>
+                    <li><a href="#">Last of Us</a></li>
+                    <li><a href="#">Uncharted 4 <span class="label label-primary">PS4</span></a></li>
+                    <li><a href="#">GTA 5 <span class="label label-warning">PC</span></a></li>
+                    <li class="dropdown-footer"><a href="#">View all games</a></li>
+                </ul>
+            </div>
+            <a href="#" data-toggle="modal-search"><i class="fa fa-search"></i></a>
         </div>
-
-        <ul style="border-bottom: 1px solid #2a2a2a; border-top: 1px solid #2a2a2a; margin-bottom: 20px;">
-            @if(Auth::user()->acceso == 2 || Auth::user()->acceso == 3)
-                <li style="border-color: #AC2943;"><a href="/panel/usuarios">Usuarios</a></li>
-                @endif
-                @if(Auth::user()->acceso == 1 || Auth::user()->acceso == 3)
-                    <li style="border-color: #AC2943;"><a href="/panel/articulos">Artículos</a></li>
-                    <li style="border-color: #AC2943;"><a href="/panel/juegos">Juegos</a></li>
-                @endif
-            <li style="border-color: darkred;"><a href="/logout">Cerrar sesión</a></li>
-        </ul>
-        @else
-            <ul style="border-bottom: 1px solid #2a2a2a; border-top: 1px solid #2a2a2a; margin-bottom: 20px;">
-                <li style="border-color: #bf0411;"><a href="/register">Registrarme</a></li>
-                <li style="border-color: #006cb1;"><a href="/login">Entrar</a></li>
-            </ul>
-        @endif
-
-        <ul style="border-bottom: 1px solid #2a2a2a; border-top: 1px solid #2a2a2a;">
-            <li><a href="/">Inicio</a></li>
-            <li style="border-color: #d33400;"><a href="/categoria/pc">PC</a></li>
-            <li style="border-color: #117d10;"><a href="/categoria/xone">XBOX ONE</a></li>
-            <li style="border-color: #58a300;"><a href="/categoria/x360">XBOX 360</a></li>
-            <li style="border-color: #004098;"><a href="/categoria/ps4">PLAY STATION 4</a></li>
-            <li style="border-color: #006cca;"><a href="/categoria/ps3">PLAY STATION 3</a></li>
-            <li style="border-color: #276d99;"><a href="/categoria/wii-u">WII U</a></li>
-            <li style="border-color: #19758f;"><a href="/categoria/3ds">NINTENDO 3DS</a></li>
-            <li style="border-color: #d33400;"><a href="/categoria/ps-vita">PS VITA</a></li>
-            <li style="border-color: #8e7900;"><a href="/categoria/ios">iOS</a></li>
-            <li style="border-color: #a4c739;"><a href="/categoria/android">ANDROID</a></li>
-            <li style="border-color: #e60011;"><a href="/categoria/nintendo-switch">NINTENDO SWITCH</a></li>
-        </ul>
     </div>
-
 </header>
-
-

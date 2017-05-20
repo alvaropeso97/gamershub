@@ -27,7 +27,7 @@ Route::get('/videos', function () {
 Route::get('/login', function () {
     return view('layouts.paginas.login');
 });
-Route::post ('/autenticar', 'UsersController@autenticar');
+Route::post ('/autenticar', 'Users\UsersController@autenticar');
 
 /**
  * Búsqueda de artículos, juegos, usuarios...
@@ -37,8 +37,8 @@ Route::get ('/busqueda/{tipo}/{tag}', 'ArticlesController@mostrarBusqueda');
 /**
  * Página para mostrar un artículo / review / avance...
  */
-Route::get('articulo/{id}/{nombre}', 'ArticlesController@mostrarArticulo');
-Route::get('articulo/{id}', 'ArticlesController@mostrarArticuloDos');
+Route::get('articulo/{id}/{nombre}', 'Articles\ArticlesController@mostrarArticulo');
+Route::get('articulo/{id}', 'Articles\ArticlesController@mostrarArticuloDos');
 Route::post ('articulo/{id}/add-comentario', 'CommentsController@store')->middleware('auth');
 
 Route::get('noticias', 'ArticlesController@mostrarNoticias');
@@ -70,7 +70,7 @@ Route::get('plataforma/{alias}/{orden}', 'CategoriesController@mostrarPlataforma
  * USUARIOS
  */
 Route::get('usuario/{nombre}', 'UsersController@mostrarUsuario');
-Route::get('confirmar_email/{id}/{token}', 'UsersController@confirmarEmail');
+Route::get('confirmar_email/{id}/{token}', 'Users\UsersController@confirmarEmail');
 
 Route::get('usuario/{nombre}/editar', 'UsersController@mostrarEditarPerfilUsuario')->middleware('auth');
 Route::post('usuario/{nombre}/editar/guardar-privacidad', 'UsersPrivacyController@actualizar');

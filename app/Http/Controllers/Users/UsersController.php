@@ -16,17 +16,18 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
 use App\Exceptions\UsuarioNoEncontradoException;
 use App\Mail\NotificacionRegistro;
-use App\User;
+use App\Models\Users\User;
 use App\Order;
 use DB;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use Validator;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {

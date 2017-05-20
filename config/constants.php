@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'S1_URL' => env('S1_URL','https://img.gamershub.es'),
+    'S1_URL' => env('S1_URL','https://img.playbit.es'),
 
 
 ];

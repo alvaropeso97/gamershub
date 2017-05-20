@@ -1,6 +1,6 @@
 <div class="widget widget-list">
     <div class="title">@lang('general.recent_comments')</div>
-    <?php $comments = \App\Comment::orderBy('created_at', 'desc')->take(5)->get(); ?>
+    <?php $comments = \App\Models\Articles\Comment::orderBy('created_at', 'desc')->take(5)->get(); ?>
     <ul>
         @foreach($comments as $comment)
             <?php

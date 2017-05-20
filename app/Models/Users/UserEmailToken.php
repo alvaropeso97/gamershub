@@ -16,7 +16,7 @@
  *
  */
 
-namespace App;
+namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +36,6 @@ class UserEmailToken extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo usuario relacionado con el token de seguridad
      */
     public function user() {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

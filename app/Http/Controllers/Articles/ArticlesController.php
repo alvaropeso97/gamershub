@@ -16,25 +16,180 @@
  *
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Articles;
 
 
-use App\Review;
-use App\Article;
-use App\Tag;
+use App\Http\Controllers\BaseController;
+use App\Models\Articles\Review;
+use App\Models\Articles\Article;
+use App\Models\Articles\Tag;
 use App\Exceptions\ArticuloNoEncontradoException;
-use App\Game;
-use App\Mail\ConfirmacionRegistro;
-use App\Video;
-use Illuminate\Routing\Controller;
+use App\Models\Games\Game;
+use App\Models\Articles\Video;
 use DB;
 use App\Http\Requests;
 use Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Mail;
 use Intervention\Image\Facades\Image;
-class ArticlesController extends Controller
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Articles\StoreArticle;
+use App\Http\Requests\Articles\UpdateArticle;
+use Carbon\Carbon;
+
+class ArticlesController extends BaseController
 {
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id) {
+        $article = Article::find($id);
+        return view('admin.articles.addEdit', ['article' => $article]);
+    }
+
+    /**
+     * @param StoreArticle $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreArticle $request) {
+        $article = new Article();
+        $article->user_id =  Auth::id();
+
+        $gameId = $request->input('game_id');
+        $game = null;
+        if ($gameId != 0) {
+            $game = Game::find($gameId);
+            $article->game()->associate($game);
+        }
+
+        $article->type = $request->input('type');
+        $article->title = $request->input('title');
+        $article->description = $request->input('description');
+        $article->content = $request->input('content');
+        $article->seo_optimized_title = $request->input('seo_optimized_title');
+
+        $nombre_img = self::sanear_string($request->file('image')->getClientOriginalName());
+        $article->image = Carbon::now()->timestamp.$nombre_img;
+
+        $article->save();
+
+        $big = Image::make($request->file('image'))->resize(1600,900);
+        Storage::disk('s3')->put("/articulos/".date("dmy")."/1600x900_$article->image", (string) $big->encode('jpg'));
+        $med = Image::make($request->file('image'))->resize(950,534);
+        Storage::disk('s3')->put("/noticias_rsz/950x534_$article->image", (string) $med->encode('jpg'));
+        $smll = Image::make($request->file('image'))->resize(500,281);
+        Storage::disk('s3')->put("/noticias_rsz/500x281_$article->image", (string) $smll->encode('jpg'));
+
+        $article->categories()->attach($request->input('categories'));
+
+        $tags = explode(',', $request->input('tags'));
+        foreach ($tags as $tag) {
+            $tagObject = new Tag();
+            $tagObject->article()->associate($article);
+            $tagObject->name = trim($tag);
+            $tagObject->save();
+        }
+
+        if ($article->type == Article::TYPE_VIDEO) {
+            $video = new Video();
+            $video->article()->associate($article);
+            $video->youtube_code = $request->input('youtube_code');
+            $video->duration = $request->input('duration');
+            $video->save();
+        }
+
+        if ($article->type == Article::TYPE_REVIEW) {
+            $review = new Review();
+            $review->article()->associate($article);
+            $review->game()->associate($game);
+            $review->gameplay_score = $request->input('gameplay_score');
+            $review->graphics_score = $request->input('graphics_score');
+            $review->sounds_score = $request->input('sounds_score');
+            $review->innovation_score = $request->input('innovation_score');
+            $review->save();
+        }
+
+        return redirect()->route('admin.articles.show', [$article]);
+    }
+
+    /**
+     * @param $id
+     * @param UpdateArticle $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id, UpdateArticle $request) {
+        $article = Article::find($id);
+        $article->user_id =  Auth::id();
+
+        $gameId = $request->input('game_id');
+        $game = null;
+        if ($gameId != 0) {
+            $game = Game::find($gameId);
+            $article->game()->dissociate();
+            $article->game()->associate($game);
+        }
+        $article->type = $request->input('type');
+        $article->title = $request->input('title');
+        $article->description = $request->input('description');
+        $article->content = $request->input('content');
+        $article->seo_optimized_title = $request->input('seo_optimized_title');
+
+        if ($request->file('image')) {
+            $nombre_img = self::sanear_string($request->file('image')->getClientOriginalName());
+            $article->image = Carbon::now()->timestamp.$nombre_img;
+            $big = Image::make($request->file('image'))->resize(1600,900);
+            Storage::disk('s3')->put("/noticias_rsz/1600x900_$article->image", (string) $big->encode('jpg'));
+            $med = Image::make($request->file('image'))->resize(950,534);
+            Storage::disk('s3')->put("/noticias_rsz/950x534_$article->image", (string) $med->encode('jpg'));
+            $smll = Image::make($request->file('image'))->resize(500,281);
+            Storage::disk('s3')->put("/noticias_rsz/500x281_$article->image", (string) $smll->encode('jpg'));
+        }
+
+        $article->save();
+
+        $article->categories()->detach();
+        $article->categories()->attach($request->input('categories'));
+
+            $tags = $article->tags;
+            foreach($tags as $tag) {
+                $tag->article()->dissociate();
+                $tag->save();
+            }
+            $tags = explode(',', $request->input('tags'));
+            foreach ($tags as $tag) {
+            $tagObject = new Tag();
+            $tagObject->article()->associate($article);
+            $tagObject->name = trim($tag);
+            $tagObject->save();
+        }
+
+        //ToDo si hay un vídeo creado modifcarlo, si no crearlo
+        if ($article->type == 2) {
+            $video = new Video();
+            $video->article()->dissociate();
+            $video->article()->associate($article);
+            $video->youtube_code = $request->input('youtube_code');
+            $video->duration = $request->input('duration');
+            $video->save();
+        }
+
+        //ToDo si hay un análisis creado modifcarlo, si no análisis
+        if ($article->type == 3) {
+            $review = new Review();
+            $review->article()->dissociate();
+            $review->game()->dissociate();
+            $review->article()->associate($article);
+            $review->game()->associate($game);
+            $review->gameplay_score = $request->input('gameplay_score');
+            $review->graphics_score = $request->input('graphics_score');
+            $review->sounds_score = $request->input('sounds_score');
+            $review->innovation_score = $request->input('innovation_score');
+            $review->save();
+        }
+        return redirect()->route('admin.articles.show', [$article]);
+    }
+
     /**
      * Muestra un listado de todos los artículos de tipo "art"
      * @return vista de paginas.noticias
@@ -62,20 +217,20 @@ class ArticlesController extends Controller
      * @throws ArticuloNoEncontradoException si no encuentra el artículo asociado con el id y el título
      */
     public static function mostrarArticulo($id, $titulo) {
-        $articulo = Article::where('lnombre', $titulo)->where('id', $id)->first();
+        $articulo = Article::where('seo_optimized_title', $titulo)->where('id', $id)->first();
         if (!$articulo) {
             throw new ArticuloNoEncontradoException;
         } else {
-            if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-                $juego = $articulo->getJuego;
-                return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+            if ($articulo->tipo == 3) { //Comprobar si es un análisis y mostrarlo
+                $juego = $articulo->game;
+                return redirect("/juego/$juego->id/$juego->seo_optimized_title/analisis");
             } else {
-                switch ($articulo->tipo) {
-                    case "vid":
-                        return view('layouts.paginas.articulo', ['id' => Article::findOrFail($articulo->id), 'vid' => $articulo->getVideo]);
+                switch ($articulo->type) {
+                    case 2:
+                        return view('articles.article.article', ['id' => Article::findOrFail($articulo->id), 'vid' => $articulo->video]);
                         break;
-                    case "art":
-                        return view('layouts.paginas.articulo', ['id' => Article::findOrFail($articulo->id)]);
+                    case 0:
+                        return view('articles.article.article', ['id' => Article::findOrFail($articulo->id)]);
                         break;
                 }
             }
@@ -94,89 +249,13 @@ class ArticlesController extends Controller
         if (!$articulo) {
             throw new ArticuloNoEncontradoException;
         } else {
-            if ($articulo->tipo == 'ana') { //Comprobar si es un análisis y mostrarlo
-                $juego = DB::table('juegos')->where('id', $articulo->juego_rel)->first();
-                return redirect("/juego/$juego->id/$juego->lnombre/analisis");
+            if ($articulo->tipo == 3) { //Comprobar si es un análisis y mostrarlo
+                $juego = DB::table('juegos')->where('id', $articulo->game)->first();
+                return redirect("/juego/$juego->id/$juego->seo_optimized_title/analisis");
             } else {
-                return redirect("/articulo/$id/$articulo->lnombre");
+                return redirect("/articulo/$id/$articulo->seo_optimized_title");
             }
         }
-    }
-
-    /**
-     * Sanea una cadena de caracteres
-     * @param string la cadena a sanear
-     * @return string cadena saneada
-     */
-    public static function sanear_string($s)
-    {
-        $s = preg_replace("/á|à|â|ã|ª/","a",$s);
-        $s = preg_replace("/Á|À|Â|Ã/","a",$s);
-        $s = preg_replace("/é|è|ê/","e",$s);
-        $s = preg_replace("/É|È|Ê/","e",$s);
-        $s = preg_replace("/í|ì|î/","i",$s);
-        $s = preg_replace("/Í|Ì|Î/","i",$s);
-        $s = preg_replace("/ó|ò|ô|õ|º/","o",$s);
-        $s = preg_replace("/Ó|Ò|Ô|Õ/","o",$s);
-        $s = preg_replace("/ú|ù|û/","u",$s);
-        $s = preg_replace("/Ú|Ù|Û/","u",$s);
-        $s = str_replace(" ","-",$s);
-        $s = str_replace("ñ","n",$s);
-        $s = str_replace("Ñ","n",$s);
-
-        $s = preg_replace('/[^a-zA-Z0-9_.-]/', '', $s);
-        return strtolower($s);
-    }
-
-    /**
-     * Esta función recibe una fecha en formato UNIX y la convierte a un formato en español
-     * legible para los usuarios
-     * @param $fecha Fecha a traducir
-     * @return string Fecha traducida
-     */
-    public static function traducirFecha($fecha) {
-        $fechaCadena = strtotime($fecha);
-        $mes = strftime("%B", $fechaCadena);
-        $mesTraducido = "";
-        switch ($mes) {
-            case "January":
-                $mesTraducido = "enero";
-                break;
-            case "February":
-                $mesTraducido = "febrero";
-                break;
-            case "March":
-                $mesTraducido = "marzo";
-                break;
-            case "April":
-                $mesTraducido = "abril";
-                break;
-            case "May":
-                $mesTraducido = "mayo";
-                break;
-            case "June":
-                $mesTraducido = "junio";
-                break;
-            case "July":
-                $mesTraducido = "julio";
-                break;
-            case "August":
-                $mesTraducido = "agosto";
-                break;
-            case "September":
-                $mesTraducido = "septiembre";
-                break;
-            case "October":
-                $mesTraducido = "octubre";
-                break;
-            case "November":
-                $mesTraducido = "noviembre";
-                break;
-            case "December":
-                $mesTraducido = "diciembre";
-                break;
-        }
-        return strftime("%e de $mesTraducido del %Y",$fechaCadena);
     }
 
     public static function devolverCantidadBusqueda($tag) {

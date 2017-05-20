@@ -16,7 +16,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 255);
-            $table->string('description', 255);
+            $table->text('description', 255);
             $table->string('available_on', 255);
             $table->string('players_quantity', 255);
             $table->string('duration', 255);
@@ -24,6 +24,7 @@ class CreateGamesTable extends Migration
             $table->date('release_date');
             $table->string('header_image', 255);
             $table->string('boxed_image', 255);
+            $table->string('seo_optimized_title', 255);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
