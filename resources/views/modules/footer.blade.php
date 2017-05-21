@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-center">
-                <h4 class="title text-center">GamersHUB</h4>
+                <h4 class="title text-center">PlayBit</h4>
                 <div class="row">
                     <ul>
                         <li><a href="/sobre-nosotros">Sobre nosotros</a></li>
@@ -71,7 +71,7 @@
                 <li><a href="https://steamcommunity.com/groups/GHUBes" target="_blank" class="btn btn-circle btn-social-icon" title="Síguenos en Steam"><i class="fa fa-steam"></i></a></li>
             </ul>
             <div class="margin-top-20">
-                <p>© GAMERSHUB 2017. TODOS LOS DERECHOS RESERVADOS. SOBRE GAMERSHUB | <a href="/contacto">CONTACTO</a> | <a href="/aviso-legal">AVISO LEGAL</a></p>
+                <p>© PLAYBIT 2017. TODOS LOS DERECHOS RESERVADOS. SOBRE PLAYBIT | <a href="/contacto">CONTACTO</a> | <a href="/aviso-legal">AVISO LEGAL</a></p>
             </div>
         </div>
     </div>

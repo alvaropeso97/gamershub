@@ -19,29 +19,20 @@
 namespace App\Http\Controllers\Forums;
 
 use App\Exceptions\ForoNoEncontradoException;
-use App\Forum;
-use App\ForumTopic;
+use App\Models\Forums\Forum;
+use App\Models\Forums\ForumTopic;
+use App\Http\Controllers\Controller;
 
 class ForumsController extends Controller
 {
-    public function mostrarForo($id) {
+    public function show($id) {
         //Buscar foro de tipo 0 (normal)
         $foro = Forum::find($id);
         if (!$foro) { //El foro no existe o no es del tipo
             throw new ForoNoEncontradoException;
         } else { //El foro existe y es del tipo
-            $temas = ForumTopic::where('foro_id', $id)->where('tipo', 0)->paginate(20);
-            switch ($foro->tipo) {
-                case 0: //Normal
-                    return view('layouts.foros.index', ['foro' => $foro, 'temas' => $temas]);
-                    break;
-                case 1: //Game
-                    //ToDo Añadir redirección al foro de tipo juego
-                    break;
-                case 2: //Plataforma
-                    //ToDo Añadir redirección al foro de tipo plataforma
-                    break;
-            }
+            $temas = ForumTopic::where('forum_id', $id)->where('type', ForumTopic::TYPE_TOPIC)->paginate(20);
+            return view('forums.forum.forum', ['foro' => $foro, 'temas' => $temas]);
         }
     }
 }

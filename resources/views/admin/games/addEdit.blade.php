@@ -1,5 +1,8 @@
 @extends('master')
 @section('titulo', 'GamersHUB - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores')
+@section('meta')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
 @section('css')
     <link href="{{ URL::asset('plugins/tags-input/bootstrap-tagsinput.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
@@ -205,7 +208,7 @@
                             <div class="form-group">
                                 <label for="release_date">@lang('admin.addEditGame.release_date.label')</label>
                                 <input type="text" class="form-control"
-                                       placeholder="@lang('admin.addEditGame.release_date.input')" value="@if(isset($game)){{$game->release_date}}@else{{ old('release_date') }}@endif" name="release_date"
+                                       placeholder="@lang('admin.addEditGame.release_date.input')" value="@if(isset($game)){{\App\Http\Controllers\Games\GamesController::fechaEs($game->release_date)}}@else{{ old('release_date') }}@endif" name="release_date"
                                        id="release_date">
                             </div>
                         </div>
@@ -215,9 +218,11 @@
                     <button type="button"
                             class="btn btn-lg btn-block btn-rounded btn-shadow btn-success "
                             id="save_btn">@lang('general.save.button')</button>
+                    @if(isset($game))
                     <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-danger "
-                            id="delete_btn">@lang('general.delete.button')</button>
-                    <button type="button"
+                            onclick="destroyGame({{$game->id}})">@lang('general.delete.button')</button>
+                    @endif
+                    <button
                             class="btn btn-sm btn-block btn-rounded btn-shadow btn-secondary ">@lang('general.cancel.button')</button>
                     <div class="card card-hover margin-top-30" id="game_box">
                         <div class="card-img">
@@ -266,124 +271,8 @@
     <script src="{{ URL::asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ URL::asset('plugins/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js') }}"></script>
-
+    <script src="{{ URL::asset('js/admin/games.js') }}"></script>
     <script>
-        //Datepicker
-        $('#release_date').datepicker({
-            language: 'es'
-        });
-
-        //Editor de textos
-        CKEDITOR.replace('desc');
-
-        //Confirmar eliminación del artículo
-        $("#delete_btn").click(function () {
-            swal({
-                    title: "@lang('general.confirm_delete.title')",
-                    text: "@lang('general.confirm_delete.description')",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "@lang('general.yes')",
-                    cancelButtonText: "@lang('general.no')",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        swal("@lang('general.delete_confirmed.title')", "@lang('general.delete_confirmed.description')", "success");
-                    } else {
-                        swal("@lang('general.cancel_confirmed.title')", "@lang('general.cancel_confirmed.description')", "error");
-                    }
-                });
-        });
-
-        $("#save_btn").click(function () {
-            swal({
-                    title: "@lang('general.confirm_save.title')",
-                    text: "@lang('general.confirm_save.description')",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#27ae60",
-                    confirmButtonText: "@lang('general.yes')",
-                    cancelButtonText: "@lang('general.no')",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function (isConfirm) {
-                    if (isConfirm) {
-                        swal("@lang('general.save_confirmed.title')", "@lang('general.save_confirmed.description')", "success");
-                        $('#game_form').submit();
-                    } else {
-                        swal("@lang('general.save_confirmed.title')", "@lang('general.save_confirmed.description')", "error");
-                    }
-                });
-        });
-
-        function readURLBoxed(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#boxed_image_preview').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#boxed_image").change(function () {
-            $("#boxed_image_preview").show();
-            readURLBoxed(this);
-        });
-
-        function readURLHeader(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#header_image_preview').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
         @if(!isset($game)) $("#header_image_preview").hide(); @endif
-        $("#header_image").change(function () {
-            $("#header_image_preview").show();
-            readURLHeader(this);
-        });
-
-        function getCleanedString(cadena) {
-            // Definimos los caracteres que queremos eliminar
-            var specialChars = "!¡@#$^&%*()+=-[]\/{}|:<>?¿,.";
-
-            // Los eliminamos todos
-            for (var i = 0; i < specialChars.length; i++) {
-                cadena = cadena.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-            }
-
-            // Lo queremos devolver limpio en minusculas
-            cadena = cadena.toLowerCase();
-
-            // Quitamos espacios y los sustituimos por _ porque nos gusta mas asi
-            cadena = cadena.replace(/ /g, "-");
-
-            // Quitamos acentos y "ñ". Fijate en que va sin comillas el primer parametro
-            cadena = cadena.replace(/á/gi, "a");
-            cadena = cadena.replace(/é/gi, "e");
-            cadena = cadena.replace(/í/gi, "i");
-            cadena = cadena.replace(/ó/gi, "o");
-            cadena = cadena.replace(/ú/gi, "u");
-            cadena = cadena.replace(/ñ/gi, "n");
-            return cadena;
-        }
-
-        $('#title').keyup(function () {
-            $('#seo_optimized_title').val(getCleanedString($(this).val())); // set value
-        });
     </script>
 @endsection

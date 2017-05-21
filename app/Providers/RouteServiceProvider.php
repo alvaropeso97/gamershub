@@ -39,9 +39,11 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapApiRoutes();
 
-        $this->mapAdminRoutes();
+        $this->mapEventRoutes();
 
-        //
+        $this->mapForumRoutes();
+
+        $this->mapAdminRoutes();
     }
 
     /**
@@ -76,6 +78,28 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'api',
         ], function ($router) {
             require base_path('routes/api.php');
+        });
+    }
+
+    protected function mapEventRoutes() {
+        Route::group([
+            'as' => 'events.',
+            'middleware' => 'web',
+            'namespace' => $this->namespace.'\Events',
+            'prefix' => 'evento',
+        ], function ($router) {
+            require base_path('routes/event.php');
+        });
+    }
+
+    protected function mapForumRoutes() {
+        Route::group([
+            'as' => 'forums.',
+            'middleware' => 'web',
+            'namespace' => $this->namespace.'\Forums',
+            'prefix' => 'foro',
+        ], function ($router) {
+            require base_path('routes/forum.php');
         });
     }
 

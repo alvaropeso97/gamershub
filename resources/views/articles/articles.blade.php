@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('master')
 @section('titulo', 'Todas las noticias - GamersHUB')
 
 @section('contenido')
@@ -13,7 +13,7 @@
     </section>
 
     <!-- BÚSQUEDA CATEGORÍA -->
-    @include('layouts.widgets.categoria.busqueda_noticias')
+
 
     <!-- ARTÍCULOS -->
     <section class="bg-grey-50">

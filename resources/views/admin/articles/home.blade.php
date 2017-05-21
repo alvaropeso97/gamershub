@@ -25,7 +25,7 @@
         <div class="row margin-top-30">
             <div class="col-lg-12">
                 <div class="pull-right">
-                    <a href="" class="btn btn-primary btn-icon-left"><i class="fa fa-plus"></i> @lang('admin.articles.new.button')</a>
+                    <a href="{{ route('admin.articles.new') }}" class="btn btn-primary btn-icon-left"><i class="fa fa-plus"></i> @lang('admin.articles.new.button')</a>
                 </div>
             </div>
         </div>
@@ -45,28 +45,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-circle btn-sm" data-toggle="tooltip" title="" data-original-title="edit"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-inverse btn-circle btn-sm" data-toggle="tooltip" title="" data-original-title="delete"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>cell.content</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-circle btn-sm" data-toggle="tooltip" title="" data-original-title="edit"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-inverse btn-circle btn-sm" data-toggle="tooltip" title="" data-original-title="delete"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @foreach($articles as $article)
+                                    <tr>
+                                        <td>{{$article->id}}</td>
+                                        <td>{{$article->title}}</td>
+                                        <td>{{$article->user->nickname}}</td>
+                                        <td>@if($article->game == null) Ninguno @else {{$article->game->title}} @endif</td>
+                                        <td>{{$article->getFechaLocal()}}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-circle btn-sm" data-toggle="tooltip" title="" data-original-title="editar"><i class="fa fa-pencil" onclick="location.href = '{{ route('admin.articles.show', ['id' => $article->id]) }}'"></i></button>
+                                            <button class="btn btn-inverse btn-circle btn-sm" data-toggle="tooltip" title="" data-original-title="eliminar"><i class="fa fa-trash" onclick="destroyArticle({{$article->id}})"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -78,4 +69,5 @@
 @endsection
 @section('script')
     <script src="{{ URL::asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ URL::asset('js/admin/articles.js') }}"></script>
 @endsection

@@ -59,7 +59,7 @@
         @php($contador = 0)
         @foreach($busq_j as $juego)
             @php($contador++)
-            @if($contador == 1 || $contador == 4 || $contador == 7)
+            @if($counter == 1 || $counter == 4 || $counter == 7)
             <div class="row">
             @endif
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                @if($contador == 3 || $contador == 6 || $contador == 9)
+                @if($counter == 3 || $counter == 6 || $counter == 9)
             </div>
                 @endif
             @endforeach

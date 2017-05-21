@@ -23,15 +23,15 @@ use App\Http\Controllers\BaseController;
 use App\Review;
 use App\Exceptions\JuegoNoEncontradoException;
 use App\Models\Games\Game;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests;
 use App\Http\Requests\Games\StoreGame;
 use App\Http\Requests\Games\UpdateGame;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-use Request;
 use Auth;
+use App\Http\Requests;
 
 class GamesController extends BaseController
 {
@@ -56,7 +56,7 @@ class GamesController extends BaseController
         $game->players_quantity = $request->input('players_quantity');
         $game->duration = $request->input('duration');
         $game->language = $request->input('language');
-        $game->release_date = date('Y-m-d', strtotime($request->input('release_date')));
+        $game->release_date = self::fechaMysql($request->input('release_date'));
 
         $header_image_name = self::sanear_string($request->file('header_image')->getClientOriginalName());
         $game->header_image = Carbon::now()->timestamp.$header_image_name;
@@ -115,7 +115,7 @@ class GamesController extends BaseController
         $game->players_quantity = $request->input('players_quantity');
         $game->duration = $request->input('duration');
         $game->language = $request->input('language');
-        $game->release_date = date('Y-m-d', strtotime($request->input('release_date')));
+        $game->release_date = self::fechaMysql($request->input('release_date'));
 
         if ($request->file('header_image')) {
             $header_image_name = self::sanear_string($request->file('header_image')->getClientOriginalName());
@@ -147,8 +147,16 @@ class GamesController extends BaseController
         return redirect()->route('admin.games.show', [$game]);
     }
 
-    public function destroy() {
-
+    /**
+     * @param Request $request
+     */
+    public function destroy(Request $request) {
+        $response = array(
+            'status' => 'success',
+            'id' => $request->id,
+        );
+        $game = Game::find($response['id']);
+        $game->delete();
     }
 
     public function getGameAjax(\Illuminate\Http\Request $request) {

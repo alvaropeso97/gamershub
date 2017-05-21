@@ -116,13 +116,13 @@ class Article extends Model
     public function getImageUrl($size) {
         switch ($size) {
             case "sm":
-                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->created_at))."/500x281_".$this->image;
+                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->updated_at))."/500x281_".$this->image;
                 break;
             case "md":
-                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->created_at))."/950x534_".$this->image;
+                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->updated_at))."/950x534_".$this->image;
                 break;
             case "lg":
-                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->created_at))."/1600x900_".$this->image;
+                return Config::get('constants.S1_URL')."/articulos/".date("dmy", strtotime($this->updated_at))."/1600x900_".$this->image;
                 break;
         }
     }
@@ -209,15 +209,17 @@ class Article extends Model
     }
 
     public function getType() {
-        $tipo = $this->tipo;
-        switch ($tipo) {
-            case "art":
+        switch ($this->type) {
+            case self::TYPE_NEW:
                 return "Noticia";
                 break;
-            case "vid":
+            case self::TYPE_VIDEO:
                 return "Vídeo";
                 break;
-            case "ana":
+            case self::TYPE_ADVANCE:
+                return "Análisis";
+                break;
+            case self::TYPE_REVIEW:
                 return "Análisis";
                 break;
         }

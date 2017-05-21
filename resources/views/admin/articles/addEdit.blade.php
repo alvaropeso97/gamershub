@@ -1,5 +1,8 @@
 @extends('master')
 @section('titulo', 'GamersHUB - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores')
+@section('meta')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
 @section('css')
     <link href="{{ URL::asset('plugins/tags-input/bootstrap-tagsinput.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
@@ -147,21 +150,19 @@
 
             </div>
             <div class="col-lg-4">
-                <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-success " id="save_btn">@lang('general.save.button')</button>
-                <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-danger " id="delete_btn">@lang('general.delete.button')</button>
-                <button type="button" class="btn btn-sm btn-block btn-rounded btn-shadow btn-secondary ">@lang('general.cancel.button')</button>
-                @if(isset($article->game))
+                <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-success" id="save_btn">@lang('general.save.button')</button>
+                @if(isset($article)) <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-danger" onclick="destroyArticle({{$article->id}})">@lang('general.delete.button')</button> @endif
+                <button type="button" class="btn btn-sm btn-block btn-rounded btn-shadow btn-secondary" onclick="location.href = '{{ route('admin.articles.index') }}'">@lang('general.cancel.button')</button>
                 <div class="card card-hover margin-top-30" id="game_id_box">
                     <div class="card-img">
-                        <img src="{{$article->game->getBoxedImageUrl('sm')}}" alt="" id="game_img_card">
+                        <img src="@if(isset($article->game)) {{$article->game->getBoxedImageUrl('sm')}} @endif" alt="" id="game_img_card">
                     </div>
                     <div class="caption">
-                        <h3 class="card-title"><a href="#" id="game_title_card">{{$article->game->title}}</a></h3>
-                        <p id="game_desc_card">{!! $article->game->description !!}</p>
-                        <a href="/admin/games/addEdit/{{$article->game->id}}" class="btn btn-block btn-primary" id="game_href_card">@lang('general.view_game')</a>
+                        <h3 class="card-title"><a href="#" id="game_title_card">@if(isset($article->game)) {{$article->game->title}} @endif</a></h3>
+                        <p id="game_desc_card">@if(isset($article->game)) {!! $article->game->description !!} @endif</p>
+                        <a href="@if(isset($article->game)) /admin/games/addEdit/{{$article->game->id}} @endif" class="btn btn-block btn-primary" id="game_href_card">@lang('general.view_game')</a>
                     </div>
                 </div>
-                @endif
                 @if(isset($article->user))
                 <div class="panel panel-default margin-top-30">
                     <div class="panel-heading">
@@ -187,6 +188,11 @@
                                 <option value="3" @if(old('type') == 3 || (isset($article) && $article->type == 3)) selected @endif>@lang('general.review')</option>
                             </select>
                         </div>
+                        @if ($errors->has('game_id'))
+                            <div class="alert alert-danger">
+                                @lang('admin.addEditArticle.game_id.error')
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="game_id">@lang('admin.addEditArticle.relatedGame.label')</label>
                             <select class="form-control selectpicker" name="game_id" id="game_id" data-live-search="true">
@@ -240,181 +246,13 @@
     <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
     <script src="{{ URL::asset('plugins/tags-input/bootstrap-tagsinput.js') }}"></script>
-    <script src="{{ URL::asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
-
+    <script src="{{ URL::asset('js/admin/articles.js') }}"></script>
     <script>
-        //Confirmar el guardado del artículo
-        $("#save_btn").click(function () {
-            swal({
-                    title: "@lang('general.confirm_save.title')",
-                    text: "@lang('general.confirm_save.description')",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#27ae60",
-                    confirmButtonText: "@lang('general.yes')",
-                    cancelButtonText: "@lang('general.no')",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function(isConfirm){
-                    if (isConfirm) {
-                        swal("@lang('general.save_confirmed.title')", "@lang('general.save_confirmed.description')", "success");
-                        $('#article_form').submit();
-                    } else {
-                        swal("@lang('general.save_confirmed.title')", "@lang('general.save_confirmed.description')", "error");
-                    }
-                });
-        });
-
-        //Confirmar eliminación del artículo
-        $("#delete_btn").click(function () {
-            swal({
-                    title: "@lang('general.confirm_delete.title')",
-                    text: "@lang('general.confirm_delete.description')",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "@lang('general.yes')",
-                    cancelButtonText: "@lang('general.no')",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                function(isConfirm){
-                    if (isConfirm) {
-                        swal("@lang('general.delete_confirmed.title')", "@lang('general.delete_confirmed.description')", "success");
-                    } else {
-                        swal("@lang('general.cancel_confirmed.title')", "@lang('general.cancel_confirmed.description')", "error");
-                    }
-                });
-        });
-
-        function readURL(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#image_preview').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#image").change(function(){
-            $( "#image_preview" ).show();
-            readURL(this);
-        });
-
         @if(!isset($article)) $( "#image_preview" ).hide(); @endif
         $( "#review_panel" ).hide();
         $( "#video_panel" ).hide();
         @if(!isset($article->game)) $( "#game_id_box" ).hide(); @endif
-
         @if(old('type') == 2  || (isset($article) && $article->type == 2)) $( "#video_panel" ).show(); @endif
         @if(old('type') == 3  || (isset($article) && $article->type == 3)) $( "#review_panel" ).show(); @endif
-
-        CKEDITOR.replace( 'content' );
-
-        function showValueGameplay(newValue)
-        {
-            document.getElementById("range_gameplay_score").innerHTML=newValue;
-        }
-        function showValueGraphics(newValue)
-        {
-            document.getElementById("range_graphics_score").innerHTML=newValue;
-        }
-        function showValueSounds(newValue)
-        {
-            document.getElementById("range_sounds_score").innerHTML=newValue;
-        }
-        function showValueInnovation(newValue)
-        {
-            document.getElementById("range_innovation_score").innerHTML=newValue;
-        }
-
-        $( "#type" ).change(function() {
-            var type = $("#type").val();
-            $( "#review_panel" ).slideUp();
-            $( "#video_panel" ).slideUp();
-            switch (type) {
-                case "0":
-                    break;
-                case "1":
-                    break;
-                case "2": //Video
-                    $( "#video_panel" ).slideDown();
-                    break;
-                case "3": //Análisis
-                    $( "#review_panel" ).slideDown();
-                    break;
-                default:
-
-            }
-        });
-
-        $( "#game_id" ).change(function() {
-            var type = $("#game_id").val();
-            if (type == "0") {
-                //No tiene juego relacionado
-                $( "#game_id_box" ).slideUp();
-            } else {
-                $( "#game_id_box" ).slideUp();
-
-                //Buscar juego relacionado
-                $.ajaxSetup({
-                    headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
-                });
-                    $.ajax({
-                        url: '/admin/articles/ajax/getGame',
-                        type: 'GET',
-                        data: {
-                            id: type
-                        },
-                        success: function( data ){
-                            console.log(data['title']);
-                            $('#game_title_card').html(data['title']);
-                            $('#game_desc_card').html(data['description']);
-                            $('#game_img_card').attr("src", "https://img.playbit.es/juegos/" + data['id'] + "/caratulas/1600x900_" + data['boxed_image']);
-                            $('#game_href_card').attr("href", "/admin/games/addEdit/" + data['id']);
-
-                            //Mostrar juego relacionado
-                            $( "#game_id_box" ).slideDown();
-                        },
-                        error: function (xhr, b, c) {
-                            console.log("xhr=" + xhr + " b=" + b + " c=" + c);
-                        }
-                    });
-            }
-        });
-
-        function getCleanedString(cadena){
-            // Definimos los caracteres que queremos eliminar
-            var specialChars = "!¡@#$^&%*()+=-[]\/{}|:<>?¿,.";
-
-            // Los eliminamos todos
-            for (var i = 0; i < specialChars.length; i++) {
-                cadena= cadena.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-            }
-
-            // Lo queremos devolver limpio en minusculas
-            cadena = cadena.toLowerCase();
-
-            // Quitamos espacios y los sustituimos por _ porque nos gusta mas asi
-            cadena = cadena.replace(/ /g,"-");
-
-            // Quitamos acentos y "ñ". Fijate en que va sin comillas el primer parametro
-            cadena = cadena.replace(/á/gi,"a");
-            cadena = cadena.replace(/é/gi,"e");
-            cadena = cadena.replace(/í/gi,"i");
-            cadena = cadena.replace(/ó/gi,"o");
-            cadena = cadena.replace(/ú/gi,"u");
-            cadena = cadena.replace(/ñ/gi,"n");
-            return cadena;
-        }
-
-        $('#title').keyup(function() {
-            $('#seo_optimized_title').val(getCleanedString($(this).val())); // set value
-        });
     </script>
 @endsection

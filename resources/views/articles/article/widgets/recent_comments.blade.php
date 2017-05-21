@@ -3,7 +3,7 @@
     @foreach(\App\Models\Articles\Article::where('type', 0)->where('id','!=',$id->id)->orderBy('id', 'desc')->take(3)->get() as $articulo)
         <div class="card">
             <div class="card-img">
-                <a href="/articulo/{{$articulo->id}}/{{$articulo->seo_optimized_title}}"><img src="{{Config::get('constants.S1_URL')}}/noticias_rsz/500x281_{{$articulo->image}}" alt=""></a>
+                <a href="/articulo/{{$articulo->id}}/{{$articulo->seo_optimized_title}}"><img src="{{$articulo->getImageUrl('sm')}}" alt=""></a>
                 <div class="cats_art_rec">
                     @foreach($articulo->categories as $categoria) <a href="/categoria/{{$categoria->alias}}"><span  class="label" style="background:{{$categoria->color}};">{{$categoria->name}}</span></a> @endforeach</p>
                 </div>

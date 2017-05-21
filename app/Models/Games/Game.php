@@ -17,11 +17,10 @@
  */
 
 namespace App\Models\Games;
-use App\Http\Controllers\TS3Server;
+use App\Models\Articles\Article;
 use App\Models\Articles\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
-use Carbon\Carbon;
 
 /**
  * Esta clase es el modelo de la tabla "juegos" de la base de datos

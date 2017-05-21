@@ -28,7 +28,6 @@ use App\Models\Games\Game;
 use App\Models\Articles\Video;
 use DB;
 use App\Http\Requests;
-use Request;
 use Illuminate\Support\Facades\Auth;
 use Mail;
 use Intervention\Image\Facades\Image;
@@ -36,9 +35,15 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Articles\StoreArticle;
 use App\Http\Requests\Articles\UpdateArticle;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ArticlesController extends BaseController
 {
+    public function index() {
+        $articles = Article::orderBy('id', 'desc')->paginate(15);
+        return view('admin.articles.home' , ['articles' => $articles]);
+    }
+
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -77,9 +82,9 @@ class ArticlesController extends BaseController
         $big = Image::make($request->file('image'))->resize(1600,900);
         Storage::disk('s3')->put("/articulos/".date("dmy")."/1600x900_$article->image", (string) $big->encode('jpg'));
         $med = Image::make($request->file('image'))->resize(950,534);
-        Storage::disk('s3')->put("/noticias_rsz/950x534_$article->image", (string) $med->encode('jpg'));
+        Storage::disk('s3')->put("/articulos/".date("dmy")."/950x534_$article->image", (string) $med->encode('jpg'));
         $smll = Image::make($request->file('image'))->resize(500,281);
-        Storage::disk('s3')->put("/noticias_rsz/500x281_$article->image", (string) $smll->encode('jpg'));
+        Storage::disk('s3')->put("/articulos/".date("dmy")."/500x281_$article->image", (string) $smll->encode('jpg'));
 
         $article->categories()->attach($request->input('categories'));
 
@@ -119,6 +124,7 @@ class ArticlesController extends BaseController
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update($id, UpdateArticle $request) {
+        $flag = false;
         $article = Article::find($id);
         $article->user_id =  Auth::id();
 
@@ -128,7 +134,42 @@ class ArticlesController extends BaseController
             $game = Game::find($gameId);
             $article->game()->dissociate();
             $article->game()->associate($game);
+        } else {
+            $article->game()->dissociate();
         }
+
+        if ($article->type == Article::TYPE_VIDEO) { //Si es de tipo video
+            //Buscar el video
+            $video = Video::where('article_id', $article->id)->first();
+
+            if ($article->type == $request->input('type')) { //Si el tipo no se ha modificado
+                $video->youtube_code = $request->input('youtube_code');
+                $video->duration = $request->input('duration');
+                $video->save();
+
+                $flag = true;
+            } else {
+                $video->delete();
+            }
+        }
+
+        if ($article->type == Article::TYPE_REVIEW) { //Si es de tipo análisis
+            //Buscar el análisis
+            $review = Review::where('article_id', $article->id)->first();
+
+            if ($article->type == $request->input('type')) { //Si el tipo no se ha modificado
+                $review->gameplay_score = $request->input('gameplay_score');
+                $review->graphics_score = $request->input('graphics_score');
+                $review->sounds_score = $request->input('sounds_score');
+                $review->innovation_score = $request->input('innovation_score');
+                $review->save();
+
+                $flag = true;
+            } else {
+                $review->delete();
+            }
+        }
+
         $article->type = $request->input('type');
         $article->title = $request->input('title');
         $article->description = $request->input('description');
@@ -138,12 +179,13 @@ class ArticlesController extends BaseController
         if ($request->file('image')) {
             $nombre_img = self::sanear_string($request->file('image')->getClientOriginalName());
             $article->image = Carbon::now()->timestamp.$nombre_img;
+
             $big = Image::make($request->file('image'))->resize(1600,900);
-            Storage::disk('s3')->put("/noticias_rsz/1600x900_$article->image", (string) $big->encode('jpg'));
+            Storage::disk('s3')->put("/articulos/".date("dmy")."/1600x900_$article->image", (string) $big->encode('jpg'));
             $med = Image::make($request->file('image'))->resize(950,534);
-            Storage::disk('s3')->put("/noticias_rsz/950x534_$article->image", (string) $med->encode('jpg'));
+            Storage::disk('s3')->put("/articulos/".date("dmy")."/950x534_$article->image", (string) $med->encode('jpg'));
             $smll = Image::make($request->file('image'))->resize(500,281);
-            Storage::disk('s3')->put("/noticias_rsz/500x281_$article->image", (string) $smll->encode('jpg'));
+            Storage::disk('s3')->put("/articulos/".date("dmy")."/500x281_$article->image", (string) $smll->encode('jpg'));
         }
 
         $article->save();
@@ -164,30 +206,37 @@ class ArticlesController extends BaseController
             $tagObject->save();
         }
 
-        //ToDo si hay un vídeo creado modifcarlo, si no crearlo
-        if ($article->type == 2) {
-            $video = new Video();
-            $video->article()->dissociate();
-            $video->article()->associate($article);
-            $video->youtube_code = $request->input('youtube_code');
-            $video->duration = $request->input('duration');
-            $video->save();
+        if (!$flag) {
+            if ($article->type == Article::TYPE_VIDEO) {
+                $video = new Video();
+                $video->article()->associate($article);
+                $video->youtube_code = $request->input('youtube_code');
+                $video->duration = $request->input('duration');
+                $video->save();
+            }
+
+            if ($article->type == Article::TYPE_REVIEW) {
+                $review = new Review();
+                $review->article()->associate($article);
+                $review->game()->associate($game);
+                $review->gameplay_score = $request->input('gameplay_score');
+                $review->graphics_score = $request->input('graphics_score');
+                $review->sounds_score = $request->input('sounds_score');
+                $review->innovation_score = $request->input('innovation_score');
+                $review->save();
+            }
         }
 
-        //ToDo si hay un análisis creado modifcarlo, si no análisis
-        if ($article->type == 3) {
-            $review = new Review();
-            $review->article()->dissociate();
-            $review->game()->dissociate();
-            $review->article()->associate($article);
-            $review->game()->associate($game);
-            $review->gameplay_score = $request->input('gameplay_score');
-            $review->graphics_score = $request->input('graphics_score');
-            $review->sounds_score = $request->input('sounds_score');
-            $review->innovation_score = $request->input('innovation_score');
-            $review->save();
-        }
         return redirect()->route('admin.articles.show', [$article]);
+    }
+
+    public function destroy(Request $request) {
+        $response = array(
+            'status' => 'success',
+            'id' => $request->id,
+        );
+        $article = Article::find($response['id']);
+        $article->delete();
     }
 
     /**
@@ -195,8 +244,8 @@ class ArticlesController extends BaseController
      * @return vista de paginas.noticias
      */
     public static function mostrarNoticias() {
-        $cons =  Article::whereRaw('tipo = "art"')->orderBy('id','desc')->paginate(9);
-        return view('layouts.paginas.noticias', ['cons' => $cons]);
+        $cons =  Article::where('type', Article::TYPE_NEW)->orderBy('id','desc')->paginate(9);
+        return view('articles.articles', ['cons' => $cons]);
     }
 
     /**
@@ -225,14 +274,7 @@ class ArticlesController extends BaseController
                 $juego = $articulo->game;
                 return redirect("/juego/$juego->id/$juego->seo_optimized_title/analisis");
             } else {
-                switch ($articulo->type) {
-                    case 2:
-                        return view('articles.article.article', ['id' => Article::findOrFail($articulo->id), 'vid' => $articulo->video]);
-                        break;
-                    case 0:
-                        return view('articles.article.article', ['id' => Article::findOrFail($articulo->id)]);
-                        break;
-                }
+                return view('articles.article.article', ['id' => Article::findOrFail($articulo->id)]);
             }
         }
     }

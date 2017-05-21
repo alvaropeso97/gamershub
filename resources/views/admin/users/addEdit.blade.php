@@ -262,9 +262,9 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-success ">general.save.button</button>
-                <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-danger " id="delete_btn">general.delete.button</button>
-                <button type="button" class="btn btn-sm btn-block btn-rounded btn-shadow btn-secondary ">general.cancel.button</button>
+                <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-success ">@lang('general.save.button')</button>
+                <button type="button" class="btn btn-lg btn-block btn-rounded btn-shadow btn-danger " id="delete_btn">@lang('general.delete.button')</button>
+                <button type="button" class="btn btn-sm btn-block btn-rounded btn-shadow btn-secondary ">@lang('general.cancel.button')</button>
                 <div class="card card-hover margin-top-30" id="game_id_box" style="display: none;">
                     <div class="card-img">
                         <img src="http://placehold.it/370x250/ECECEC" alt="">

@@ -39,10 +39,10 @@ Route::get ('/busqueda/{tipo}/{tag}', 'ArticlesController@mostrarBusqueda');
  */
 Route::get('articulo/{id}/{nombre}', 'Articles\ArticlesController@mostrarArticulo');
 Route::get('articulo/{id}', 'Articles\ArticlesController@mostrarArticuloDos');
-Route::post ('articulo/{id}/add-comentario', 'CommentsController@store')->middleware('auth');
+Route::post ('articulo/{id}/add-comentario', 'Articles\CommentsController@store')->middleware('auth');
 
-Route::get('noticias', 'ArticlesController@mostrarNoticias');
-Route::get('noticias/a-z', 'ArticlesController@mostrarNoticiasAZ');
+Route::get('noticias', 'Articles\ArticlesController@mostrarNoticias');
+Route::get('noticias/a-z', 'Articles\ArticlesController@mostrarNoticiasAZ');
 
 Route::get('/analisis', function () {
     return view('layouts.paginas.analisis');
@@ -81,11 +81,11 @@ Auth::routes();
 /**
  * FOROS
  */
-Route::get('foro/{id}', 'ForumsController@mostrarForo');
-Route::get('plataforma/{alias}/foro', 'ForumsController@mostrarForoCategoria');
-Route::get('juego/{id}/foro', 'ForumsController@mostrarForoJuego');
-
-Route::get('foro/{foro_id}/{tema_id}', 'ForumsTopicsController@mostrarTema');
+//Route::get('foro/{id}', 'ForumsController@mostrarForo');
+//Route::get('plataforma/{alias}/foro', 'ForumsController@mostrarForoCategoria');
+//Route::get('juego/{id}/foro', 'ForumsController@mostrarForoJuego');
+//
+//Route::get('foro/{foro_id}/{tema_id}', 'ForumsTopicsController@mostrarTema');
 
 /**
  * PÁGINAS SIMPLES

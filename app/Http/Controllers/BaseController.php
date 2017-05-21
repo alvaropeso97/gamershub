@@ -8,6 +8,30 @@ use App\Http\Controllers\Controller;
 class BaseController extends Controller
 {
     /**
+     * @param $fecha
+     * @return false|string
+     */
+    public static function fechaEs($fecha) {
+        $fecha = strtotime($fecha);
+        return date('d/m/Y', $fecha);
+    }
+
+    /**
+     * @param $fecha
+     * @return string
+     */
+    function fechaMysql($fecha) {
+        $mifecha = explode("/", $fecha);
+        $lafecha=$mifecha[2]."-".$mifecha[1]."-".$mifecha[0];
+        return $lafecha;
+    }
+
+    static function fechaHora($fecha) {
+        $fecha_n = new \DateTime($fecha);
+        return $fecha_n->format('d \d\e F \d\e Y \a \l\a\s h:m');
+    }
+
+    /**
      * Sanea una cadena de caracteres
      * @param string la cadena a sanear
      * @return string cadena saneada

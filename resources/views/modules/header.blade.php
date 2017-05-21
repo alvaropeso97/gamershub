@@ -6,6 +6,16 @@
             <div class="nav-control">
                 <ul>
                     <li><a href="#">Inicio</a></li>
+                    <li><a href="#">PC</a></li>
+                    <li><a href="#">PS4</a></li>
+                    <li><a href="#">PS3</a></li>
+                    <li><a href="#">XBOX ONE</a></li>
+                    <li><a href="#">XBOX 360</a></li>
+                    <li><a href="#">WII U</a></li>
+                    <li><a href="#">3DS</a></li>
+                    <li><a href="#">PS Vita</a></li>
+                    <li><a href="#">iOS</a></li>
+                    <li><a href="#">Android</a></li>
                 </ul>
             </div>
         </nav>

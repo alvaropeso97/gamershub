@@ -2,7 +2,7 @@
 @section('titulo', 'Acceso de usuarios de GamersHUB')
 
 @section('contenido')
-    <section class="hero hero-panel">
+    <section class="hero hero-panel" style="background-image: url(https://i.redd.it/tm1uwzlrz1wx.jpg)">
         <div class="hero-bg"></div>
         <div class="container relative">
             <div class="row">

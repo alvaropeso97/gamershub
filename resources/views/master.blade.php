@@ -23,6 +23,7 @@
     <meta name='keywords' content='videojuegos, juegos, noticias, analisis, avances, videos, trailers, lanzamientos, trucos, guias, pc, ps4, ps3, xbox 360, 3ds, wii, wiiU, xbox one' />
     <meta name="author" content="LynoStudios">
     <meta name='robots' content='NOODP' />
+    @yield('meta')
 
     <title>@yield('titulo')</title>
     <title>@yield('titulo-inicio')</title>
@@ -94,6 +95,9 @@
 <script src="{{ URL::asset('plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/core.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/gamershub.js') }}"></script>
+<script src="{{ URL::asset('js/playbit.js') }}"></script>
+<script src="{{ URL::asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ URL::asset('js/procesarAjax.js') }}"></script>
 <script src="{{ URL::asset('pasar/selectivity-jquery.js') }}"></script>
 <script src="https://use.fontawesome.com/336665b8bb.js"></script>
 @yield('script')

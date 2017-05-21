@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('master')
 @section('titulo', 'Tema no encontrado')
 @section('contenido')
     <section>

@@ -1,7 +1,4 @@
 <div class="post post-single">
-    @if(Auth::check() && Auth::user()->acceso > 1)
-        <div style="text-align: right"><a href="http://beta.gamershub.es/panel/articulos/editar-articulo/{{$id->id}}">Editar</a></div>
-    @endif
 
     <?php echo $id->content;?>
 

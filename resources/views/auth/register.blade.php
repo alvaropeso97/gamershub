@@ -2,33 +2,17 @@
 @section('titulo', 'Registrarse en la comunidad de GamersHUB')
 
 @section('contenido')
-    <section class="hero hero-panel">
+    <section class="hero hero-panel" style="background-image: url(https://i.redd.it/tm1uwzlrz1wx.jpg)">
         <div class="hero-bg"></div>
         <div class="container relative">
             <div class="row">
-                <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 pull-none margin-auto">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-none margin-auto">
                     <div class="panel panel-default panel-login">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-users"></i>@lang('auth.register.title')</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="col-lg-6" style="text-align: center; padding-left: 20px; padding-right: 20px; padding-top: 100px; padding-bottom: 40px;">
-
-                                <div class="title">
-                                    <h4><i class="fa fa-gamepad"></i>@lang('auth.text1')</h4><br>
-                                    @lang('auth.desc1')
-                                </div>
-                                <div class="title">
-                                    <h4><i class="fa fa-users"></i>@lang('auth.text2')</h4><br>
-                                    @lang('auth.desc2')
-                                </div>
-                                <div class="title">
-                                    <h4><i class="fa fa-server"></i> @lang('auth.text3')</h4><br>
-                                    @lang('auth.desc3')
-                                </div>
-                                <h2><i>@lang('auth.more')</i></h2>
-                            </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <form role="form" method="POST" action="/register">
 
                                     {{ csrf_field() }}
@@ -170,10 +154,10 @@
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <select name="ano" class="form-control" style="height: 45px;">
                                                     <option name="ano" value="" selected>@lang('auth.year.label')</option>
-                                                    @php $ano = 2016; $contador = 0; @endphp
-                                                    @while($contador <= 115)
+                                                    @php $ano = 2017; $counter = 0; @endphp
+                                                    @while($counter <= 115)
                                                         <option name="ano" value="{{$ano}}">{{$ano}}</option>
-                                                        @php $contador++; $ano--; @endphp
+                                                        @php $counter++; $ano--; @endphp
                                                     @endwhile
                                                 </select>
                                             </div>

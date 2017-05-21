@@ -4,6 +4,8 @@ return [
     'box.title' => 'Regístrate en Playbit.es',
     'index.title' => 'Inicio',
     'categories.title' => 'Categorías',
+    'users.title' => 'Usuarios',
+    'articles.title' => 'Artículos',
     'add' => 'Nueva',
     'edit' => 'Editar',
     'save.button' => 'Guardar',
@@ -19,6 +21,24 @@ return [
     'confirm_save.description' => 'Se almacenará en la base de datos',
     'save_confirmed.title' => 'Guardado',
     'save_confirmed.description' => 'El elemento ha sido guardado en la base de datos',
+    'upload_file.button' => 'Subir archivo',
     'no' => 'No',
     'yes' => 'Sí',
+    'latests_videos.title' => 'Últimos vídeos',
+    'next_releases.title' => 'Próximos lanzamientos',
+    'recent_comments' => 'Comentarios recientes',
+
+    'personal_info.title' => 'Información de la cuenta',
+    'password.title' => 'Contraseña',
+    'privacy_config.title' => 'Privacidad',
+    'associated_accounts.title' => 'Cuentas asociadas',
+    'gender.men' => 'Hombre',
+    'gender.women' => 'Mujer',
+
+    'new' => 'Noticia',
+    'advance' => 'Avance',
+    'video' => 'Vídeo',
+    'review' => 'Análisis',
+
+    'none.text' => 'Ninguno',
 ];

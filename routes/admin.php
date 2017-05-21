@@ -1,15 +1,14 @@
 <?php
-Route::group(['prefix' => 'articles', 'as' => 'admin.articles.', 'middleware' => 'App\Http\Middleware\PermissionMiddleware:1'], function () {
-    Route::get('/', function ()    {
-        return view('admin.articles.home');
-    });
+Route::group(['prefix' => 'articles', 'as' => 'admin.articles.'], function () {
+    Route::get ('/', 'Articles\ArticlesController@index')->name('index');
     Route::get ('/addEdit/{id}', 'Articles\ArticlesController@show')->name('show');
     Route::post ('/addEdit', 'Articles\ArticlesController@store');
     Route::post ('/addEdit/{id}', 'Articles\ArticlesController@update');
+    Route::post ('/destroy', 'Articles\ArticlesController@destroy');
 
     Route::get('/addEdit', function ()    {
         return view('admin.articles.addEdit');
-    });
+    })->name('new');
 
     //Ajax
     Route::group(['prefix' => 'ajax'], function () {
@@ -22,6 +21,8 @@ Route::group(['prefix' => 'games', 'as' => 'admin.games.'], function () {
     Route::get ('/addEdit/{id}', 'Games\GamesController@show')->name('show');
     Route::post ('/addEdit', 'Games\GamesController@store');
     Route::post ('/addEdit/{id}', 'Games\GamesController@update');
+    Route::post ('/destroy', 'Games\GamesController@destroy');
+
     Route::get('/addEdit', function ()    {
         return view('admin.games.addEdit');
     });

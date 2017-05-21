@@ -19,6 +19,7 @@
 namespace App\Models\Articles;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Users\User;
 
 /**
  * Esta clase es el modelo de la tabla "comentarios" de la base de datos

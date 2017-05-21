@@ -18,10 +18,13 @@
 
 namespace App\Http\Controllers\Articles;
 
-use App\Comment;
-use App\Article;
-use DB;
-use Request;
+use App\Models\Articles\Comment;
+use App\Models\Articles\Article;
+use App\Models\Users\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
@@ -39,11 +42,14 @@ class CommentsController extends Controller
             'comentario' => 'required|min:25'
         ]);
 
-        //Almacenar el comentario en la base de datos
-        Comment::create(Request::all());
+        $comment = new Comment();
+        $comment->article()->associate(Article::find($id));
+        $comment->user()->associate(User::find(Auth::id()));
+        $comment->comment = $request->input('comentario');
+        $comment->save();
 
         //Devolver al usuario al artículo
-        return view('layouts.paginas.articulo', ['id' => Article::findOrFail($id)]);
+        return view('articles.article.article', ['id' => Article::findOrFail($id)]);
     }
 
     /**

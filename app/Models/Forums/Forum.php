@@ -18,6 +18,8 @@
 
 namespace App\Models\Forums;
 
+use App\Models\Articles\Category;
+use App\Models\Games\Game;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,7 +30,55 @@ use Illuminate\Database\Eloquent\Model;
 //ToDo Crear migraciones y modificar modelos
 class Forum extends Model
 {
-    protected $table = 'foros';
-    protected $fillable = ['id','nombre','tipo','juego_id','plataforma_id','acceso'];
+    protected $table = 'forums';
+    protected $fillable = ['title', 'forum_section_id', 'type', 'game_id', 'category_id', 'seo_optimized_title'];
     public $timestamps = true;
+
+    const TYPE_GENERAL = 0;
+    const TYPE_CATEGORY = 1;
+    const TYPE_GAME = 2;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function topics() {
+        return $this->hasMany(ForumTopic::class, 'forum_id');
+    }
+
+    /**
+     * @return int
+     */
+    //ToDo fallo
+    public function countTopics() {
+        $topics = $this->topics;
+        $counter = 0;
+        foreach ($topics as $topic) {
+            if ($topic->type == ForumTopic::TYPE_TOPIC) {
+                $counter++;
+            }
+        }
+
+        return $counter;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function forumSection() {
+        return $this->belongsTo(ForumSection::class, 'forum_section_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function game() {
+        return $this->belongsTo(Game::class, 'game_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

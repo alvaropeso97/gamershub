@@ -1,5 +1,34 @@
 <?php
 
 return [
-    'box.title' => 'Regístrate en Playbit.es'
+    'box.title' => 'Regístrate en Playbit.es',
+    'register.title' => 'Regístrate en Playbit.es',
+    'nickname.label' => 'Nombre de usuario',
+    'nickname.input' => 'Nombre de usuario',
+    'name.input' => 'Nombre',
+    'name.label' => 'Nombre',
+    'surname.input' => 'Apellidos',
+    'surname.label' => 'Apellidos',
+    'country.label' => 'País',
+    'city.label' => 'Ciudad',
+    'city.input' => 'Ciudad',
+    'email.label' => 'E-mail',
+    'email.input' => 'E-mail',
+    'email_repeat.input' => 'Repite tu e-mail',
+    'birthday.label' => 'Fecha de nacimiento',
+    'day.label' => 'Día',
+    'month.label' => 'Mes',
+    'year.label' => 'Año',
+    'password.label' => 'Contraseña',
+    'password.input' => 'Contraseña',
+    'password_repeat.input' => 'Repite tu contraseña',
+    'register.button' => 'Registrarme',
+    'newsletter.checkbox' => 'Quiero recibir la newsletter semanal de novedades',
+    'conditions.checkbox' => 'Acepto los términos y condiciones',
+    'login.text' => '¿Ya estás registrado? Accede desde <a href="/login">aquí</a>',
+    'login.title' => 'Acceder a Playbit.es',
+    'facebook_login.button' => 'Entrar con Facebook',
+    'enter.button' => 'Acceder',
+    'remember_me.checkbox' => 'Recordarme en este equipo',
+    'register.text' => '¿Todavía no estás registrado? <a href="/register">Regístrate ahora</a>'
 ];

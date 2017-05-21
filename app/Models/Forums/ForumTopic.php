@@ -22,21 +22,37 @@ namespace App\Models\Forums;
  * Class ForumTopic
  * @package App
  */
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 
 class ForumTopic extends Model
 {
-    protected $table = 'foros_temas';
-    protected $fillable = ['id','foro_id','tema_id','titulo','user_id','estado','tipo','contenido', 'created_at',
-        'updated_at'];
+    protected $table = 'forums_topics';
+    protected $fillable = ['title', 'content', 'type', 'forum_id', 'user_id', 'forum_topic_id'];
     public $timestamps = true;
 
+    const TYPE_TOPIC = 0;
+    const TYPE_REPLY = 1;
+
     /**
-     * Clave ajena "user_id", referencia a "id" (users)
-     * @return autor del tema
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getUsuario() {
-        return $this->belongsTo('App\User', 'user_id');
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function forum() {
+        return $this->belongsTo(Forum::class, 'forum_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function topic() {
+        return $this->belongsTo(ForumTopic::class, 'forum_topic_id');
     }
 
     /**
@@ -50,74 +66,12 @@ class ForumTopic extends Model
     public function getRespuestas($limite) {
         switch ($limite) {
             case 0: //TODAS
-                return ForumTopic::where('tema_id', $this->id)->where('tipo', 1)->get();
+                return ForumTopic::where('forum_topic_id', $this->id)->where('type', ForumTopic::TYPE_REPLY)->get();
                 break;
             case 1: //ULTIMA
-                return ForumTopic::where('tema_id', $this->id)->where('tipo', 1)->first();
-                break;
-            default: //LIMITE PERSONALIZADO
-                return ForumTopic::where('tema_id', $this->id)->where('tipo', $limite)->get();
+                return ForumTopic::where('forum_topic_id', $this->id)->where('type', ForumTopic::TYPE_REPLY)
+                    ->orderBy('created_at', 'desc')->first();
                 break;
         }
-    }
-
-    /**
-     * Devuelve en una cadena de caracteres el tiempo que hace en horas, dias o meses desde que
-     * un tema fue publicado
-     * @return cadena indicando el tiempo que ha pasado desde que el tema fué publicado
-     */
-    public function getFecha() {
-        $fecha = $this->created_at;
-        $diferencia = time() - strtotime($fecha);
-        $segundos = $diferencia ;
-        $minutos = round($diferencia / 60 );
-        $horas = round($diferencia / 3600 );
-        $dias = round($diferencia / 86400 );
-        $semanas = round($diferencia / 604800 );
-        $mes = round($diferencia / 2419200 );
-        $anio = round($diferencia / 29030400 );
-        $return = "N/A";
-
-        if($segundos <= 60){
-            $return = "hace pocos segundos";
-
-        }else if($minutos <=60){
-            if($minutos==1){
-                $return = "hace un minuto";
-            }else{
-                $return = "hace $minutos minutos";
-            }
-        }else if($horas <=24){
-            if($horas==1){
-                $return = "hace una hora";
-            }else{
-                $return = "hace $horas horas";
-            }
-        }else if($dias <= 7){
-            if($dias==1){
-                $return = "hace un dia";
-            }else{
-                $return = "hace $dias dias";
-            }
-        }else if($semanas <= 4){
-            if($semanas==1){
-                $return = "hace una semana";
-            }else{
-                $return = "hace $semanas semanas";
-            }
-        }else if($mes <=12){
-            if($mes==1){
-                $return = "hace un mes";
-            }else{
-                $return = "hace $mes meses";
-            }
-        }else{
-            if($anio==1){
-                $return = "hace un a&ntilde;o";
-            }else{
-                $return = "hace $anio a&ntildeo;s";
-            }
-        }
-        return $return;
     }
 }

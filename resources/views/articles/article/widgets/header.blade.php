@@ -1,14 +1,14 @@
-@if($id->type == 2)
+@if($id->type == \App\Models\Articles\Article::TYPE_VIDEO)
     <section class="background-image padding-top-50 padding-bottom-50"
-             style="background-image: url(https://i.ytimg.com/vi/{{$vid->cod_yt}}/maxresdefault.jpg);">
+             style="background-image: url(https://i.ytimg.com/vi/{{$id->video->youtube_code}}/maxresdefault.jpg);">
         <span class="background-overlay"></span>
         <div class="container">
             <div class="embed-responsive embed-responsive-16by9" id="reproductor-video">
                 <script type="text/javascript">
                     var playerInstance = jwplayer("reproductor-video");
                     playerInstance.setup({
-                        file: "//https://www.youtube.com/watch?v={{$vid->cod_yt}}",
-                        image: "https://i.ytimg.com/vi/{{$vid->cod_yt}}/maxresdefault.jpg"
+                        file: "//https://www.youtube.com/watch?v={{$id->video->youtube_code}}",
+                        image: "https://i.ytimg.com/vi/{{$id->video->youtube_code}}/maxresdefault.jpg"
                     });
                 </script>
             </div>
@@ -30,7 +30,7 @@
 
 @else
     <section class="hero hero-review height-500"
-             style="background-image: url('{{Config::get('constants.S1_URL')}}/noticias_rsz/1600x900_{{$id->image}}'); height: 400px; ">
+             style="background-image: url('{{$id->getImageUrl('lg')}}'); height: 400px; ">
         <div class="hero-bg"></div>
         <div class="container">
             <div class="page-header">
