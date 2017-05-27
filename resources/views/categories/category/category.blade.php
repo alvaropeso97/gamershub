@@ -1,17 +1,17 @@
-@extends('layouts.master')
-@section('titulo', $categoria->nombre)
+@extends('master')
+@section('titulo', $categoria->name)
 
 @section('contenido')
     <!-- HEADER -->
-    <section class="hero" style="background-image: url({{$categoria->img_header}}); border-top: 3px solid {{$categoria->color}}">
+    <section class="hero" style="border-top: 3px solid {{$categoria->color}}">
         <div class="hero-bg-primary" style="background: {{$categoria->color}};"></div>
         <div class="container">
             <div class="page-header">
-                <div class="page-title">{{$categoria->nombre}}</div>
+                <div class="page-title">{{$categoria->name}}</div>
                 <ol class="breadcrumb">
                     <li><a href="/">Inicio</a></li>
-                    <li><a href="#">@if($categoria->esplataforma)Plataforma @else Categoría @endif</a></li>
-                    <li class="active">{{$categoria->nombre}}</li>
+                    <li><a href="#">@if($categoria->its_platform)Plataforma @else Categoría @endif</a></li>
+                    <li class="active">{{$categoria->name}}</li>
                 </ol>
             </div>
         </div>

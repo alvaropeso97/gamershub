@@ -13,9 +13,6 @@ class EventController extends BaseController
         //Obtener el evento a mostrar
         $event = Event::where('id', $id)->where('seo_optimized_title', $seo_optimized_title)->first();
 
-        //Obtener los eventos hijos
-        $child_events = $event->events;
-
         //Obtener noticias relacionadas con el evento
         $tags = Tag::where('name', '=', $event->related_tag)->get();
         $news = array();

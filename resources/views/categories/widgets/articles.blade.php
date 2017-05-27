@@ -30,7 +30,7 @@
     @endforeach
     <div class="row">
         <div class="col-lg-12 text-center">
-            {{$cons->render()}}
+
         </div>
     </div>
 </div>

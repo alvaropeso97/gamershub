@@ -173,11 +173,17 @@ class GamesController extends BaseController
      * @throws JuegoNoEncontradoException si no encuentra el juego asociado con el id y el título
      */
     public function mostrarJuego($id, $titulo) {
-        $juego = Game::where('lnombre', $titulo)->where('id', $id)->first();
+        $juego = Game::where('seo_optimized_title', $titulo)->where('id', $id)->first();
         if (!$juego) {
             throw new JuegoNoEncontradoException;
         } else {
-            return view('layouts.paginas.juego', ['id' => Game::findOrFail($juego->id)]);
+            //Noticias relacionadas
+            $relatedArticles = $juego->articles;
+            return view('games.game.game',
+                [
+                    'id' => Game::findOrFail($juego->id),
+                    'relatedArticles' => $relatedArticles,
+                ]);
         }
     }
 
@@ -192,7 +198,7 @@ class GamesController extends BaseController
         if (!$juego) {
             throw new JuegoNoEncontradoException;
         } else {
-            return redirect("/juego/$id/$juego->lnombre");
+            return redirect("/juego/$id/$juego->seo_optimized_title");
         }
     }
 

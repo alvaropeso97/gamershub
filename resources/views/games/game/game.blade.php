@@ -1,16 +1,16 @@
-@extends('layouts.master')
-@section('titulo', $id->titulo)
+@extends('master')
+@section('titulo', $id->title)
 
 @section('contenido')
-    <section class="hero height-350 hero-game" style="background-image: url('{{Config::get('constants.S1_URL')}}/juegos/cabeceras/{{$id->img_header}}');">
+    <section class="hero height-350 hero-game" style="">
         <div class="hero-bg"></div>
         <div class="container">
             <div class="page-header">
-                <div class="page-title">{{$id->titulo}}</div>
+                <div class="page-title">{{$id->title}}</div>
                 <ol class="breadcrumb">
                     <li><a href="/" class="no-padding-left">Inicio</a></li>
                     <li><a href="#">Juegos</a></li>
-                    <li class="active">{{$id->titulo}}</li>
+                    <li class="active">{{$id->title}}</li>
                 </ol>
             </div>
         </div>
@@ -20,9 +20,9 @@
         <div class="tab-select text-center sticky">
             <div class="container">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#">{{$id->titulo}}</a></li>
-                    <li><a href="/juego/{{$id->id}}/{{$id->lnombre}}/analisis"><i class="fa fa-star"></i> Análisis</a></li>
-                    <li><a href="/juego/{{$id->id}}/{{$id->lnombre}}/noticias"><i class="fa fa-pencil"></i> Noticias</a></li>
+                    <li class="active"><a href="#">{{$id->title}}</a></li>
+                    <li><a href="/juego/{{$id->id}}/{{$id->seo_optimized_name}}/analisis"><i class="fa fa-star"></i> Análisis</a></li>
+                    <li><a href="/juego/{{$id->id}}/{{$id->seo_optimized_name}}/noticias"><i class="fa fa-pencil"></i> Noticias</a></li>
                     <li><a href="#"><i class="fa fa-image"></i> Imágenes</a></li>
                     <li><a href="#"><i class="fa fa-video-camera"></i> Vídeos</a></li>
                     <li><a href="#"><i class="fa fa-quote-left"></i> Foro del juego</a></li>
@@ -37,16 +37,11 @@
             <div class="row sidebar">
                 <div class="col-md-8 padding-right-20 leftside">
                     <!-- Artículos recientes -->
-                    @include('games.game.widgets.articulos_recientes')
+                    @include('games.game.widgets.recent_articles')
                 </div>
                 <div class="col-md-4 padding-left-20 rightside">
                     <!-- Info Juego -->
-                    @include('games.game.widgets.info_juego')
-
-                    <!-- Noticias/Comentarios/Foros -->
-
-                    <!-- Vídeos relacionados -->
-                    @include('games.game.widgets.videos_relacionados')
+                    @include('games.game.widgets.game_info')
                 </div>
             </div>
         </div>

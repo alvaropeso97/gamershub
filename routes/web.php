@@ -51,20 +51,20 @@ Route::get('/analisis', function () {
 /**
  * Página para mostrar un juego...
  */
-Route::get('juego/{id}/{titulo}', 'GamesController@mostrarJuego');
-Route::get('juego/{id}', 'GamesController@mostrarJuegoDos');
+Route::get('juego/{id}/{titulo}', 'Games\GamesController@mostrarJuego');
+Route::get('juego/{id}', 'Games\GamesController@mostrarJuegoDos');
 //Mostrar análisis
-Route::get('juego/{id}/{titulo}/analisis', 'GamesController@mostrarAnalisis');
-Route::get('juego/{id}/{titulo}/noticias', 'GamesController@mostrarNoticias');
+Route::get('juego/{id}/{titulo}/analisis', 'Games\GamesController@mostrarAnalisis');
+Route::get('juego/{id}/{titulo}/noticias', 'Games\GamesController@mostrarNoticias');
 
 /**
  * Página para mostrar una categoría/plataforma
  */
-Route::get('categoria/{alias}', 'CategoriesController@mostrarCategoria');
-Route::get('plataforma/{alias}', 'CategoriesController@mostrarPlataforma');
+Route::get('categoria/{alias}', 'Articles\CategoriesController@mostrarCategoria');
+Route::get('plataforma/{alias}', 'Articles\CategoriesController@mostrarPlataforma');
 
-Route::get('categoria/{alias}/{orden}', 'CategoriesController@mostrarCategoriaAZ');
-Route::get('plataforma/{alias}/{orden}', 'CategoriesController@mostrarPlataformaAZ');
+Route::get('categoria/{alias}/{orden}', 'Articles\CategoriesController@mostrarCategoriaAZ');
+Route::get('plataforma/{alias}/{orden}', 'Articles\CategoriesController@mostrarPlataformaAZ');
 
 /**
  * USUARIOS

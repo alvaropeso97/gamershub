@@ -19,7 +19,7 @@
 namespace App\Http\Controllers\Articles;
 
 
-use App\Article;
+use App\Models\Articles\Article;
 use App\Models\Articles\Category;
 use App\Exceptions\CategoriaNoEncontradaException;
 use App\Http\Requests\Articles\StoreUpdateCategory;
@@ -103,9 +103,8 @@ class CategoriesController extends Controller
                 return redirect("/plataforma/$alias");
             } else {
                 //Obtener los artículos pertenecientes a esta categoría
-                $cons = Article::whereRaw('id in (select cod_art from categorias_articulos where id_cat=' . $categoria->id . ')')
-                    ->orderBy('id', 'desc')->paginate(9);
-                return view('layouts.paginas.categoria', ['categoria' => $categoria, 'cons' => $cons]);
+                $cons = $categoria->articles;
+                return view('categories.category.category', ['categoria' => $categoria, 'cons' => $cons]);
             }
         }
     }
@@ -181,7 +180,7 @@ class CategoriesController extends Controller
                 return redirect("/plataforma/$alias/a-z");
             } else {
                 if ($orden == "a-z") {
-                    $cons = \App\Article::whereRaw('id in (select cod_art from categorias_articulos where id_cat=' . $categoria->id . ')')->orderBy('titulo', 'asc')->paginate(9);
+                    $cons = Article::whereRaw('id in (select cod_art from categorias_articulos where id_cat=' . $categoria->id . ')')->orderBy('titulo', 'asc')->paginate(9);
                 }
                 return view('layouts.paginas.categoria', ['categoria' => $categoria, 'cons' => $cons]);
             }
