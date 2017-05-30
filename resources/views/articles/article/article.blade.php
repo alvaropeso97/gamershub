@@ -6,7 +6,7 @@
     <div class="container">
         <ol class="breadcrumb">
             <li><a href="/">Portal</a></li>
-            <li><a href="/">@if($id->type == 0) Noticias @endif</a></li>
+            <li><a href="/">@if($id->type == \App\Models\Articles\Article::TYPE_NEW) Noticias @elseif($id->type == \App\Models\Articles\Article::TYPE_VIDEO) Vídeos @endif</a></li>
             <li class="active">{{$id->title}}</li>
         </ol>
     </div>

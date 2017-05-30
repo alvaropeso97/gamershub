@@ -1,5 +1,5 @@
 @extends('master')
-@section('titulo', 'Acceso de usuarios de GamersHUB')
+@section('titulo', 'Login | Playbit')
 
 @section('contenido')
     <section class="hero hero-panel" style="background-image: url(https://i.redd.it/tm1uwzlrz1wx.jpg)">

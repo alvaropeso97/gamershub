@@ -29,7 +29,7 @@
     <title>@yield('titulo-inicio')</title>
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" href="{{ URL::asset('img/favicon.gif') }}">
+    <link rel="shortcut icon" href="{{ URL::asset('img/logo_new/favicon.gif') }}">
 
     <!-- CSS -->
     <link href="{{ URL::asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">

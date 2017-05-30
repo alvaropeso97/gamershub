@@ -1,7 +1,7 @@
 <header>
     <div class="container">
         <span class="bar hide"></span>
-        <a href="#" class="logo"><img src="/img/playbit_p_logo_temp.png" width="40px" alt=""></a>
+        <a href="#" class="logo"><img src="/img/logo_new/header_logo.png" width="35px" alt=""></a>
         <nav>
             <div class="nav-control">
                 <ul>

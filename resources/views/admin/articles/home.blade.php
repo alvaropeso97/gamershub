@@ -1,5 +1,5 @@
 @extends('master')
-@section('titulo', 'GamersHUB - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores')
+@section('titulo', 'Artículos | Administración de Playbit')
 @section('css')
     <link href="{{ URL::asset('plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
 @endsection

@@ -1,5 +1,5 @@
 @extends('master')
-@section('titulo', 'GamersHUB - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores')
+@section('titulo', 'PlayBit - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores')
 @section('contenido')
     <!-- Noticias destacadas -->
     @include('main.widgets.highlighted_articles')

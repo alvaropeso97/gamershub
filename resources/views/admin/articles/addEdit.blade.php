@@ -1,5 +1,9 @@
 @extends('master')
-@section('titulo', 'GamersHUB - Actualidad y novedades de videojuegos, comunidad gamer, servicios para jugadores')
+@if(isset($article))
+    @section('titulo', $article->title.' | Artículos | Administración de Playbit')
+@else
+@endif
+    @section('titulo', 'Nuevo artículo | Artículos | Administración de Playbit')
 @section('meta')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
